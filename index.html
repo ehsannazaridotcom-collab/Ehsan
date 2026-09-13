@@ -2054,4 +2054,145 @@ async function deleteTransaction(id){
 /* ============ NAV ============ */
 document.querySelectorAll('.nav-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.nav-btn').fo
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+document.getElementById('plankStart').addEventListener('click', startPlankTimer);
+document.getElementById('plankDoneBtn').addEventListener('click', markPlankDone);
+
+document.querySelectorAll('.activity-toggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    state.diet.activity = btn.dataset.act;
+    document.querySelectorAll('.activity-toggle button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.getElementById('dietSaveProfile').addEventListener('click', saveDietProfile);
+document.getElementById('weightSave').addEventListener('click', saveWeightToday);
+document.getElementById('dietCheckTask').addEventListener('click', toggleDietDone);
+
+let selectedTxnType = 'income';
+document.getElementById('btnTypeIncome').addEventListener('click', ()=>{
+  selectedTxnType='income';
+  document.getElementById('btnTypeIncome').classList.add('active');
+  document.getElementById('btnTypeExpense').classList.remove('active');
+});
+document.getElementById('btnTypeExpense').addEventListener('click', ()=>{
+  selectedTxnType='expense';
+  document.getElementById('btnTypeExpense').classList.add('active');
+  document.getElementById('btnTypeIncome').classList.remove('active');
+});
+document.getElementById('txnSave').addEventListener('click', async ()=>{
+  const amountEl = document.getElementById('txnAmount');
+  const noteEl = document.getElementById('txnNote');
+  const amount = amountEl.value;
+  if(!amount || Number(amount)<=0){ showToast('مبلغ رو وارد کن'); return; }
+  await addTransaction(selectedTxnType, amount, noteEl.value.trim());
+  amountEl.value=''; noteEl.value='';
+  showToast(selectedTxnType==='income' ? '💰 درآمد ثبت شد' : '🧾 هزینه ثبت شد');
+});
+
+document.getElementById('kpiSave').addEventListener('click', async ()=>{
+  const now=new Date();
+  const mk = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  state.kpi[mk] = {
+    hours: document.getElementById('kpiHours').value,
+    content: document.getElementById('kpiContent').value
+  };
+  await saveState();
+  showToast('✅ شاخص‌های این ماه ثبت شد');
+  renderKpiLog();
+});
+
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const ta = document.getElementById('backupText');
+  ta.value = JSON.stringify(state);
+  ta.select();
+  try{ document.execCommand('copy'); showToast('📋 کپی شد! حالا جای جدید پیستش کن'); }
+  catch(e){ showToast('متن آماده‌ست، دستی کپی کن'); }
+  document.getElementById('restoreBtn').style.display='none';
+});
+document.getElementById('importBtn').addEventListener('click', ()=>{
+  const ta = document.getElementById('backupText');
+  ta.value=''; ta.focus();
+  document.getElementById('restoreBtn').style.display='block';
+  showToast('متن پشتیبان رو اینجا پیست کن، بعد بازیابی رو بزن');
+});
+document.getElementById('restoreBtn').addEventListener('click', async ()=>{
+  const raw = document.getElementById('backupText').value.trim();
+  if(!raw){ showToast('اول متن پشتیبان رو پیست کن'); return; }
+  try{
+    const parsed = JSON.parse(raw);
+    if(!parsed || typeof parsed!=='object' || !('completedByDate' in parsed)) throw new Error('bad');
+    state = mergeDefaults(parsed, defaultState());
+    await saveState();
+    render();
+    document.getElementById('restoreBtn').style.display='none';
+    showToast('✅ داده‌هات با موفقیت بازیابی شد');
+  }catch(e){
+    showToast('⚠️ این متن معتبر نیست');
+  }
+});
+
+document.getElementById('resetBtn').addEventListener('click', async ()=>{
+  if(confirm('مطمئنی می‌خوای همه‌ی پیشرفتت پاک بشه؟ این کار برگشت‌ناپذیره.')){
+    state = defaultState();
+    await saveState();
+    render();
+    showToast('پیشرفت پاک شد، از نو شروع کن 🌱');
+  }
+});
+
+document.getElementById('shieldBtn').addEventListener('click', useShield);
+
+document.getElementById('waterPlus').addEventListener('click', ()=>addWater(1));
+document.getElementById('charityRow').addEventListener('click', toggleCharity);
+document.getElementById('charityNote').addEventListener('change', saveCharityNote);
+document.getElementById('waterMinus').addEventListener('click', ()=>addWater(-1));
+document.getElementById('goldTargetSave').addEventListener('click', saveGoldTarget);
+document.getElementById('goldAdd').addEventListener('click', addGold);
+document.getElementById('hikeLogBtn').addEventListener('click', logHike);
+
+document.getElementById('wrapBtn').addEventListener('click', ()=>{
+  const wk = weekKeyFor(new Date());
+  const [y,m,d] = wk.split('-').map(Number);
+  showWrapped(new Date(y,m-1,d));
+});
+document.getElementById('wrapClose').addEventListener('click', ()=>{
+  document.getElementById('wrappedOverlay').classList.remove('show');
+});
+document.getElementById('wrappedOverlay').addEventListener('click', (e)=>{
+  if(e.target.id==='wrappedOverlay') document.getElementById('wrappedOverlay').classList.remove('show');
+});
+
+/* ============ PWA INSTALLABILITY ============ */
+// Best effort service-worker registration. Works only when served over
+// http(s) (Chrome requires a secure context for SW + install prompts);
+// silently does nothing when opened directly as a local file.
+(function registerSW(){
+  try{
+    if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){
+      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    }
+  }catch(e){}
+})();
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (e)=>{
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  showToast('📲 می‌تونی از منوی مرورگر نصبش کنی');
+});
+
+/* ============ INIT ============ */
+(async function init(){
+  await loadState();
+  render();
+  checkAutoWrapped();
+})();
+</script>
+</body>
+</html>
