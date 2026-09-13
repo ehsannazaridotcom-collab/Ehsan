@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
+<html lang="fa" dir="rtl"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,8 +10,8 @@
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJmZDljNyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2UwYWMzZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPgo8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzE0MTgxYiIvPgo8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0idXJsKCNnKSIgb3BhY2l0eT0iMC45Ii8+Cjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiBmb250LXNpemU9IjI2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+8J+OrDwvdGV4dD4KPC9zdmc+">
 <title>مسیر احسان</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     --bg: #14181b;
@@ -216,6 +214,20 @@
   #toast.show{transform:translateX(-50%) translateY(0);}
 
   /* ===== Finance ===== */
+  .fin-stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .fin-stat{background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:12px 10px; text-align:center;}
+  .fin-stat .fl{font-size:10px; color:var(--gray); display:block; margin-bottom:5px;}
+  .fin-stat .fv{font-size:14px; font-weight:800; font-variant-numeric:tabular-nums;}
+  .fin-sub{display:flex; justify-content:space-between; font-size:11px; color:var(--gray); margin-top:12px; padding-top:10px; border-top:1px solid var(--line);}
+  .chart-legend{display:flex; gap:16px; justify-content:center; margin-top:8px; font-size:10.5px; color:var(--gray);}
+  .chart-legend i{display:inline-block; width:9px; height:9px; border-radius:3px; margin-left:5px; vertical-align:middle;}
+  .chart-bars{display:flex; align-items:flex-end; gap:4px; height:120px; padding:0 2px;}
+  .chart-bars .bar-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; position:relative;}
+  .chart-bars .bar{width:100%; border-radius:4px 4px 0 0; min-height:2px;}
+  .chart-bars .bar-lbl{font-size:8.5px; color:var(--gray-dim); margin-top:4px; white-space:nowrap;}
+  .txn-day-header{font-size:11px; color:var(--gray-dim); font-weight:700; margin:14px 0 8px; padding-right:2px;}
+  .txn-day-header:first-child{margin-top:0;}
+
   .money-summary{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:4px;}
   .money-box{background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:11px 8px; text-align:center;}
   .money-box .mlbl{font-size:10px; color:var(--gray); margin-bottom:5px; display:block;}
@@ -319,6 +331,8 @@
 
   .empty{text-align:center; padding:30px 10px; color:var(--gray-dim); font-size:12.5px; line-height:1.8;}
   .reset-link{display:block; text-align:center; margin-top:26px; font-size:11.5px; color:var(--gray-dim); text-decoration:underline;}
+  .backup-box textarea{width:100%; min-height:90px; background:var(--bg-soft); border:1px solid var(--line); border-radius:10px; padding:10px; color:var(--ink); font-family:monospace; font-size:10.5px; margin-top:8px; direction:ltr; text-align:left;}
+  .backup-row{display:flex; gap:8px; margin-top:8px;}
 </style>
 </head>
 <body>
@@ -332,12 +346,12 @@
         <small>برنامه یک‌ساله ارتقای کیفیت زندگی</small>
       </div>
     </div>
-    <div class="streak-chip">🔥 <span id="streakNum">0</span></div>
+    <div class="streak-chip">🔥 <span id="streakNum">۰</span></div>
   </div>
   <div class="xpbar-wrap">
     <div class="xpbar-top">
-      <span class="lvl-title" id="lvlTitle">دستیار تدوین</span>
-      <span class="lvl-num" id="lvlXp">0 XP</span>
+      <span class="lvl-title" id="lvlTitle">🐣 جوجه‌تیغی تازه‌کار</span>
+      <span class="lvl-num" id="lvlXp">۰ XP</span>
     </div>
     <div class="xpbar-track"><div class="xpbar-fill" id="xpFill" style="width:0%"></div></div>
     <div class="xpbar-sub"><span id="xpToNext">تا سطح بعد: ۱۰۰ XP</span><span id="lvlNum">سطح ۱</span></div>
@@ -350,13 +364,12 @@
     <div class="ring-card">
       <div class="ring-wrap">
         <svg width="104" height="104">
-          <circle cx="52" cy="52" r="44" stroke="#313c46" stroke-width="10" fill="none"/>
-          <circle id="ringProgress" cx="52" cy="52" r="44" stroke="url(#gradRing)" stroke-width="10" fill="none"
-            stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
+          <circle cx="52" cy="52" r="44" stroke="#313c46" stroke-width="10" fill="none"></circle>
+          <circle id="ringProgress" cx="52" cy="52" r="44" stroke="url(#gradRing)" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5" style="stroke-dashoffset: 276.5;"></circle>
           <defs>
             <linearGradient id="gradRing" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#2fd9c7"/>
-              <stop offset="100%" stop-color="#e0ac3f"/>
+              <stop offset="0%" stop-color="#2fd9c7"></stop>
+              <stop offset="100%" stop-color="#e0ac3f"></stop>
             </linearGradient>
           </defs>
         </svg>
@@ -365,7 +378,7 @@
       <div class="ring-info">
         <h2>سلام، احسان 👋</h2>
         <p>وظایف امروزت رو کامل کن تا هم امتیاز بگیری هم زنجیره‌ات ادامه پیدا کنه.</p>
-        <span class="date-pill" id="todayDate">-</span>
+        <span class="date-pill" id="todayDate">یکشنبه · روز ۲ برنامه</span>
       </div>
     </div>
 
@@ -376,16 +389,20 @@
 
     <div class="quote-card">
       <span class="quote-ic">💬</span>
-      <p id="quoteText">…</p>
+      <p id="quoteText">کارگردان زندگیت خودتی، امروز یه صحنه‌ی خوب دیگه ثبت کن.</p>
     </div>
+
+    <div class="section-title"><span class="dot"></span><h3>🔔 یادآوری روزانه</h3></div>
+    <div class="kpi-card" id="notifCard"><button class="btn primary" id="notifEnableBtn" style="width:100%;">🔔 فعال کردن یادآوری‌های روزانه</button>
+      <p style="font-size:10.5px; color:var(--gray-dim); margin-top:8px; line-height:1.6;">فقط وقتی این صفحه باز باشه (حتی در پس‌زمینه) کار می‌کنه.</p></div>
 
     <div class="section-title"><span class="dot"></span><h3>چالش ۳۰ روزه پلانک</h3></div>
     <div class="plank-card">
       <div class="plank-head">
-        <h3 id="plankTitle">روز ۱ از ۳۰</h3>
+        <h3 id="plankTitle">روز ۲ از ۳۰</h3>
         <span class="plank-day" id="plankStatus">در انتظار</span>
       </div>
-      <div class="plank-time" id="plankTime">۰۰:۲۰</div>
+      <div class="plank-time" id="plankTime">00:20</div>
       <div class="plank-btns">
         <button class="btn primary" id="plankStart">▶ شروع تایمر</button>
         <button class="btn done-btn" id="plankDoneBtn">✓ انجام شد</button>
@@ -406,7 +423,82 @@
     </div>
 
     <div class="section-title"><span class="dot"></span><h3>وظایف امروز</h3></div>
-    <div id="taskList"></div>
+    <div id="taskList"><div class="task"><div class="box"></div>
+      <div class="body"><div class="period">صبح</div><div class="label">کار اجرایی (شالیز/پاورلند)</div></div>
+      <div class="xp">+۱۰</div></div><div class="task"><div class="box"></div>
+      <div class="body"><div class="period">بعدازظهر</div><div class="label">محتوای تخصصی و برند شخصی</div></div>
+      <div class="xp">+۱۲</div></div><div class="task"><div class="box"></div>
+      <div class="body"><div class="period">عصر</div><div class="label">استراحت فعال</div></div>
+      <div class="xp">+۸</div></div><div class="task"><div class="box"></div>
+      <div class="body"><div class="period">شب</div><div class="label">۳۰ دقیقه کتاب‌خوانی</div></div>
+      <div class="xp">+۸</div></div><div class="task"><div class="box"></div>
+      <div class="body"><div class="period">شب</div><div class="label">یادگیری هوش مصنوعی (۴۵ دقیقه)</div></div>
+      <div class="xp">+۱۰</div></div><div class="task"><div class="box"></div>
+      <div class="body"><div class="period">شب</div><div class="label">خواب حداقل ۷ ساعت (شب گذشته)</div></div>
+      <div class="xp">+۸</div></div></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🍎 رژیم و سلامت</h3></div>
+    <div id="hubDietList">
+    <div class="task " id="hubDietRow">
+      <div class="box"></div>
+      <div class="body"><div class="label">رعایت رژیم غذایی امروز</div></div>
+      <div class="xp">+10</div>
+    </div>
+    <div class="task" style="cursor:default;">
+      <div class="box" style="border-color:var(--teal-dim); font-size:13px;">💧</div>
+      <div class="body"><div class="label">آب امروز: ۰ از ۱۲ لیوان</div></div>
+      <button class="btn primary" id="hubWaterPlus" style="padding:7px 13px; font-size:11px;">+۱</button>
+    </div></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🧠 کنترل عادت</h3></div>
+    <div id="hubHabitList"><div class="task " data-k="h_ig">
+      <div class="box"></div>
+      <div class="body"><div class="label">اینستاگرام رو امروز هدفمند و کنترل‌شده استفاده کردم، نه پرسه‌زنی بی‌هدف</div></div>
+      <div class="xp">+۱۲</div>
+    </div><div class="task " data-k="h_temper">
+      <div class="box"></div>
+      <div class="body"><div class="label">امروز با اخلاق خوب رفتار کردم؛ عصبانیت یا تندی نداشتم</div></div>
+      <div class="xp">+۱۰</div>
+    </div><div class="task " data-k="h_social">
+      <div class="box"></div>
+      <div class="body"><div class="label">به‌جای گوشه‌گیری، امروز یه ارتباط اجتماعی واقعی داشتم (تماس، دیدار، پیام گرم)</div></div>
+      <div class="xp">+۱۰</div>
+    </div><div class="task " data-k="h_content">
+      <div class="box"></div>
+      <div class="body"><div class="label">برای برند خودم یه محتوا یا ایده ساختم؛ امروز فقط مصرف‌کننده نبودم</div></div>
+      <div class="xp">+۱۵</div>
+    </div></div>
+
+    <div class="section-title"><span class="dot"></span><h3>👨‍👦 پدری</h3></div>
+    <div id="hubParentList"><div class="task " data-k="p_desc">
+      <div class="box"></div>
+      <div class="body"><div class="label">به‌جای سرزنش، فقط رفتارشو توصیف کردم، نه خودشو قضاوت کردم</div></div>
+      <div class="xp">+۱۲</div>
+    </div><div class="task " data-k="p_praise">
+      <div class="box"></div>
+      <div class="body"><div class="label">حداقل یه‌بار امروز صادقانه بهش گفتم بهش افتخار می‌کنم یا دوستش دارم</div></div>
+      <div class="xp">+۱۰</div>
+    </div><div class="task " data-k="p_pause">
+      <div class="box"></div>
+      <div class="body"><div class="label">قبل از واکنش تند، چند ثانیه مکث کردم</div></div>
+      <div class="xp">+۱۰</div>
+    </div><div class="task " data-k="p_time">
+      <div class="box"></div>
+      <div class="body"><div class="label">حداقل ۱۵ دقیقه وقت خالص و بدون گوشی باهاش گذروندم</div></div>
+      <div class="xp">+۱۲</div>
+    </div></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🕯️ به یاد مادر</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="task" id="charityRow">
+        <div class="box" id="charityBox"></div>
+        <div class="body"><div class="label">امروز به نیت مادرم یه کار خیر انجام دادم</div></div>
+        <div class="xp">+15</div>
+      </div>
+      <div class="field" style="margin-top:10px;"><label>چه کاری بود؟ (اختیاری)</label><input type="text" id="charityNote" placeholder="مثلاً کمک به یه غریبه، صدقه، دعا…"></div>
+      <div class="weight-labels" style="margin-top:12px;"><span>مجموع کارهای خیر به نام مادرم</span><b id="charityTotal" style="color:var(--mustard); font-size:16px;">۰</b></div>
+      <p style="font-size:11px; color:var(--gray-dim); margin-top:8px; line-height:1.7;">روحش شاد؛ هر شب یه کار کوچیک، به نیتش، یه چراغ روشنه.</p>
+    </div>
   </section>
 
   <!-- REWARDS -->
@@ -416,10 +508,10 @@
       <p style="font-size:12px; color:var(--gray); line-height:1.8;">هر چقدر پایدارتر باشی، عنوانت باحال‌تر می‌شه؛ از جوجه‌تیغی تازه‌کار تا افسانه‌ی زنده 👑</p>
     </div>
     <div class="section-title"><span class="dot"></span><h3>نشان‌های قابل کسب</h3></div>
-    <div class="badge-grid" id="badgeGrid"></div>
+    <div class="badge-grid" id="badgeGrid"><div class="badge"><span class="ic">🔥</span><span class="nm">شروع مسیر</span></div><div class="badge"><span class="ic">📼</span><span class="nm">یک هفته کامل</span></div><div class="badge"><span class="ic">🎞️</span><span class="nm">عادت شکل گرفت</span></div><div class="badge"><span class="ic">🏋️</span><span class="nm">فینیشر پلانک</span></div><div class="badge"><span class="ic">🎬</span><span class="nm">دو ماه پیاپی</span></div><div class="badge"><span class="ic">🏆</span><span class="nm">فصل اول تمام شد</span></div><div class="badge"><span class="ic">⭐</span><span class="nm">نیمه‌راه</span></div><div class="badge"><span class="ic">👑</span><span class="nm">افسانه یک‌ساله</span></div><div class="badge"><span class="ic">🌱</span><span class="nm">هفته‌ی مهربون</span></div><div class="badge"><span class="ic">🕊️</span><span class="nm">یک ماه آروم‌تر</span></div><div class="badge"><span class="ic">🎬</span><span class="nm">هفته‌ی تولیدکننده</span></div><div class="badge"><span class="ic">🕯️</span><span class="nm">چهلمین کار خیر</span></div></div>
     <div class="reward-note" id="rewardNote">
       <b>پاداش تشویقی بعدی</b>
-      <span id="rewardNoteText">۳ روز پیاپی وظایف رو کامل کن تا اولین نشان رو بگیری.</span>
+      <span id="rewardNoteText">یه فنجون قهوه‌ی موردعلاقه‌ت رو بدون عذاب وجدان بخور. (برای باز شدن نشان «شروع مسیر»)</span>
     </div>
   </section>
 
@@ -427,14 +519,42 @@
   <section class="tab" id="tab-progress">
     <div class="section-title"><span class="dot"></span><h3>نقشه مسیر یک‌ساله</h3></div>
     <div class="ring-card" style="flex-direction:column; align-items:stretch;">
-      <div class="journey" id="journeyMap"></div>
+      <div class="journey" id="journeyMap"><div class="j-node current">
+      <div class="j-dot">🧭</div>
+      <div class="j-info">
+        <div class="j-name">فاز ۱: نظم‌دهی</div>
+        <div class="j-range">روز ۱ تا ۹۰</div>
+        <div class="j-desc">سیستم‌سازی و عادت‌های پایه</div>
+      </div>
+    </div><div class="j-node locked">
+      <div class="j-dot">🔒</div>
+      <div class="j-info">
+        <div class="j-name">فاز ۲: فعال‌سازی</div>
+        <div class="j-range">روز ۹۱ تا ۱۸۲</div>
+        
+      </div>
+    </div><div class="j-node locked">
+      <div class="j-dot">🔒</div>
+      <div class="j-info">
+        <div class="j-name">فاز ۳: کاهش وابستگی</div>
+        <div class="j-range">روز ۱۸۳ تا ۲۷۳</div>
+        
+      </div>
+    </div><div class="j-node locked">
+      <div class="j-dot">🔒</div>
+      <div class="j-info">
+        <div class="j-name">فاز ۴: تثبیت</div>
+        <div class="j-range">روز ۲۷۴ تا ۳۶۵</div>
+        
+      </div>
+    </div></div>
     </div>
 
     <button class="btn primary" id="wrapBtn" style="width:100%; margin-bottom:6px;">🎁 مشاهده کارت این هفته</button>
 
     <div class="section-title"><span class="dot"></span><h3>نقشه ۱۴ هفته اخیر</h3></div>
     <div class="ring-card" style="flex-direction:column; align-items:stretch;">
-      <div class="heatmap" id="heatmap"></div>
+      <div class="heatmap" id="heatmap"><div class="heat-cell" title="۹۶ روز قبل از شروع"></div><div class="heat-cell" title="۹۵ روز قبل از شروع"></div><div class="heat-cell" title="۹۴ روز قبل از شروع"></div><div class="heat-cell" title="۹۳ روز قبل از شروع"></div><div class="heat-cell" title="۹۲ روز قبل از شروع"></div><div class="heat-cell" title="۹۱ روز قبل از شروع"></div><div class="heat-cell" title="۹۰ روز قبل از شروع"></div><div class="heat-cell" title="۸۹ روز قبل از شروع"></div><div class="heat-cell" title="۸۸ روز قبل از شروع"></div><div class="heat-cell" title="۸۷ روز قبل از شروع"></div><div class="heat-cell" title="۸۶ روز قبل از شروع"></div><div class="heat-cell" title="۸۵ روز قبل از شروع"></div><div class="heat-cell" title="۸۴ روز قبل از شروع"></div><div class="heat-cell" title="۸۳ روز قبل از شروع"></div><div class="heat-cell" title="۸۲ روز قبل از شروع"></div><div class="heat-cell" title="۸۱ روز قبل از شروع"></div><div class="heat-cell" title="۸۰ روز قبل از شروع"></div><div class="heat-cell" title="۷۹ روز قبل از شروع"></div><div class="heat-cell" title="۷۸ روز قبل از شروع"></div><div class="heat-cell" title="۷۷ روز قبل از شروع"></div><div class="heat-cell" title="۷۶ روز قبل از شروع"></div><div class="heat-cell" title="۷۵ روز قبل از شروع"></div><div class="heat-cell" title="۷۴ روز قبل از شروع"></div><div class="heat-cell" title="۷۳ روز قبل از شروع"></div><div class="heat-cell" title="۷۲ روز قبل از شروع"></div><div class="heat-cell" title="۷۱ روز قبل از شروع"></div><div class="heat-cell" title="۷۰ روز قبل از شروع"></div><div class="heat-cell" title="۶۹ روز قبل از شروع"></div><div class="heat-cell" title="۶۸ روز قبل از شروع"></div><div class="heat-cell" title="۶۷ روز قبل از شروع"></div><div class="heat-cell" title="۶۶ روز قبل از شروع"></div><div class="heat-cell" title="۶۵ روز قبل از شروع"></div><div class="heat-cell" title="۶۴ روز قبل از شروع"></div><div class="heat-cell" title="۶۳ روز قبل از شروع"></div><div class="heat-cell" title="۶۲ روز قبل از شروع"></div><div class="heat-cell" title="۶۱ روز قبل از شروع"></div><div class="heat-cell" title="۶۰ روز قبل از شروع"></div><div class="heat-cell" title="۵۹ روز قبل از شروع"></div><div class="heat-cell" title="۵۸ روز قبل از شروع"></div><div class="heat-cell" title="۵۷ روز قبل از شروع"></div><div class="heat-cell" title="۵۶ روز قبل از شروع"></div><div class="heat-cell" title="۵۵ روز قبل از شروع"></div><div class="heat-cell" title="۵۴ روز قبل از شروع"></div><div class="heat-cell" title="۵۳ روز قبل از شروع"></div><div class="heat-cell" title="۵۲ روز قبل از شروع"></div><div class="heat-cell" title="۵۱ روز قبل از شروع"></div><div class="heat-cell" title="۵۰ روز قبل از شروع"></div><div class="heat-cell" title="۴۹ روز قبل از شروع"></div><div class="heat-cell" title="۴۸ روز قبل از شروع"></div><div class="heat-cell" title="۴۷ روز قبل از شروع"></div><div class="heat-cell" title="۴۶ روز قبل از شروع"></div><div class="heat-cell" title="۴۵ روز قبل از شروع"></div><div class="heat-cell" title="۴۴ روز قبل از شروع"></div><div class="heat-cell" title="۴۳ روز قبل از شروع"></div><div class="heat-cell" title="۴۲ روز قبل از شروع"></div><div class="heat-cell" title="۴۱ روز قبل از شروع"></div><div class="heat-cell" title="۴۰ روز قبل از شروع"></div><div class="heat-cell" title="۳۹ روز قبل از شروع"></div><div class="heat-cell" title="۳۸ روز قبل از شروع"></div><div class="heat-cell" title="۳۷ روز قبل از شروع"></div><div class="heat-cell" title="۳۶ روز قبل از شروع"></div><div class="heat-cell" title="۳۵ روز قبل از شروع"></div><div class="heat-cell" title="۳۴ روز قبل از شروع"></div><div class="heat-cell" title="۳۳ روز قبل از شروع"></div><div class="heat-cell" title="۳۲ روز قبل از شروع"></div><div class="heat-cell" title="۳۱ روز قبل از شروع"></div><div class="heat-cell" title="۳۰ روز قبل از شروع"></div><div class="heat-cell" title="۲۹ روز قبل از شروع"></div><div class="heat-cell" title="۲۸ روز قبل از شروع"></div><div class="heat-cell" title="۲۷ روز قبل از شروع"></div><div class="heat-cell" title="۲۶ روز قبل از شروع"></div><div class="heat-cell" title="۲۵ روز قبل از شروع"></div><div class="heat-cell" title="۲۴ روز قبل از شروع"></div><div class="heat-cell" title="۲۳ روز قبل از شروع"></div><div class="heat-cell" title="۲۲ روز قبل از شروع"></div><div class="heat-cell" title="۲۱ روز قبل از شروع"></div><div class="heat-cell" title="۲۰ روز قبل از شروع"></div><div class="heat-cell" title="۱۹ روز قبل از شروع"></div><div class="heat-cell" title="۱۸ روز قبل از شروع"></div><div class="heat-cell" title="۱۷ روز قبل از شروع"></div><div class="heat-cell" title="۱۶ روز قبل از شروع"></div><div class="heat-cell" title="۱۵ روز قبل از شروع"></div><div class="heat-cell" title="۱۴ روز قبل از شروع"></div><div class="heat-cell" title="۱۳ روز قبل از شروع"></div><div class="heat-cell" title="۱۲ روز قبل از شروع"></div><div class="heat-cell" title="۱۱ روز قبل از شروع"></div><div class="heat-cell" title="۱۰ روز قبل از شروع"></div><div class="heat-cell" title="۹ روز قبل از شروع"></div><div class="heat-cell" title="۸ روز قبل از شروع"></div><div class="heat-cell" title="۷ روز قبل از شروع"></div><div class="heat-cell" title="۶ روز قبل از شروع"></div><div class="heat-cell" title="۵ روز قبل از شروع"></div><div class="heat-cell" title="۴ روز قبل از شروع"></div><div class="heat-cell" title="۳ روز قبل از شروع"></div><div class="heat-cell" title="۲ روز قبل از شروع"></div><div class="heat-cell" title="۱ روز قبل از شروع"></div><div class="heat-cell" title="دیروز"></div><div class="heat-cell" title="امروز"></div></div>
       <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:10px; color:var(--gray-dim);">
         <span>کم‌تر</span>
         <div style="display:flex; gap:4px;">
@@ -449,16 +569,24 @@
 
     <div class="section-title"><span class="dot"></span><h3>ثبت شاخص‌های ماهانه</h3></div>
     <div class="kpi-card">
+      <p style="font-size:11px; color:var(--gray-dim); margin-bottom:10px;">درآمد و هزینه از تب «مالی» و وزن از تب «رژیم» خودکار میاد؛ اینجا فقط این دوتا رو بزن.</p>
       <div class="kpi-row">
         <div class="field"><label>ساعت هفتگی شالیز/پاورلند</label><input type="number" id="kpiHours" placeholder="مثلاً ۴۰"></div>
-        <div class="field"><label>درآمد ویدکمپ/دیدآوا</label><input type="number" id="kpiIncome" placeholder="تومان"></div>
-      </div>
-      <div class="kpi-row">
         <div class="field"><label>تعداد محتوای تخصصی</label><input type="number" id="kpiContent" placeholder="این ماه"></div>
-        <div class="field"><label>وزن (kg)</label><input type="number" id="kpiWeight" placeholder="مثلاً ۷۸"></div>
       </div>
       <button class="btn primary" id="kpiSave" style="width:100%;">ثبت برای این ماه</button>
-      <div class="kpi-log" id="kpiLog"></div>
+      <div class="kpi-log" id="kpiLog"><div class="empty">هنوز داده‌ای ثبت نشده.</div></div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>پشتیبان‌گیری و انتقال داده</h3></div>
+    <div class="kpi-card backup-box">
+      <p style="font-size:11.5px; color:var(--gray); line-height:1.8; margin-bottom:6px;">اگه می‌خوای داده‌هاتو جای دیگه (مثلاً گوشی یا آدرس دیگه) منتقل کنی: اول اینجا «خروجی» بگیر و متن رو کپی کن، بعد جای جدید بیا همینجا «وارد کردن» رو بزن و پیستش کن.</p>
+      <div class="backup-row">
+        <button class="btn primary" id="exportBtn" style="flex:1;">📤 خروجی گرفتن</button>
+        <button class="btn" id="importBtn" style="flex:1;">📥 وارد کردن</button>
+      </div>
+      <textarea id="backupText" placeholder="متن پشتیبان اینجا نشون داده می‌شه یا برای بازیابی، اینجا پیست کن…"></textarea>
+      <button class="btn done-btn" id="restoreBtn" style="width:100%; margin-top:8px; display:none;">✅ بازیابی از متن بالا</button>
     </div>
 
     <button class="reset-link" id="resetBtn">پاک‌کردن کامل پیشرفت و شروع دوباره</button>
@@ -466,16 +594,30 @@
 
   <!-- FINANCE -->
   <section class="tab" id="tab-finance">
-    <div class="section-title"><span class="dot"></span><h3>خلاصه این ماه</h3></div>
+    <div class="section-title"><span class="dot"></span><h3>گزارش لحظه‌ای</h3></div>
     <div class="ring-card" style="flex-direction:column; align-items:stretch;">
-      <div class="money-summary">
-        <div class="money-box income"><span class="mlbl">درآمد ماه</span><span class="mval" id="mIncome">۰</span></div>
-        <div class="money-box expense"><span class="mlbl">هزینه ماه</span><span class="mval" id="mExpense">۰</span></div>
-        <div class="money-box"><span class="mlbl">خالص ماه</span><span class="mval" id="mNet">۰</span></div>
+      <div class="fin-stat-grid">
+        <div class="fin-stat"><span class="fl">امروز</span><span class="fv" id="fToday" style="color: var(--teal);">۰</span></div>
+        <div class="fin-stat"><span class="fl">این هفته</span><span class="fv" id="fWeek" style="color: var(--teal);">۰</span></div>
+        <div class="fin-stat"><span class="fl">این ماه</span><span class="fv" id="fMonth" style="color: var(--teal);">۰</span></div>
+        <div class="fin-stat"><span class="fl">مجموع کل</span><span class="fv" id="fAll" style="color: var(--teal);">۰</span></div>
+      </div>
+      <div class="fin-sub">
+        <span>درآمد ماه: <b id="fMonthIncome" style="color:var(--teal)">۰</b></span>
+        <span>هزینه ماه: <b id="fMonthExpense" style="color:var(--mustard)">۰</b></span>
       </div>
     </div>
 
-    <div class="section-title"><span class="dot"></span><h3>ثبت تراکنش امروز</h3></div>
+    <div class="section-title"><span class="dot"></span><h3>نمودار ۱۴ روز اخیر</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div id="finChart"><div class="chart-bars"><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۱۱</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۱۰</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۹</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۸</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۷</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۶</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۵</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۴</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۳</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۲</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">-۱</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">۰</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">۱</div></div><div class="bar-col"><div class="bar" style="height:2px; background:var(--teal);"></div><div class="bar-lbl">امروز</div></div></div></div>
+      <div class="chart-legend">
+        <span><i style="background:var(--teal)"></i> خالص مثبت</span>
+        <span><i style="background:var(--mustard)"></i> خالص منفی</span>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>ثبت تراکنش</h3></div>
     <div class="kpi-card">
       <div class="type-toggle">
         <button class="sel-income active" id="btnTypeIncome" data-type="income">💰 درآمد</button>
@@ -488,8 +630,24 @@
       <button class="btn primary" id="txnSave" style="width:100%;">ثبت تراکنش</button>
     </div>
 
-    <div class="section-title"><span class="dot"></span><h3>تراکنش‌های امروز</h3></div>
-    <div id="txnListToday"></div>
+    <div class="section-title"><span class="dot"></span><h3>تاریخچه کامل تراکنش‌ها</h3></div>
+    <div id="txnHistory"><div class="empty">هنوز تراکنشی ثبت نکردی. اولین تراکنشتو بالا ثبت کن.</div></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🪙 پس‌انداز طلا</h3></div>
+    <div class="kpi-card">
+      <div class="kpi-row">
+        <div class="field"><label>هدف پس‌انداز (تومان)</label><input type="number" id="goldTarget" placeholder="مثلاً ۵۰۰۰۰۰۰۰۰"></div>
+        <div class="field" style="display:flex; align-items:flex-end;"><button class="btn primary" id="goldTargetSave" style="width:100%;">ذخیره هدف</button></div>
+      </div>
+      <div class="weight-labels"><span>جمع‌شده: <b id="goldSaved">۰</b></span><span>هدف: <b id="goldTargetLbl">۰</b></span></div>
+      <div class="weight-track"><div class="weight-fill" id="goldFill" style="width:0%"></div></div>
+      <div class="kpi-row" style="margin-top:14px;">
+        <div class="field"><label>امروز چقدر برای طلا کنار گذاشتی؟</label><input type="number" id="goldAmount" placeholder="تومان"></div>
+        <div class="field" style="display:flex; align-items:flex-end;"><button class="btn primary" id="goldAdd" style="width:100%;">ثبت</button></div>
+      </div>
+      <div id="goldHistory" style="margin-top:10px;"><div class="empty">هنوز چیزی برای طلا کنار نذاشتی.</div></div>
+      <p style="font-size:11px; color:var(--gray-dim); margin-top:8px; line-height:1.7;">این جدا از گزارش درآمد/هزینه‌ست؛ فقط برای پیگیری پیشرفت هدف پس‌اندازته و توی محاسبه‌ی خالص مالی دخالت نمی‌کنه.</p>
+    </div>
   </section>
 
   <!-- DIET -->
@@ -514,9 +672,7 @@
     </div>
 
     <div class="section-title"><span class="dot"></span><h3>کالری روزانه پیشنهادی</h3></div>
-    <div class="ring-card" style="flex-direction:column; align-items:stretch;" id="calBox">
-      <div class="diet-hint">اول قد و سنت رو بالا ثبت کن تا کالری روزانه‌ت محاسبه بشه.</div>
-    </div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;" id="calBox"><div class="diet-hint">اول قد و سنت رو بالا ثبت کن تا کالری روزانه‌ت محاسبه بشه.</div></div>
 
     <div class="section-title"><span class="dot"></span><h3>پیشرفت وزن تا آخر ماه</h3></div>
     <div class="kpi-card">
@@ -526,7 +682,18 @@
         <div class="field"><label>وزن امروزت چقدره؟</label><input type="number" step="0.1" id="weightToday" placeholder="مثلاً ۹۰.۵"></div>
         <div class="field" style="display:flex; align-items:flex-end;"><button class="btn primary" id="weightSave" style="width:100%;">ثبت وزن</button></div>
       </div>
-      <div id="weightLogList" style="margin-top:8px;"></div>
+      <div id="weightLogList" style="margin-top:8px;"><div class="empty">هنوز وزنی ثبت نشده.</div></div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>آب روزانه (به‌خاطر نقرس و سنگ کلیه)</h3></div>
+    <div class="kpi-card">
+      <p style="font-size:11.5px; color:var(--gray); margin-bottom:10px; line-height:1.8;">برای پیشگیری از نقرس و سنگ کلیه، معمولاً توصیه می‌شه ادرار روزانه بالا بمونه که با نوشیدن آب زیاد (حدود ۲.۵ تا ۳ لیتر، بسته به نظر پزشکت) به دست میاد.</p>
+      <div class="weight-labels"><span>امروز: <b id="waterCount">۰</b> لیوان</span><span>هدف: <b id="waterTargetLbl">۱۲</b> لیوان</span></div>
+      <div class="weight-track"><div class="weight-fill" id="waterFill" style="width:0%"></div></div>
+      <div class="backup-row" style="margin-top:12px;">
+        <button class="btn" id="waterMinus" style="flex:1;">➖ کم کن</button>
+        <button class="btn primary" id="waterPlus" style="flex:2;">💧 یه لیوان آب خوردم</button>
+      </div>
     </div>
 
     <div class="section-title"><span class="dot"></span><h3>برنامه غذایی نمونه امروز</h3></div>
@@ -544,6 +711,70 @@
       <span>آب کافی بنوش، فست‌فود و نوشیدنی‌های شیرین رو کم کن، پروتئین کافی برای حفظ عضله موازی ورزشت مصرف کن. وزن رو صبح ناشتا و ترجیحاً هفته‌ای یکی‌دو بار اندازه بگیر چون نوسان روزانه طبیعیه. این محاسبه یه تخمین کلیه، برای برنامه دقیق‌تر با متخصص تغذیه مشورت کن.</span>
     </div>
   </section>
+
+  <!-- PARENTING -->
+  <section class="tab" id="tab-parenting">
+    <div class="quote-card">
+      <span class="quote-ic">👨‍👦</span>
+      <p id="parentTipText">وقتی خوب رفتار کرد بلند بگو؛ بچه‌ها به دیده‌شدن رفتار خوب بیشتر از تنبیه رفتار بد واکنش نشون می‌دن.</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>امروز برای پسرم</h3></div>
+    <div id="parentTaskList"><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">به‌جای سرزنش، فقط رفتارشو توصیف کردم، نه خودشو قضاوت کردم</div></div>
+        <div class="xp">+۱۲</div></div><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">حداقل یه‌بار امروز صادقانه بهش گفتم بهش افتخار می‌کنم یا دوستش دارم</div></div>
+        <div class="xp">+۱۰</div></div><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">قبل از واکنش تند، چند ثانیه مکث کردم</div></div>
+        <div class="xp">+۱۰</div></div><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">حداقل ۱۵ دقیقه وقت خالص و بدون گوشی باهاش گذروندم</div></div>
+        <div class="xp">+۱۲</div></div></div>
+
+    <div class="section-title"><span class="dot"></span><h3>پیشرفت این ماه</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="weight-labels"><span>روزهای خوب: <b id="pGoodDays">۰</b></span><span>از <b id="pTotalDays">۱۳</b> روز</span></div>
+      <div class="weight-track"><div class="weight-fill" id="pMonthFill" style="width:0%"></div></div>
+      <p class="plank-note" id="pMonthMsg" style="margin-top:12px;">شروع خوبیه؛ هر روزی که یادت باشه، از دیروز بهتره.</p>
+    </div>
+
+    <div class="reward-note">
+      <b>یادت باشه</b>
+      <span>هدف امروز، کامل‌بودن نیست؛ هدف اینه که فردا از امروز یه‌کم بهتر باشی. اگه یه روز سرزنش کردی، فرداش دوباره شروع کن — این خودش بهترین درسیه که به پسرت یاد می‌دی.</span>
+    </div>
+  </section>
+
+  <!-- HABITS -->
+  <section class="tab" id="tab-habits">
+    <div class="quote-card">
+      <span class="quote-ic">🎯</span>
+      <p id="habitTipText">به‌جای اسکرول صبح، اول یه ایده برای محتوای خودت بنویس؛ تولید رو جلوتر از مصرف بذار.</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>کنترل امروز</h3></div>
+    <div id="habitTaskList"><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">اینستاگرام رو امروز هدفمند و کنترل‌شده استفاده کردم، نه پرسه‌زنی بی‌هدف</div></div>
+        <div class="xp">+۱۲</div></div><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">امروز با اخلاق خوب رفتار کردم؛ عصبانیت یا تندی نداشتم</div></div>
+        <div class="xp">+۱۰</div></div><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">به‌جای گوشه‌گیری، امروز یه ارتباط اجتماعی واقعی داشتم (تماس، دیدار، پیام گرم)</div></div>
+        <div class="xp">+۱۰</div></div><div class="task"><div class="box"></div>
+        <div class="body"><div class="label">برای برند خودم یه محتوا یا ایده ساختم؛ امروز فقط مصرف‌کننده نبودم</div></div>
+        <div class="xp">+۱۵</div></div></div>
+
+    <div class="section-title"><span class="dot"></span><h3>مصرف‌کننده در برابر تولیدکننده</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="weight-labels"><span>روزهای محتواساز: <b id="hContentDays">۰</b></span><span>از <b id="hContentTotal">۱۳</b> روز این ماه</span></div>
+      <div class="weight-track"><div class="weight-fill" id="hContentFill" style="width:0%"></div></div>
+      <p class="plank-note" style="margin-top:12px;">هر روزی که تیک «تولید محتوا» رو بزنی، یه قدم از مصرف‌کننده‌ی صرف بودن دورتر می‌شی.</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>پیشرفت کلی این ماه</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="weight-labels"><span>روزهای متعادل: <b id="hGoodDays">۰</b></span><span>از <b id="hTotalDays">۱۳</b> روز</span></div>
+      <div class="weight-track"><div class="weight-fill" id="hMonthFill" style="width:0%"></div></div>
+      <p class="plank-note" id="hMonthMsg" style="margin-top:12px;">شروع کوچیک هم شروعه؛ امروز رو با یه مورد شروع کن.</p>
+    </div>
+  </section>
 </main>
 
 <nav class="bottom">
@@ -551,6 +782,8 @@
   <button class="nav-btn" data-tab="rewards"><span class="ic">🏅</span>پاداش‌ها</button>
   <button class="nav-btn" data-tab="finance"><span class="ic">💰</span>مالی</button>
   <button class="nav-btn" data-tab="diet"><span class="ic">🥗</span>رژیم</button>
+  <button class="nav-btn" data-tab="parenting"><span class="ic">👨‍👦</span>پدری</button>
+  <button class="nav-btn" data-tab="habits"><span class="ic">🧠</span>عادت‌ها</button>
   <button class="nav-btn" data-tab="progress"><span class="ic">📈</span>پیشرفت</button>
 </nav>
 
@@ -697,6 +930,10 @@ const BADGES = [
   {id:'season', ic:'🏆', nm:'فصل اول تمام شد', need:s=>s.streak>=90, reward:'یه سفر کوتاه یک‌روزه برای خودت برنامه‌ریزی کن.'},
   {id:'half', ic:'⭐', nm:'نیمه‌راه', need:s=>s.streak>=180, reward:'یه خرید بزرگ که مدت‌هاست می‌خواستی رو برای خودت بگیر.'},
   {id:'legend', ic:'👑', nm:'افسانه یک‌ساله', need:s=>s.streak>=365, reward:'یه سفر یا خرید بزرگ که همیشه آرزوش رو داشتی.'},
+  {id:'gentle_week', ic:'🌱', nm:'هفته‌ی مهربون', need:s=>s.parentStreak>=7, reward:'یه بازی موردعلاقه‌ی پسرت رو باهم انجام بدید، فقط شما دوتا.'},
+  {id:'gentle_month', ic:'🕊️', nm:'یک ماه آروم‌تر', need:s=>s.parentStreak>=30, reward:'یه روز کامل رو بذار برای یه خاطره‌ی خاص با پسرت.'},
+  {id:'creator_week', ic:'🎬', nm:'هفته‌ی تولیدکننده', need:s=>s.habitStreak>=7, reward:'یه ابزار یا اپ جدید برای ساخت محتوا برای خودت بخر.'},
+  {id:'charity40', ic:'🕯️', nm:'چهلمین کار خیر', need:s=>s.charityCount>=40, reward:'این عدد رو با یکی از عزیزات به یاد مادرت به اشتراک بذار.'},
 ];
 
 /* ============ STATE ============ */
@@ -713,7 +950,17 @@ const defaultState = ()=>({
   dietLog: {},           // { "2026-08-29": true }
   shieldUsedFor: {},     // { "2026-08": "2026-08-14" }
   lastWrappedWeek: null,
-  hikeLog: {}            // { "2026-08": 1 }
+  hikeLog: {},           // { "2026-08": 1 }
+  parentingLog: {},      // { "2026-08-29": ["p_desc","p_praise"] }
+  habitLog: {},          // { "2026-08-29": ["h_ig","h_content"] }
+  waterLog: {},          // { "2026-08-29": 7 }
+  waterTarget: 12,
+  goldTarget: 0,
+  goldLog: [],           // [{id,date,amount}]
+  bonusXP: 0,
+  perfectDayLog: {},     // { "2026-08-29": true }
+  notif: { enabled:false, morning:'08:30', evening:'21:00', lastSentDate:{morning:null, evening:null} },
+  charityLog: {}          // { "2026-08-29": {done:true, note:'...'} }
 });
 
 async function loadState(){
@@ -727,6 +974,17 @@ async function loadState(){
   if(!state.shieldUsedFor) state.shieldUsedFor = {};
   if(state.lastWrappedWeek===undefined) state.lastWrappedWeek = null;
   if(!state.hikeLog) state.hikeLog = {};
+  if(!state.parentingLog) state.parentingLog = {};
+  if(!state.habitLog) state.habitLog = {};
+  if(!state.waterLog) state.waterLog = {};
+  if(state.waterTarget===undefined) state.waterTarget = 12;
+  if(state.goldTarget===undefined) state.goldTarget = 0;
+  if(!state.goldLog) state.goldLog = [];
+  if(state.bonusXP===undefined) state.bonusXP = 0;
+  if(!state.perfectDayLog) state.perfectDayLog = {};
+  if(!state.notif) state.notif = { enabled:false, morning:'08:30', evening:'21:00', lastSentDate:{morning:null, evening:null} };
+  if(!state.notif.lastSentDate) state.notif.lastSentDate = {morning:null, evening:null};
+  if(!state.charityLog) state.charityLog = {};
 }
 async function saveState(){ await Store.set(STORE_KEY, state); }
 
@@ -734,6 +992,19 @@ function isCoreDone(dateKey, date){
   const tasks = tasksForDate(date);
   const done = state.completedByDate[dateKey] || [];
   return tasks.every(t=>done.includes(t.k));
+}
+function overallTodayRatio(date){
+  const dateKey = toKey(date);
+  let total=0, hit=0;
+  const core = tasksForDate(date);
+  total += core.length; hit += core.filter(t=>(state.completedByDate[dateKey]||[]).includes(t.k)).length;
+  total += 1; if(state.dietLog[dateKey]) hit+=1;
+  total += HABIT_TASKS.length; hit += HABIT_TASKS.filter(t=>(state.habitLog[dateKey]||[]).includes(t.k)).length;
+  total += PARENTING_TASKS.length; hit += PARENTING_TASKS.filter(t=>(state.parentingLog[dateKey]||[]).includes(t.k)).length;
+  total += 1; if((state.waterLog[dateKey]||0) >= (state.waterTarget||12)) hit+=1;
+  const idx = plankIndexForDate(date);
+  if(idx>=0 && idx<30){ total+=1; if(state.plankLog[dateKey]) hit+=1; }
+  return total ? hit/total : 0;
 }
 function dayCompletionRatio(dateKey, date){
   const tasks = tasksForDate(date);
@@ -778,6 +1049,30 @@ function computeTotalXP(){
   // hike xp
   for(const mk in state.hikeLog){
     xp += (state.hikeLog[mk]||0) * 20;
+  }
+  // parenting xp
+  for(const dateKey in state.parentingLog){
+    const doneKeys = state.parentingLog[dateKey] || [];
+    PARENTING_TASKS.forEach(t=>{ if(doneKeys.includes(t.k)) xp += t.xp; });
+  }
+  // habit control xp
+  for(const dateKey in state.habitLog){
+    const doneKeys = state.habitLog[dateKey] || [];
+    HABIT_TASKS.forEach(t=>{ if(doneKeys.includes(t.k)) xp += t.xp; });
+  }
+  // water xp (2 per glass, capped at target per day)
+  for(const dateKey in state.waterLog){
+    const c = Math.min(state.waterLog[dateKey]||0, state.waterTarget||12);
+    xp += c*2;
+  }
+  // gold saving xp
+  xp += state.goldLog.length * 5;
+  // random bonus + perfect day bonuses
+  xp += state.bonusXP || 0;
+  xp += Object.keys(state.perfectDayLog).length * 50;
+  // charity xp
+  for(const dateKey in state.charityLog){
+    if(state.charityLog[dateKey] && state.charityLog[dateKey].done) xp += 15;
   }
   return xp;
 }
@@ -827,6 +1122,442 @@ function renderQuote(){
   if(el) el.textContent = QUOTES[idx];
 }
 
+/* ============ PARENTING ============ */
+const PARENTING_TASKS = [
+  {k:'p_desc',   l:'به‌جای سرزنش، فقط رفتارشو توصیف کردم، نه خودشو قضاوت کردم', xp:12},
+  {k:'p_praise', l:'حداقل یه‌بار امروز صادقانه بهش گفتم بهش افتخار می‌کنم یا دوستش دارم', xp:10},
+  {k:'p_pause',  l:'قبل از واکنش تند، چند ثانیه مکث کردم', xp:10},
+  {k:'p_time',   l:'حداقل ۱۵ دقیقه وقت خالص و بدون گوشی باهاش گذروندم', xp:12}
+];
+const PARENTING_TIPS = [
+  'رفتار رو نقد کن، نه شخصیتشو؛ به‌جای «تنبلی» بگو «امروز اسباب‌بازیا جمع نشد».',
+  'قبل از عصبانی‌شدن چند ثانیه نفس بکش؛ اکثر قضاوت‌های تند تو همون چند ثانیه‌ی اول شکل می‌گیرن.',
+  'وقتی خوب رفتار کرد بلند بگو؛ بچه‌ها به دیده‌شدن رفتار خوب بیشتر از تنبیه رفتار بد واکنش نشون می‌دن.',
+  'اگه سرش داد زدی، عذرخواهی کن؛ این خودش بزرگ‌ترین درس تربیتیه.',
+  'به‌جای «چرا این کارو کردی؟» بپرس «چی شد که این اتفاق افتاد؟»',
+  'هر روز حداقل ۱۵ دقیقه فقط برای اون باش، بدون گوشی، بدون کار دیگه.',
+  'به احساسش قبل از رفتارش توجه کن؛ «می‌دونم عصبانی‌ای» قبل از «این کارو نکن».',
+  'مقایسه‌ش نکن، نه با خودت تو بچگی، نه با بچه‌ی دیگه‌ای.',
+  'به‌جای تهدید، پیامد طبیعیِ رفتار رو بذار جلوش.',
+  'وقتی می‌خوای نه بگی، دلیلشو کوتاه توضیح بده، نه فقط دستور بده.',
+  'یادت باشه بچه‌ی ۷ ساله هنوز داره خودکنترلی رو یاد می‌گیره؛ رفتار نامناسبش همیشه نافرمانی عمدی نیست.',
+  'یه کار کوچیک رو بذار خودش تصمیم بگیره؛ حس کنترل بهش امنیت می‌ده.',
+  'شب قبل خواب، یه چیز خوب که امروز انجام داد رو براش تعریف کن.',
+  'اگه سرزنشش کردی، برگرد و رفتار درستو نشونش بده، نه فقط بگو «غلط کردی».',
+  'هدف امروز کامل‌بودن نیست؛ هدف اینه که فردا از امروز یه‌کم بهتر باشی.'
+];
+function renderParentTip(){
+  const n = planDayNumber(new Date());
+  const idx = ((n % PARENTING_TIPS.length) + PARENTING_TIPS.length) % PARENTING_TIPS.length;
+  const el = document.getElementById('parentTipText');
+  if(el) el.textContent = PARENTING_TIPS[idx];
+}
+function isParentingGoodDay(key){
+  const done = state.parentingLog[key] || [];
+  return done.length >= 3; // حداقل ۳ از ۴ مورد
+}
+function computeParentingStreak(){
+  let streak=0, cursor=new Date();
+  while(true){
+    const key = toKey(cursor);
+    if(isParentingGoodDay(key)){ streak++; cursor=addDays(cursor,-1); }
+    else break;
+  }
+  return streak;
+}
+function renderParenting(){
+  const todayKey = toKey(new Date());
+  const done = state.parentingLog[todayKey] || [];
+  const listEl = document.getElementById('parentTaskList');
+  if(listEl){
+    listEl.innerHTML='';
+    PARENTING_TASKS.forEach(t=>{
+      const isDone = done.includes(t.k);
+      const div = document.createElement('div');
+      div.className = 'task'+(isDone?' done':'');
+      div.innerHTML = `<div class="box">${isDone?'✓':''}</div>
+        <div class="body"><div class="label">${t.l}</div></div>
+        <div class="xp">+${faNum(t.xp)}</div>`;
+      div.addEventListener('click', ()=>{
+        const willBeDone = !done.includes(t.k);
+        if(willBeDone) spawnSparkles(div);
+        toggleParentingTask(todayKey, t.k);
+      });
+      listEl.appendChild(div);
+    });
+  }
+
+  const now = new Date();
+  const dayOfMonth = now.getDate();
+  const monthPrefix = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  let goodDays=0;
+  for(let d=1; d<=dayOfMonth; d++){
+    const key = `${monthPrefix}-${String(d).padStart(2,'0')}`;
+    if(isParentingGoodDay(key)) goodDays++;
+  }
+  document.getElementById('pGoodDays').textContent = faNum(goodDays);
+  document.getElementById('pTotalDays').textContent = faNum(dayOfMonth);
+  const pct = dayOfMonth ? (goodDays/dayOfMonth) : 0;
+  document.getElementById('pMonthFill').style.width = (pct*100)+'%';
+  const msgEl = document.getElementById('pMonthMsg');
+  if(pct >= 0.7) msgEl.textContent = 'عالیه؛ این دقیقاً همون پدری‌ای هست که می‌خواستی باشی. ادامه بده 💛';
+  else if(pct >= 0.4) msgEl.textContent = 'داری واقعاً نزدیک‌تر می‌شی؛ همین روند رو نگه دار.';
+  else msgEl.textContent = 'شروع خوبیه؛ هر روزی که یادت باشه، از دیروز بهتره.';
+}
+async function toggleParentingTask(dateKey, key){
+  const list = state.parentingLog[dateKey] || [];
+  const i = list.indexOf(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
+  state.parentingLog[dateKey] = list;
+  await saveState();
+  render();
+}
+
+/* ============ NEGATIVE HABIT CONTROL ============ */
+const HABIT_TASKS = [
+  {k:'h_ig',      l:'اینستاگرام رو امروز هدفمند و کنترل‌شده استفاده کردم، نه پرسه‌زنی بی‌هدف', xp:12},
+  {k:'h_temper',  l:'امروز با اخلاق خوب رفتار کردم؛ عصبانیت یا تندی نداشتم', xp:10},
+  {k:'h_social',  l:'به‌جای گوشه‌گیری، امروز یه ارتباط اجتماعی واقعی داشتم (تماس، دیدار، پیام گرم)', xp:10},
+  {k:'h_content', l:'برای برند خودم یه محتوا یا ایده ساختم؛ امروز فقط مصرف‌کننده نبودم', xp:15}
+];
+const HABIT_TIPS = [
+  'قبل از باز کردن اینستاگرام، از خودت بپرس «دنبال چی می‌گردم؟»؛ اگه جواب نداشت، نبندش.',
+  'یه تایمر رو گوشیت بذار برای اینستاگرام؛ وقتی زنگ زد، ببند، حتی وسط اسکرول.',
+  'به‌جای اسکرول صبح، اول یه ایده برای محتوای خودت بنویس؛ تولید رو جلوتر از مصرف بذار.',
+  'وقتی حس کردی عصبانی می‌شی، قبل از حرف زدن یه نفس عمیق بکش.',
+  'هر پستی که پسندیدی، به‌جای فقط لایک، به خودت بگو «منم می‌تونم شبیه این بسازم».',
+  'یه پیام کوتاه به یه دوست قدیمی بزن؛ ارتباط کوچیک بهتر از هیچیه.',
+  'دنبال‌کردن‌های غیرضروری رو آنفالو کن؛ فید کمتر یعنی وسوسه‌ی کمتر.',
+  'هر محتوایی که می‌بینی و می‌پسندی رو یادداشت کن؛ بعداً بشه الهام محتوای خودت.',
+  'اگه یه بحث داغ شد، بگو «بعداً درباره‌ش حرف می‌زنیم»؛ فاصله‌ی زمانی بهترین ابزار کنترل خشمه.',
+  'یه قرار کوچیک حضوری با یه دوست بذار؛ گوشه‌گیری با یه قدم کوچیک شکسته می‌شه.',
+  'به‌جای اسکرول شبانه، یه استوری یا پست کوتاه از تجربه‌ی امروزت بساز.',
+  'هدف اینستاگرام رو عوض کن: از «وقت‌گذرونی» به «تحقیق برای محتوای خودم».'
+];
+function renderHabitTip(){
+  const n = planDayNumber(new Date());
+  const idx = ((n % HABIT_TIPS.length) + HABIT_TIPS.length) % HABIT_TIPS.length;
+  const el = document.getElementById('habitTipText');
+  if(el) el.textContent = HABIT_TIPS[idx];
+}
+function isHabitGoodDay(key){
+  const done = state.habitLog[key] || [];
+  return done.length >= 3;
+}
+function computeHabitStreak(){
+  let streak=0, cursor=new Date();
+  while(true){
+    const key = toKey(cursor);
+    if(isHabitGoodDay(key)){ streak++; cursor=addDays(cursor,-1); }
+    else break;
+  }
+  return streak;
+}
+function renderHabits(){
+  const todayKey = toKey(new Date());
+  const done = state.habitLog[todayKey] || [];
+  const listEl = document.getElementById('habitTaskList');
+  if(listEl){
+    listEl.innerHTML='';
+    HABIT_TASKS.forEach(t=>{
+      const isDone = done.includes(t.k);
+      const div = document.createElement('div');
+      div.className = 'task'+(isDone?' done':'');
+      div.innerHTML = `<div class="box">${isDone?'✓':''}</div>
+        <div class="body"><div class="label">${t.l}</div></div>
+        <div class="xp">+${faNum(t.xp)}</div>`;
+      div.addEventListener('click', ()=>{
+        const willBeDone = !done.includes(t.k);
+        if(willBeDone) spawnSparkles(div);
+        toggleHabitTask(todayKey, t.k);
+      });
+      listEl.appendChild(div);
+    });
+  }
+
+  const now = new Date();
+  const dayOfMonth = now.getDate();
+  const monthPrefix = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  let goodDays=0, contentDays=0;
+  for(let d=1; d<=dayOfMonth; d++){
+    const key = `${monthPrefix}-${String(d).padStart(2,'0')}`;
+    if(isHabitGoodDay(key)) goodDays++;
+    if((state.habitLog[key]||[]).includes('h_content')) contentDays++;
+  }
+  document.getElementById('hGoodDays').textContent = faNum(goodDays);
+  document.getElementById('hTotalDays').textContent = faNum(dayOfMonth);
+  document.getElementById('hMonthFill').style.width = (dayOfMonth? (goodDays/dayOfMonth*100):0)+'%';
+  document.getElementById('hContentDays').textContent = faNum(contentDays);
+  document.getElementById('hContentTotal').textContent = faNum(dayOfMonth);
+  document.getElementById('hContentFill').style.width = (dayOfMonth? (contentDays/dayOfMonth*100):0)+'%';
+  const msgEl = document.getElementById('hMonthMsg');
+  const pct = dayOfMonth ? goodDays/dayOfMonth : 0;
+  if(pct >= 0.7) msgEl.textContent = 'خیلی خوب داری کنترلشون می‌کنی؛ همین‌جوری ادامه بده.';
+  else if(pct >= 0.4) msgEl.textContent = 'داری بهتر می‌شی؛ هر روز که تیک می‌زنی یه قدم جلوتری.';
+  else msgEl.textContent = 'شروع کوچیک هم شروعه؛ امروز رو با یه مورد شروع کن.';
+}
+async function toggleHabitTask(dateKey, key){
+  const list = state.habitLog[dateKey] || [];
+  const i = list.indexOf(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
+  state.habitLog[dateKey] = list;
+  await saveState();
+  render();
+}
+
+/* ============ WATER TRACKER ============ */
+function renderWater(){
+  const key = toKey(new Date());
+  const count = state.waterLog[key] || 0;
+  const target = state.waterTarget || 12;
+  document.getElementById('waterCount').textContent = faNum(count);
+  document.getElementById('waterTargetLbl').textContent = faNum(target);
+  document.getElementById('waterFill').style.width = Math.min(100, (count/target)*100)+'%';
+}
+async function addWater(delta){
+  const key = toKey(new Date());
+  const cur = state.waterLog[key] || 0;
+  const next = Math.max(0, cur+delta);
+  const reachedGoal = delta>0 && cur < (state.waterTarget||12) && next >= (state.waterTarget||12);
+  state.waterLog[key] = next;
+  await saveState();
+  render();
+  if(reachedGoal) showToast('💧 به هدف آب امروز رسیدی، آفرین!');
+}
+
+/* ============ GOLD SAVINGS ============ */
+function renderGold(){
+  const total = state.goldLog.reduce((s,g)=>s+Number(g.amount),0);
+  const target = state.goldTarget || 0;
+  document.getElementById('goldTarget').value = target || '';
+  document.getElementById('goldSaved').textContent = fmtToman(total);
+  document.getElementById('goldTargetLbl').textContent = fmtToman(target);
+  document.getElementById('goldFill').style.width = target>0 ? Math.min(100, (total/target)*100)+'%' : '0%';
+
+  const histEl = document.getElementById('goldHistory');
+  if(!state.goldLog.length){ histEl.innerHTML = '<div class="empty">هنوز چیزی برای طلا کنار نذاشتی.</div>'; return; }
+  const sorted = state.goldLog.slice().sort((a,b)=>b.id-a.id).slice(0,10);
+  histEl.innerHTML = sorted.map(g=>`
+    <div class="txn income">
+      <div class="txn-ic">🪙</div>
+      <div class="txn-body"><div class="txn-note">${dayLabel(g.date)}</div></div>
+      <div class="txn-amt">+${fmtToman(g.amount)}</div>
+      <button class="txn-del" data-id="${g.id}">✕</button>
+    </div>`).join('');
+  histEl.querySelectorAll('.txn-del').forEach(btn=>{
+    btn.addEventListener('click', ()=>deleteGold(Number(btn.dataset.id)));
+  });
+}
+async function saveGoldTarget(){
+  const val = Number(document.getElementById('goldTarget').value)||0;
+  state.goldTarget = val;
+  await saveState();
+  render();
+  showToast('🎯 هدف پس‌انداز طلا ثبت شد');
+}
+async function addGold(){
+  const val = document.getElementById('goldAmount').value;
+  if(!val || Number(val)<=0){ showToast('مبلغ رو وارد کن'); return; }
+  state.goldLog.push({ id:Date.now(), date:toKey(new Date()), amount:Number(val) });
+  await saveState();
+  document.getElementById('goldAmount').value='';
+  render();
+  showToast('🪙 به پس‌اندازت اضافه شد');
+}
+async function deleteGold(id){
+  state.goldLog = state.goldLog.filter(g=>g.id!==id);
+  await saveState();
+  render();
+}
+
+/* ============ RANDOM BONUS (variable reward) ============ */
+function maybeRandomBonus(){
+  if(Math.random() < 0.15){
+    const options = [5,8,12];
+    const bonus = options[Math.floor(Math.random()*options.length)];
+    state.bonusXP = (state.bonusXP||0) + bonus;
+    setTimeout(()=>showToast(`🎁 پاداش شانسی! +${bonus} XP`), 350);
+  }
+}
+
+/* ============ TODAY HUB (unified checklist) ============ */
+function renderHub(){
+  const todayKey = toKey(new Date());
+
+  // diet + water mini row
+  const dietDone = !!state.dietLog[todayKey];
+  const waterCount = state.waterLog[todayKey] || 0;
+  const waterTarget = state.waterTarget || 12;
+  const dietEl = document.getElementById('hubDietList');
+  dietEl.innerHTML = `
+    <div class="task ${dietDone?'done':''}" id="hubDietRow">
+      <div class="box">${dietDone?'✓':''}</div>
+      <div class="body"><div class="label">رعایت رژیم غذایی امروز</div></div>
+      <div class="xp">+10</div>
+    </div>
+    <div class="task" style="cursor:default;">
+      <div class="box" style="border-color:var(--teal-dim); font-size:13px;">💧</div>
+      <div class="body"><div class="label">آب امروز: ${faNum(waterCount)} از ${faNum(waterTarget)} لیوان</div></div>
+      <button class="btn primary" id="hubWaterPlus" style="padding:7px 13px; font-size:11px;">+۱</button>
+    </div>`;
+  document.getElementById('hubDietRow').addEventListener('click', ()=>{
+    if(!dietDone) spawnSparkles(document.getElementById('hubDietRow'));
+    toggleDietDone();
+  });
+  document.getElementById('hubWaterPlus').addEventListener('click', (e)=>{ e.stopPropagation(); addWater(1); });
+
+  // habits
+  const habitDone = state.habitLog[todayKey] || [];
+  const habitEl = document.getElementById('hubHabitList');
+  habitEl.innerHTML = HABIT_TASKS.map(t=>{
+    const isDone = habitDone.includes(t.k);
+    return `<div class="task ${isDone?'done':''}" data-k="${t.k}">
+      <div class="box">${isDone?'✓':''}</div>
+      <div class="body"><div class="label">${t.l}</div></div>
+      <div class="xp">+${faNum(t.xp)}</div>
+    </div>`;
+  }).join('');
+  habitEl.querySelectorAll('.task').forEach(div=>{
+    div.addEventListener('click', ()=>{
+      const k = div.dataset.k;
+      if(!habitDone.includes(k)) spawnSparkles(div);
+      toggleHabitTask(todayKey, k);
+    });
+  });
+
+  // parenting
+  const parentDone = state.parentingLog[todayKey] || [];
+  const parentEl = document.getElementById('hubParentList');
+  parentEl.innerHTML = PARENTING_TASKS.map(t=>{
+    const isDone = parentDone.includes(t.k);
+    return `<div class="task ${isDone?'done':''}" data-k="${t.k}">
+      <div class="box">${isDone?'✓':''}</div>
+      <div class="body"><div class="label">${t.l}</div></div>
+      <div class="xp">+${faNum(t.xp)}</div>
+    </div>`;
+  }).join('');
+  parentEl.querySelectorAll('.task').forEach(div=>{
+    div.addEventListener('click', ()=>{
+      const k = div.dataset.k;
+      if(!parentDone.includes(k)) spawnSparkles(div);
+      toggleParentingTask(todayKey, k);
+    });
+  });
+
+  checkPerfectDay(todayKey);
+}
+
+/* ============ PERFECT DAY BONUS ============ */
+function checkPerfectDay(todayKey){
+  const date = new Date();
+  const coreDone = isCoreDone(todayKey, date);
+  const dietDone = !!state.dietLog[todayKey];
+  const habitAll = HABIT_TASKS.every(t=>(state.habitLog[todayKey]||[]).includes(t.k));
+  const parentAll = PARENTING_TASKS.every(t=>(state.parentingLog[todayKey]||[]).includes(t.k));
+  const waterDone = (state.waterLog[todayKey]||0) >= (state.waterTarget||12);
+  const idx = plankIndexForDate(date);
+  const plankNeeded = idx>=0 && idx<30 && PLANK[idx]>0;
+  const plankOk = !plankNeeded || !!state.plankLog[todayKey];
+  const perfect = coreDone && dietDone && habitAll && parentAll && waterDone && plankOk;
+  if(perfect && !state.perfectDayLog[todayKey]){
+    state.perfectDayLog[todayKey] = true;
+    saveState();
+    queueCelebration({emoji:'🌟', title:'روز کامل!', sub:'همه‌چیزو امروز کامل انجام دادی، +۵۰ XP'});
+  }
+}
+
+/* ============ NOTIFICATIONS ============ */
+function renderNotifCard(){
+  const card = document.getElementById('notifCard');
+  if(!card) return;
+  if(!('Notification' in window)){
+    card.innerHTML = '<div class="empty">مرورگرت از اعلان پشتیبانی نمی‌کنه.</div>';
+    return;
+  }
+  if(Notification.permission !== 'granted'){
+    card.innerHTML = `<button class="btn primary" id="notifEnableBtn" style="width:100%;">🔔 فعال کردن یادآوری‌های روزانه</button>
+      <p style="font-size:10.5px; color:var(--gray-dim); margin-top:8px; line-height:1.6;">فقط وقتی این صفحه باز باشه (حتی در پس‌زمینه) کار می‌کنه.</p>`;
+    document.getElementById('notifEnableBtn').addEventListener('click', enableNotifications);
+  } else {
+    card.innerHTML = `
+      <div class="kpi-row">
+        <div class="field"><label>یادآوری صبح</label><input type="time" id="notifMorning" value="${state.notif.morning}"></div>
+        <div class="field"><label>یادآوری شب</label><input type="time" id="notifEvening" value="${state.notif.evening}"></div>
+      </div>
+      <button class="btn primary" id="notifSaveBtn" style="width:100%;">ذخیره زمان‌ها</button>
+      <p style="font-size:10.5px; color:var(--gray-dim); margin-top:8px; line-height:1.6;">فقط وقتی این صفحه باز باشه (حتی در پس‌زمینه) کار می‌کنه؛ اگه کامل ببندیش، اعلانی نمیاد.</p>`;
+    document.getElementById('notifSaveBtn').addEventListener('click', saveNotifTimes);
+  }
+}
+async function enableNotifications(){
+  try{
+    const perm = await Notification.requestPermission();
+    if(perm==='granted'){
+      state.notif.enabled = true;
+      await saveState();
+      renderNotifCard();
+      showToast('🔔 اعلان‌ها فعال شد');
+    } else {
+      showToast('اجازه‌ی اعلان داده نشد');
+    }
+  }catch(e){ showToast('مشکلی پیش اومد'); }
+}
+async function saveNotifTimes(){
+  state.notif.morning = document.getElementById('notifMorning').value || '08:30';
+  state.notif.evening = document.getElementById('notifEvening').value || '21:00';
+  await saveState();
+  showToast('⏰ زمان‌های یادآوری ذخیره شد');
+}
+function checkNotifTimer(){
+  if(!state || !state.notif || !state.notif.enabled) return;
+  if(!('Notification' in window) || Notification.permission!=='granted') return;
+  const now = new Date();
+  const hhmm = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  const todayKey = toKey(now);
+  if(hhmm===state.notif.morning && state.notif.lastSentDate.morning!==todayKey){
+    try{ new Notification('مسیر احسان 🎬', {body:'صبح بخیر! چک‌لیست امروزتو شروع کن 💪'}); }catch(e){}
+    state.notif.lastSentDate.morning = todayKey;
+    saveState();
+  }
+  if(hhmm===state.notif.evening && state.notif.lastSentDate.evening!==todayKey){
+    try{ new Notification('مسیر احسان 🎬', {body:'یادت نره امروز رو جمع‌بندی و تیک بزنی 🌙'}); }catch(e){}
+    state.notif.lastSentDate.evening = todayKey;
+    saveState();
+  }
+}
+setInterval(checkNotifTimer, 30000);
+
+/* ============ CHARITY (in memory of mother) ============ */
+function renderCharity(){
+  const todayKey = toKey(new Date());
+  const entry = state.charityLog[todayKey];
+  const done = !!(entry && entry.done);
+  const box = document.getElementById('charityBox');
+  const row = document.getElementById('charityRow');
+  if(box){ box.textContent = done ? '✓' : ''; }
+  if(row){ row.classList.toggle('done', done); }
+  const noteEl = document.getElementById('charityNote');
+  if(noteEl) noteEl.value = (entry && entry.note) || '';
+  const total = Object.values(state.charityLog).filter(e=>e && e.done).length;
+  const totalEl = document.getElementById('charityTotal');
+  if(totalEl) totalEl.textContent = faNum(total);
+}
+async function toggleCharity(){
+  const todayKey = toKey(new Date());
+  const entry = state.charityLog[todayKey] || {done:false, note:''};
+  entry.done = !entry.done;
+  state.charityLog[todayKey] = entry;
+  if(entry.done){ maybeRandomBonus(); spawnSparkles(document.getElementById('charityRow')); }
+  await saveState();
+  render();
+}
+async function saveCharityNote(){
+  const todayKey = toKey(new Date());
+  const entry = state.charityLog[todayKey] || {done:false, note:''};
+  entry.note = document.getElementById('charityNote').value;
+  state.charityLog[todayKey] = entry;
+  await saveState();
+}
 
 function showToast(msg){
   const t=document.getElementById('toast');
@@ -866,8 +1597,9 @@ document.getElementById('celebrateOverlay').addEventListener('click', ()=>{
   setTimeout(maybeShowNextCelebration, 250);
 });
 
-/* ===== Sparkles on task complete ===== */
+/* ===== Sparkles + haptics + lucky bonus on task complete ===== */
 function spawnSparkles(el){
+  try{ if(navigator.vibrate) navigator.vibrate(14); }catch(e){}
   const rect = el.getBoundingClientRect();
   const cx = rect.left+26, cy = rect.top+rect.height/2;
   const emojis=['✨','⭐','💫'];
@@ -881,6 +1613,15 @@ function spawnSparkles(el){
     s.style.setProperty('--dy', Math.sin(angle)*44+'px');
     document.body.appendChild(s);
     setTimeout(()=>s.remove(), 700);
+  }
+  maybeLuckyBonus();
+}
+async function maybeLuckyBonus(){
+  if(Math.random() < 0.15){
+    const bonus = 5 + Math.floor(Math.random()*16);
+    state.bonusXP = (state.bonusXP||0) + bonus;
+    await saveState();
+    showToast(`🎁 جایزه‌ی شانسی: +${faNum(bonus)} XP`);
   }
 }
 
@@ -911,7 +1652,7 @@ function render(){
   lastKnownLevelNum = lvl.num;
 
   // ring
-  const ratio = dayCompletionRatio(todayKey, today);
+  const ratio = overallTodayRatio(today);
   const CIRC = 276.5;
   document.getElementById('ringProgress').style.strokeDashoffset = CIRC - CIRC*ratio;
   document.getElementById('ringPct').textContent = faNum(Math.round(ratio*100))+'٪';
@@ -941,7 +1682,7 @@ function render(){
   renderPlank(today);
 
   // badges
-  renderBadges({streak, plankDone: plankCompletedCount()});
+  renderBadges({streak, plankDone: plankCompletedCount(), parentStreak: computeParentingStreak(), habitStreak: computeHabitStreak(), charityCount: Object.values(state.charityLog).filter(e=>e&&e.done).length});
 
   // heatmap
   renderHeatmap();
@@ -960,6 +1701,15 @@ function render(){
   renderQuote();
   renderShieldBanner();
   renderHike();
+  renderParenting();
+  renderParentTip();
+  renderHabits();
+  renderHabitTip();
+  renderWater();
+  renderGold();
+  renderHub();
+  renderNotifCard();
+  renderCharity();
 
   // show any pending celebration
   maybeShowNextCelebration();
@@ -968,32 +1718,67 @@ function render(){
 function fmtToman(n){ return faNum(Number(n||0).toLocaleString('en-US')); }
 
 function renderFinance(){
-  const todayKey = toKey(new Date());
-  const now = new Date();
-  const monthPrefix = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const today = new Date();
+  const todayKey = toKey(today);
+  const monthPrefix = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
+  const weekStartKey = weekKeyFor(today);
 
+  const netOf = (txns)=> txns.reduce((s,t)=> s + (t.type==='income'? Number(t.amount) : -Number(t.amount)), 0);
+
+  const todayTxns = state.transactions.filter(t=>t.date===todayKey);
+  const weekTxns = state.transactions.filter(t=>t.date>=weekStartKey && t.date<=todayKey);
   const monthTxns = state.transactions.filter(t=>t.date.startsWith(monthPrefix));
-  const income = monthTxns.filter(t=>t.type==='income').reduce((s,t)=>s+Number(t.amount),0);
-  const expense = monthTxns.filter(t=>t.type==='expense').reduce((s,t)=>s+Number(t.amount),0);
-  document.getElementById('mIncome').textContent = fmtToman(income);
-  document.getElementById('mExpense').textContent = fmtToman(expense);
-  const netEl = document.getElementById('mNet');
-  netEl.textContent = fmtToman(income-expense);
-  netEl.style.color = (income-expense)>=0 ? 'var(--teal)' : 'var(--mustard)';
+  const allTxns = state.transactions;
 
-  const todayTxns = state.transactions.filter(t=>t.date===todayKey).sort((a,b)=>b.id-a.id);
-  const listEl = document.getElementById('txnListToday');
-  if(!todayTxns.length){ listEl.innerHTML = '<div class="empty">امروز هنوز تراکنشی ثبت نکردی.</div>'; return; }
-  listEl.innerHTML = todayTxns.map(t=>`
-    <div class="txn ${t.type}">
+  const setStat = (id, val)=>{
+    const el = document.getElementById(id);
+    el.textContent = (val<0?'-':'') + fmtToman(Math.abs(val));
+    el.style.color = val>=0 ? 'var(--teal)' : 'var(--mustard)';
+  };
+  setStat('fToday', netOf(todayTxns));
+  setStat('fWeek', netOf(weekTxns));
+  setStat('fMonth', netOf(monthTxns));
+  setStat('fAll', netOf(allTxns));
+
+  const monthIncome = monthTxns.filter(t=>t.type==='income').reduce((s,t)=>s+Number(t.amount),0);
+  const monthExpense = monthTxns.filter(t=>t.type==='expense').reduce((s,t)=>s+Number(t.amount),0);
+  document.getElementById('fMonthIncome').textContent = fmtToman(monthIncome);
+  document.getElementById('fMonthExpense').textContent = fmtToman(monthExpense);
+
+  // 14-day chart
+  const days = [...Array(14)].map((_,i)=>addDays(today,-(13-i)));
+  const nets = days.map(d=>{
+    const key = toKey(d);
+    return netOf(state.transactions.filter(t=>t.date===key));
+  });
+  const maxAbs = Math.max(1, ...nets.map(n=>Math.abs(n)));
+  const chartEl = document.getElementById('finChart');
+  chartEl.innerHTML = `<div class="chart-bars">${days.map((d,i)=>{
+    const n = nets[i];
+    const h = Math.round((Math.abs(n)/maxAbs)*90)+ (n===0?0:6);
+    const color = n>=0 ? 'var(--teal)' : 'var(--mustard)';
+    const lbl = d.getDate()===today.getDate() && toKey(d)===todayKey ? 'امروز' : faNum(planDayNumber(d));
+    return `<div class="bar-col"><div class="bar" style="height:${Math.max(h,2)}px; background:${color};"></div><div class="bar-lbl">${lbl}</div></div>`;
+  }).join('')}</div>`;
+
+  // full history grouped by day
+  const listEl = document.getElementById('txnHistory');
+  if(!allTxns.length){ listEl.innerHTML = '<div class="empty">هنوز تراکنشی ثبت نکردی. اولین تراکنشتو بالا ثبت کن.</div>'; return; }
+  const sorted = allTxns.slice().sort((a,b)=>b.id-a.id);
+  let html='';
+  let lastDate=null;
+  sorted.forEach(t=>{
+    if(t.date!==lastDate){ html += `<div class="txn-day-header">${dayLabel(t.date)}</div>`; lastDate=t.date; }
+    html += `<div class="txn ${t.type}">
       <div class="txn-ic">${t.type==='income'?'💰':'🧾'}</div>
       <div class="txn-body">
         <div class="txn-note">${t.note || (t.type==='income'?'درآمد':'هزینه')}</div>
-        <div class="txn-date">امروز</div>
       </div>
       <div class="txn-amt">${t.type==='income'?'+':'-'}${fmtToman(t.amount)}</div>
       <button class="txn-del" data-id="${t.id}">✕</button>
-    </div>`).join('');
+    </div>`;
+  });
+  listEl.innerHTML = html;
   listEl.querySelectorAll('.txn-del').forEach(btn=>{
     btn.addEventListener('click', ()=>deleteTransaction(Number(btn.dataset.id)));
   });
@@ -1089,7 +1874,7 @@ function renderKpiLog(){
   const entries = ascKeys.slice().reverse();
   logEl.innerHTML = entries.slice(0,6).map(mk=>{
     const v = state.kpi[mk];
-    return `<div class="kpi-log-item"><span>${labelFor(mk)}</span><b>${v.hours||'-'} ساعت · ${v.weight||'-'}kg</b></div>`;
+    return `<div class="kpi-log-item"><span>${labelFor(mk)}</span><b>${v.hours||'-'} ساعت · ${v.content||'-'} محتوا</b></div>`;
   }).join('');
 }
 
@@ -1207,7 +1992,7 @@ async function logHike(){
 async function toggleTask(dateKey, key){
   const list = state.completedByDate[dateKey] || [];
   const i = list.indexOf(key);
-  if(i>-1) list.splice(i,1); else list.push(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
   state.completedByDate[dateKey]=list;
   await saveState();
   render();
@@ -1216,6 +2001,7 @@ async function toggleTask(dateKey, key){
 async function markPlankDone(){
   const todayKey = toKey(new Date());
   state.plankLog[todayKey]=true;
+  maybeRandomBonus();
   await saveState();
   render();
 }
@@ -1335,7 +2121,9 @@ async function saveWeightToday(){
 }
 async function toggleDietDone(){
   const todayKey = toKey(new Date());
-  state.dietLog[todayKey] = !state.dietLog[todayKey];
+  const willBeDone = !state.dietLog[todayKey];
+  state.dietLog[todayKey] = willBeDone;
+  if(willBeDone) maybeRandomBonus();
   await saveState();
   render();
 }
@@ -1401,13 +2189,57 @@ document.getElementById('kpiSave').addEventListener('click', async ()=>{
   const mk = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
   state.kpi[mk] = {
     hours: document.getElementById('kpiHours').value,
-    income: document.getElementById('kpiIncome').value,
-    content: document.getElementById('kpiContent').value,
-    weight: document.getElementById('kpiWeight').value
+    content: document.getElementById('kpiContent').value
   };
   await saveState();
   showToast('✅ شاخص‌های این ماه ثبت شد');
   renderKpiLog();
+});
+
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const ta = document.getElementById('backupText');
+  ta.value = JSON.stringify(state);
+  ta.select();
+  try{ document.execCommand('copy'); showToast('📋 کپی شد! حالا جای جدید پیستش کن'); }
+  catch(e){ showToast('متن آماده‌ست، دستی کپی کن'); }
+  document.getElementById('restoreBtn').style.display='none';
+});
+document.getElementById('importBtn').addEventListener('click', ()=>{
+  const ta = document.getElementById('backupText');
+  ta.value=''; ta.focus();
+  document.getElementById('restoreBtn').style.display='block';
+  showToast('متن پشتیبان رو اینجا پیست کن، بعد بازیابی رو بزن');
+});
+document.getElementById('restoreBtn').addEventListener('click', async ()=>{
+  const raw = document.getElementById('backupText').value.trim();
+  if(!raw){ showToast('اول متن پشتیبان رو پیست کن'); return; }
+  try{
+    const parsed = JSON.parse(raw);
+    if(!parsed || typeof parsed!=='object' || !('completedByDate' in parsed)) throw new Error('bad');
+    state = parsed;
+    if(!state.transactions) state.transactions=[];
+    if(!state.diet) state.diet={height:null,age:null,activity:'moderate',goalWeight:87,startWeight:91};
+    if(!state.weightLog) state.weightLog={};
+    if(!state.dietLog) state.dietLog={};
+    if(!state.shieldUsedFor) state.shieldUsedFor={};
+    if(!state.hikeLog) state.hikeLog={};
+    if(!state.parentingLog) state.parentingLog={};
+    if(!state.habitLog) state.habitLog={};
+    if(!state.waterLog) state.waterLog={};
+    if(state.waterTarget===undefined) state.waterTarget=12;
+    if(state.goldTarget===undefined) state.goldTarget=0;
+    if(!state.goldLog) state.goldLog=[];
+    if(state.bonusXP===undefined) state.bonusXP=0;
+    if(!state.perfectDayLog) state.perfectDayLog={};
+    if(!state.notif) state.notif={enabled:false,morning:'08:30',evening:'21:00',lastSentDate:{morning:null,evening:null}};
+    if(!state.charityLog) state.charityLog={};
+    await saveState();
+    render();
+    document.getElementById('restoreBtn').style.display='none';
+    showToast('✅ داده‌هات با موفقیت بازیابی شد');
+  }catch(e){
+    showToast('⚠️ این متن معتبر نیست');
+  }
 });
 
 document.getElementById('resetBtn').addEventListener('click', async ()=>{
@@ -1420,6 +2252,13 @@ document.getElementById('resetBtn').addEventListener('click', async ()=>{
 });
 
 document.getElementById('shieldBtn').addEventListener('click', useShield);
+
+document.getElementById('waterPlus').addEventListener('click', ()=>addWater(1));
+document.getElementById('charityRow').addEventListener('click', toggleCharity);
+document.getElementById('charityNote').addEventListener('change', saveCharityNote);
+document.getElementById('waterMinus').addEventListener('click', ()=>addWater(-1));
+document.getElementById('goldTargetSave').addEventListener('click', saveGoldTarget);
+document.getElementById('goldAdd').addEventListener('click', addGold);
 document.getElementById('hikeLogBtn').addEventListener('click', logHike);
 
 document.getElementById('wrapBtn').addEventListener('click', ()=>{
@@ -1462,5 +2301,6 @@ window.addEventListener('beforeinstallprompt', (e)=>{
   checkAutoWrapped();
 })();
 </script>
-</body>
-</html>
+
+
+</body></html>
