@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#14181b">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg">
+<meta name="description" content="برنامه‌ی یک‌ساله‌ی گیمیفای‌شده‌ی ارتقای کیفیت زندگی، شامل کار، مالی، رژیم، ورزش، تربیت فرزند و کنترل عادت.">
+<title>مسیر احسان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14181b;
+    --bg-soft: #1b2126;
+    --card: #202830;
+    --card-2: #26303a;
+    --line: #313c46;
+    --gray: #8b98a3;
+    --gray-dim: #5c6870;
+    --ink: #eef2f4;
+    --teal: #2fd9c7;
+    --teal-dim: #1c8f83;
+    --teal-glow: rgba(47,217,199,.35);
+    --mustard: #e0ac3f;
+    --mustard-dim: #a97e28;
+    --mustard-glow: rgba(224,172,63,.35);
+    --danger: #d9704f;
+    --radius: 18px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  body{
+    font-family:'Vazirmatn',sans-serif;
+    max-width:480px;
+    margin:0 auto;
+    min-height:100vh;
+    padding-bottom:96px;
+    position:relative;
+    background:
+      radial-gradient(600px 300px at 20% -5%, rgba(47,217,199,.10), transparent 60%),
+      radial-gradient(500px 260px at 100% 0%, rgba(224,172,63,.08), transparent 55%),
+      var(--bg);
+  }
+  h1,h2,h3{margin:0; font-weight:800;}
+  p{margin:0;}
+  button{font-family:inherit; border:none; cursor:pointer; background:none; color:inherit;}
+
+  /* ===== Header ===== */
+  header.app-head{
+    padding:22px 18px 16px;
+    position:sticky; top:0; z-index:20;
+    background:linear-gradient(180deg, var(--bg) 60%, transparent);
+    backdrop-filter:blur(6px);
+  }
+  .brand-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand .mark{
+    width:38px; height:38px; border-radius:11px;
+    background:conic-gradient(from 210deg, var(--teal), var(--mustard), var(--teal));
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; box-shadow:0 4px 14px rgba(0,0,0,.35);
+  }
+  .brand .txt small{display:block; color:var(--gray); font-size:11px; font-weight:500; margin-top:1px;}
+  .brand .txt strong{font-size:15px; letter-spacing:.2px;}
+  .streak-chip{
+    display:flex; align-items:center; gap:5px;
+    background:var(--card); border:1px solid var(--line);
+    padding:6px 11px; border-radius:100px; font-size:13px; font-weight:700;
+    color:var(--mustard);
+  }
+
+  .xpbar-wrap{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:10px 12px;}
+  .xpbar-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:7px;}
+  .xpbar-top .lvl-title{font-size:13px; font-weight:700; color:var(--ink);}
+  .xpbar-top .lvl-num{font-size:11px; color:var(--gray);}
+  .xpbar-track{height:8px; border-radius:6px; background:var(--bg-soft); overflow:hidden; border:1px solid var(--line);}
+  .xpbar-fill{height:100%; border-radius:6px; background:linear-gradient(90deg, var(--teal-dim), var(--teal)); transition:width .5s ease;}
+  .xpbar-sub{margin-top:6px; font-size:10.5px; color:var(--gray-dim); display:flex; justify-content:space-between;}
+
+  /* ===== Tabs content ===== */
+  main{padding:6px 18px 20px;}
+  section.tab{display:none; animation:fadeIn .25s ease;}
+  section.tab.active{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ===== Ring ===== */
+  .ring-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; display:flex; align-items:center; gap:18px; margin-bottom:16px;
+  }
+  .ring-wrap{position:relative; width:104px; height:104px; flex:none;}
+  .ring-wrap svg{transform:rotate(-90deg);}
+  .ring-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .ring-center .pct{font-size:22px; font-weight:800;}
+  .ring-center .lbl{font-size:10px; color:var(--gray); margin-top:1px;}
+  .ring-info h2{font-size:16px; margin-bottom:5px;}
+  .ring-info p{font-size:12.5px; color:var(--gray); line-height:1.7;}
+  .date-pill{
+    display:inline-block; margin-top:8px; font-size:11px; padding:3px 9px; border-radius:100px;
+    background:var(--bg-soft); color:var(--teal); border:1px solid var(--teal-dim);
+  }
+
+  .section-title{display:flex; align-items:center; gap:8px; margin:22px 0 10px;}
+  .section-title .dot{width:7px; height:7px; border-radius:50%; background:var(--mustard);}
+  .section-title h3{font-size:13.5px; color:var(--gray); font-weight:700; letter-spacing:.2px;}
+
+  /* ===== Task list ===== */
+  .task{
+    display:flex; align-items:center; gap:12px;
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:12px 13px; margin-bottom:9px; transition:.2s;
+  }
+  .task.done{background:linear-gradient(90deg, rgba(47,217,199,.10), var(--card)); border-color:var(--teal-dim);}
+  .task .box{
+    width:24px; height:24px; border-radius:8px; border:2px solid var(--gray-dim); flex:none;
+    display:flex; align-items:center; justify-content:center; font-size:14px; transition:.15s;
+  }
+  .task.done .box{background:var(--teal); border-color:var(--teal); color:#0c1516;}
+  .task .body{flex:1; min-width:0;}
+  .task .period{font-size:10px; color:var(--mustard); font-weight:700; margin-bottom:2px;}
+  .task .label{font-size:13.5px; font-weight:600; line-height:1.4;}
+  .task.done .label{color:var(--gray); text-decoration:line-through; text-decoration-color:var(--gray-dim);}
+  .task .xp{font-size:11px; color:var(--gray-dim); flex:none; font-weight:700;}
+  .task.done .xp{color:var(--teal);}
+
+  /* ===== Plank card ===== */
+  .plank-card{
+    background:linear-gradient(160deg, var(--card-2), var(--card));
+    border:1px solid var(--line); border-radius:var(--radius); padding:18px; margin-bottom:6px;
+  }
+  .plank-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+  .plank-head h3{font-size:14px;}
+  .plank-day{font-size:11px; color:var(--mustard); font-weight:700;}
+  .plank-time{font-size:38px; font-weight:900; text-align:center; margin:8px 0 4px; font-variant-numeric:tabular-nums; letter-spacing:1px;}
+  .plank-time.rest{color:var(--mustard); font-size:22px;}
+  .plank-btns{display:flex; gap:8px; margin-top:12px;}
+  .btn{
+    flex:1; padding:11px; border-radius:12px; font-size:13px; font-weight:700; text-align:center;
+    border:1px solid var(--line); background:var(--bg-soft); color:var(--ink);
+  }
+  .btn.primary{background:linear-gradient(120deg, var(--teal-dim), var(--teal)); color:#082220; border:none;}
+  .btn.done-btn{background:linear-gradient(120deg, var(--mustard-dim), var(--mustard)); color:#241a04; border:none;}
+  .btn:disabled{opacity:.5;}
+  .plank-note{text-align:center; font-size:11px; color:var(--gray-dim); margin-top:10px;}
+
+  /* ===== Badges ===== */
+  .badge-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:8px;}
+  .badge{
+    aspect-ratio:1/1.05;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--card); border:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    padding:8px; text-align:center;
+  }
+  .badge.unlocked{background:linear-gradient(160deg, rgba(224,172,63,.22), var(--card-2)); box-shadow:0 0 0 1px var(--mustard-dim), 0 0 18px var(--mustard-glow);}
+  .badge .ic{font-size:22px; filter:grayscale(1); opacity:.35;}
+  .badge.unlocked .ic{filter:none; opacity:1;}
+  .badge .nm{font-size:9.5px; color:var(--gray-dim); font-weight:700; line-height:1.3;}
+  .badge.unlocked .nm{color:var(--ink);}
+
+  .reward-note{
+    background:var(--card); border:1px dashed var(--teal-dim); border-radius:14px;
+    padding:12px 14px; font-size:12px; color:var(--gray); line-height:1.8; margin-top:14px;
+  }
+  .reward-note b{color:var(--teal); display:block; margin-bottom:4px; font-size:12.5px;}
+
+  /* ===== Heatmap ===== */
+  .heatmap{display:grid; grid-template-columns:repeat(14,1fr); gap:4px; margin-top:6px;}
+  .heat-cell{aspect-ratio:1; border-radius:4px; background:var(--card-2); border:1px solid var(--line);}
+  .heat-cell.l1{background:rgba(47,217,199,.25); border-color:transparent;}
+  .heat-cell.l2{background:rgba(47,217,199,.55); border-color:transparent;}
+  .heat-cell.l3{background:var(--teal); border-color:transparent; box-shadow:0 0 6px var(--teal-glow);}
+
+  /* ===== KPI form ===== */
+  .kpi-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px; margin-top:8px;}
+  .kpi-row{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;}
+  .field label{display:block; font-size:10.5px; color:var(--gray); margin-bottom:5px; font-weight:600;}
+  .field input{
+    width:100%; background:var(--bg-soft); border:1px solid var(--line); border-radius:10px;
+    padding:9px 10px; color:var(--ink); font-family:inherit; font-size:13px;
+  }
+  .field input:focus{outline:none; border-color:var(--teal-dim);}
+  .kpi-log{margin-top:14px; font-size:12px; color:var(--gray); border-top:1px solid var(--line); padding-top:10px;}
+  .kpi-log-item{display:flex; justify-content:space-between; padding:5px 0; font-size:12px;}
+  .kpi-log-item b{color:var(--ink);}
+
+  /* ===== Bottom nav ===== */
+  nav.bottom{
+    position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
+    width:calc(100% - 32px); max-width:448px;
+    background:rgba(32,40,48,.92); backdrop-filter:blur(14px);
+    border:1px solid var(--line); border-radius:20px;
+    display:flex; padding:6px; z-index:30; box-shadow:0 10px 30px rgba(0,0,0,.4);
+  }
+  nav.bottom button{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+    padding:9px 0; border-radius:14px; font-size:10.5px; color:var(--gray-dim); font-weight:700;
+  }
+  nav.bottom button .ic{font-size:18px;}
+  nav.bottom button.active{background:var(--bg-soft); color:var(--teal);}
+
+  /* ===== Toast ===== */
+  #toast{
+    position:fixed; top:16px; left:50%; transform:translateX(-50%) translateY(-140%);
+    background:linear-gradient(120deg, var(--mustard-dim), var(--mustard));
+    color:#241a04; padding:13px 18px; border-radius:14px; font-size:13px; font-weight:800;
+    z-index:100; box-shadow:0 10px 26px rgba(0,0,0,.4); transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+    max-width:90%; text-align:center;
+  }
+  #toast.show{transform:translateX(-50%) translateY(0);}
+
+  /* ===== Finance ===== */
+  .fin-stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .fin-stat{background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:12px 10px; text-align:center;}
+  .fin-stat .fl{font-size:10px; color:var(--gray); display:block; margin-bottom:5px;}
+  .fin-stat .fv{font-size:14px; font-weight:800; font-variant-numeric:tabular-nums;}
+  .fin-sub{display:flex; justify-content:space-between; font-size:11px; color:var(--gray); margin-top:12px; padding-top:10px; border-top:1px solid var(--line);}
+  .chart-legend{display:flex; gap:16px; justify-content:center; margin-top:8px; font-size:10.5px; color:var(--gray);}
+  .chart-legend i{display:inline-block; width:9px; height:9px; border-radius:3px; margin-left:5px; vertical-align:middle;}
+  .chart-bars{display:flex; align-items:flex-end; gap:4px; height:120px; padding:0 2px;}
+  .chart-bars .bar-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; position:relative;}
+  .chart-bars .bar{width:100%; border-radius:4px 4px 0 0; min-height:2px;}
+  .chart-bars .bar-lbl{font-size:8.5px; color:var(--gray-dim); margin-top:4px; white-space:nowrap;}
+  .txn-day-header{font-size:11px; color:var(--gray-dim); font-weight:700; margin:14px 0 8px; padding-right:2px;}
+  .txn-day-header:first-child{margin-top:0;}
+
+  .money-summary{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:4px;}
+  .money-box{background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:11px 8px; text-align:center;}
+  .money-box .mlbl{font-size:10px; color:var(--gray); margin-bottom:5px; display:block;}
+  .money-box .mval{font-size:13.5px; font-weight:800; font-variant-numeric:tabular-nums;}
+  .money-box.income .mval{color:var(--teal);}
+  .money-box.expense .mval{color:var(--mustard);}
+  .type-toggle{display:flex; gap:8px; margin-bottom:10px;}
+  .type-toggle button{flex:1; padding:10px; border-radius:11px; border:1px solid var(--line); background:var(--bg-soft); font-size:12.5px; font-weight:700; color:var(--gray);}
+  .type-toggle button.sel-income.active{background:linear-gradient(120deg, var(--teal-dim), var(--teal)); color:#082220; border:none;}
+  .type-toggle button.sel-expense.active{background:linear-gradient(120deg, var(--mustard-dim), var(--mustard)); color:#241a04; border:none;}
+  .txn{display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--line); border-radius:13px; padding:11px 12px; margin-bottom:8px;}
+  .txn .txn-ic{width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:15px; flex:none;}
+  .txn.income .txn-ic{background:rgba(47,217,199,.15); color:var(--teal);}
+  .txn.expense .txn-ic{background:rgba(224,172,63,.15); color:var(--mustard);}
+  .txn .txn-body{flex:1; min-width:0;}
+  .txn .txn-note{font-size:12.5px; font-weight:600;}
+  .txn .txn-date{font-size:10px; color:var(--gray-dim); margin-top:1px;}
+  .txn .txn-amt{font-size:13px; font-weight:800; font-variant-numeric:tabular-nums; flex:none;}
+  .txn.income .txn-amt{color:var(--teal);}
+  .txn.expense .txn-amt{color:var(--mustard);}
+  .txn .txn-del{color:var(--gray-dim); font-size:16px; padding:2px 4px; flex:none;}
+
+  /* ===== Diet ===== */
+  .activity-toggle{display:flex; gap:6px; margin-bottom:10px;}
+  .activity-toggle button{flex:1; padding:9px 4px; border-radius:11px; border:1px solid var(--line); background:var(--bg-soft); font-size:11.5px; font-weight:700; color:var(--gray);}
+  .activity-toggle button.active{background:linear-gradient(120deg, var(--teal-dim), var(--teal)); color:#082220; border:none;}
+  .cal-big{text-align:center; padding:6px 0 2px;}
+  .cal-big .num{font-size:34px; font-weight:900; color:var(--mustard); font-variant-numeric:tabular-nums;}
+  .cal-big .unit{font-size:12px; color:var(--gray); margin-right:4px;}
+  .cal-sub{display:flex; justify-content:space-between; font-size:11px; color:var(--gray-dim); margin-top:8px; padding-top:8px; border-top:1px solid var(--line);}
+  .weight-track{position:relative; height:10px; border-radius:8px; background:var(--bg-soft); border:1px solid var(--line); overflow:hidden; margin:14px 0 8px;}
+  .weight-fill{height:100%; border-radius:8px; background:linear-gradient(90deg, var(--mustard-dim), var(--teal)); transition:width .5s ease;}
+  .weight-labels{display:flex; justify-content:space-between; font-size:11px; color:var(--gray);}
+  .weight-labels b{color:var(--ink); font-size:13px;}
+  .weight-log-row{display:flex; justify-content:space-between; font-size:12px; color:var(--gray); padding:5px 0;}
+  .meal-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:13px 14px; margin-bottom:9px;}
+  .meal-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;}
+  .meal-head .mname{font-size:13.5px; font-weight:700;}
+  .meal-head .mkcal{font-size:12px; font-weight:800; color:var(--teal);}
+  .meal-card .msample{font-size:12px; color:var(--gray); line-height:1.7;}
+  .diet-hint{font-size:11.5px; color:var(--gray-dim); text-align:center; padding:14px; background:var(--card); border-radius:14px; border:1px dashed var(--line);}
+
+  /* ===== Journey Map ===== */
+  .journey{display:flex; flex-direction:column; gap:0; margin:4px 0 6px;}
+  .j-node{display:flex; align-items:flex-start; gap:14px; position:relative; padding-bottom:24px;}
+  .j-node:last-child{padding-bottom:0;}
+  .j-node:not(:last-child)::before{content:''; position:absolute; right:19px; top:40px; bottom:0; width:2px; background:var(--line);}
+  .j-node.done:not(:last-child)::before{background:var(--teal-dim);}
+  .j-dot{width:40px; height:40px; border-radius:50%; background:var(--card-2); border:2px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:16px; flex:none; z-index:1;}
+  .j-node.current .j-dot{background:linear-gradient(135deg,var(--teal-dim),var(--teal)); border-color:var(--teal); box-shadow:0 0 0 5px var(--teal-glow); animation:pulseNode 2s infinite;}
+  .j-node.done .j-dot{background:var(--teal-dim); border-color:var(--teal-dim); color:#082220;}
+  .j-node.locked .j-dot{opacity:.5;}
+  @keyframes pulseNode{0%,100%{box-shadow:0 0 0 5px var(--teal-glow);} 50%{box-shadow:0 0 0 9px rgba(47,217,199,0);}}
+  .j-info{padding-top:6px;}
+  .j-name{font-size:13px; font-weight:700;}
+  .j-node.locked .j-name{color:var(--gray-dim);}
+  .j-range{font-size:10.5px; color:var(--gray-dim); margin-top:2px;}
+  .j-desc{font-size:11px; color:var(--teal); margin-top:4px;}
+
+  /* ===== Quote card ===== */
+  .quote-card{display:flex; gap:10px; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:13px 14px; margin-bottom:14px;}
+  .quote-card .quote-ic{font-size:16px; flex:none;}
+  .quote-card p{font-size:12.5px; color:var(--gray); line-height:1.8;}
+
+  /* ===== Shield banner ===== */
+  .shield-banner{display:flex; align-items:center; justify-content:space-between; gap:10px; background:linear-gradient(120deg, rgba(224,172,63,.16), var(--card)); border:1px solid var(--mustard-dim); border-radius:14px; padding:12px 14px; margin-bottom:14px; font-size:11.5px; color:var(--ink); line-height:1.6;}
+  .shield-banner button{background:linear-gradient(120deg, var(--mustard-dim), var(--mustard)); color:#241a04; padding:9px 12px; border-radius:10px; font-size:11px; font-weight:800; flex:none; white-space:nowrap;}
+
+  /* ===== Sparkles ===== */
+  .sparkle{position:fixed; pointer-events:none; font-size:14px; z-index:600; animation:sparkleFly .7s ease-out forwards;}
+  @keyframes sparkleFly{0%{opacity:1; transform:translate(0,0) scale(1);} 100%{opacity:0; transform:translate(var(--dx),var(--dy)) scale(.5);}}
+  .task.just-toggled{animation:taskPop .4s ease;}
+  @keyframes taskPop{0%{transform:scale(1);} 30%{transform:scale(1.035);} 60%{transform:scale(.98);} 100%{transform:scale(1);}}
+
+  /* ===== Celebration overlay ===== */
+  .celebrate-overlay{position:fixed; inset:0; background:rgba(10,14,16,.88); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:500; overflow:hidden;}
+  .celebrate-overlay.show{display:flex;}
+  .confetti-piece{position:absolute; top:-10px; width:8px; height:14px; opacity:.9; z-index:1; animation:confettiFall linear forwards;}
+  @keyframes confettiFall{to{transform:translateY(110vh) rotate(360deg); opacity:0;}}
+  .celebrate-card{position:relative; z-index:2; text-align:center; padding:30px;}
+  .celebrate-emoji{font-size:64px; animation:celPop .5s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes celPop{0%{transform:scale(0);} 60%{transform:scale(1.25);} 100%{transform:scale(1);}}
+  .celebrate-card h2{font-size:23px; margin:14px 0 6px; background:linear-gradient(90deg,var(--teal),var(--mustard)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .celebrate-card p{color:var(--gray); font-size:13.5px;}
+  .celebrate-hint{margin-top:22px; font-size:11px; color:var(--gray-dim);}
+
+  /* ===== Weekly Wrapped ===== */
+  .wrapped-overlay{position:fixed; inset:0; background:rgba(10,14,16,.9); display:none; align-items:center; justify-content:center; z-index:400; padding:20px;}
+  .wrapped-overlay.show{display:flex;}
+  .wrapped-card{position:relative; width:100%; max-width:340px; background:linear-gradient(160deg, var(--card-2), var(--bg-soft)); border:1px solid var(--line); border-radius:22px; padding:30px 22px 24px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  .wrapped-close{position:absolute; top:14px; left:14px; font-size:14px; color:var(--gray-dim); background:var(--bg-soft); width:28px; height:28px; border-radius:50%; border:1px solid var(--line);}
+  .wrapped-badge{display:inline-block; background:linear-gradient(120deg,var(--teal-dim),var(--teal)); color:#082220; font-size:11px; font-weight:800; padding:5px 13px; border-radius:100px; margin-bottom:14px;}
+  .wrapped-card h2{font-size:17px; margin-bottom:18px;}
+  .wrap-stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;}
+  .wrap-stat{background:var(--bg-soft); border:1px solid var(--line); border-radius:14px; padding:13px 6px;}
+  .wrap-stat .wv{display:block; font-size:19px; font-weight:900; color:var(--mustard); margin-bottom:4px; font-variant-numeric:tabular-nums;}
+  .wrap-stat .wl{font-size:9.5px; color:var(--gray);}
+  .wrap-net{display:flex; justify-content:space-between; align-items:center; background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:11px 14px; margin-bottom:14px; font-size:11.5px; color:var(--gray);}
+  .wrap-net b{color:var(--teal); font-size:13.5px; font-variant-numeric:tabular-nums;}
+  .wrap-msg{font-size:11.5px; color:var(--gray-dim); line-height:1.7;}
+
+  .empty{text-align:center; padding:30px 10px; color:var(--gray-dim); font-size:12.5px; line-height:1.8;}
+  .reset-link{display:block; text-align:center; margin-top:26px; font-size:11.5px; color:var(--gray-dim); text-decoration:underline;}
+  .backup-box textarea{width:100%; min-height:90px; background:var(--bg-soft); border:1px solid var(--line); border-radius:10px; padding:10px; color:var(--ink); font-family:monospace; font-size:10.5px; margin-top:8px; direction:ltr; text-align:left;}
+  .backup-row{display:flex; gap:8px; margin-top:8px;}
+</style>
+</head>
+<body>
+
+<header class="app-head">
+  <div class="brand-row">
+    <div class="brand">
+      <div class="mark">🎬</div>
+      <div class="txt">
+        <strong>مسیر احسان</strong>
+        <small>برنامه یک‌ساله ارتقای کیفیت زندگی</small>
+      </div>
+    </div>
+    <div class="streak-chip">🔥 <span id="streakNum">0</span></div>
+  </div>
+  <div class="xpbar-wrap">
+    <div class="xpbar-top">
+      <span class="lvl-title" id="lvlTitle">دستیار تدوین</span>
+      <span class="lvl-num" id="lvlXp">0 XP</span>
+    </div>
+    <div class="xpbar-track"><div class="xpbar-fill" id="xpFill" style="width:0%"></div></div>
+    <div class="xpbar-sub"><span id="xpToNext">تا سطح بعد: ۱۰۰ XP</span><span id="lvlNum">سطح ۱</span></div>
+  </div>
+</header>
+
+<main>
+  <!-- TODAY -->
+  <section class="tab active" id="tab-today">
+    <div class="ring-card">
+      <div class="ring-wrap">
+        <svg width="104" height="104">
+          <circle cx="52" cy="52" r="44" stroke="#313c46" stroke-width="10" fill="none"/>
+          <circle id="ringProgress" cx="52" cy="52" r="44" stroke="url(#gradRing)" stroke-width="10" fill="none"
+            stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
+          <defs>
+            <linearGradient id="gradRing" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2fd9c7"/>
+              <stop offset="100%" stop-color="#e0ac3f"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="ring-center"><span class="pct" id="ringPct">۰٪</span><span class="lbl">امروز</span></div>
+      </div>
+      <div class="ring-info">
+        <h2>سلام، احسان 👋</h2>
+        <p>وظایف امروزت رو کامل کن تا هم امتیاز بگیری هم زنجیره‌ات ادامه پیدا کنه.</p>
+        <span class="date-pill" id="todayDate">-</span>
+      </div>
+    </div>
+
+    <div class="shield-banner" id="shieldBanner" style="display:none;">
+      <span>🛡️ دیروز رو از دست دادی؛ زنجیره‌ت رو نجات بدی؟ (۱ بار در ماه)</span>
+      <button id="shieldBtn">استفاده</button>
+    </div>
+
+    <div class="quote-card">
+      <span class="quote-ic">💬</span>
+      <p id="quoteText">…</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>🔔 یادآوری روزانه</h3></div>
+    <div class="kpi-card" id="notifCard"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>چالش ۳۰ روزه پلانک</h3></div>
+    <div class="plank-card">
+      <div class="plank-head">
+        <h3 id="plankTitle">روز ۱ از ۳۰</h3>
+        <span class="plank-day" id="plankStatus">در انتظار</span>
+      </div>
+      <div class="plank-time" id="plankTime">۰۰:۲۰</div>
+      <div class="plank-btns">
+        <button class="btn primary" id="plankStart">▶ شروع تایمر</button>
+        <button class="btn done-btn" id="plankDoneBtn">✓ انجام شد</button>
+      </div>
+      <p class="plank-note" id="plankNote">تایمر رو بزن یا اگه قبلاً انجام دادی، مستقیم بزن «انجام شد».</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>کوهنوردی سبک ماهانه</h3></div>
+    <div class="plank-card">
+      <div class="plank-head">
+        <h3>کوهنوردی این ماه</h3>
+        <span class="plank-day" id="hikeStatus">۰ از ۲</span>
+      </div>
+      <div class="plank-btns">
+        <button class="btn primary" id="hikeLogBtn" style="width:100%;">🥾 ثبت یه کوهنوردی</button>
+      </div>
+      <p class="plank-note">هدف: ماهی ۲ بار کوهنوردی سبک برای ریکاوری و هوای آزاد.</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>وظایف امروز</h3></div>
+    <div id="taskList"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🍎 رژیم و سلامت</h3></div>
+    <div id="hubDietList"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🧠 کنترل عادت</h3></div>
+    <div id="hubHabitList"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>👨‍👦 پدری</h3></div>
+    <div id="hubParentList"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🧘‍♂️ تمرین اصلاحی صبحگاهی</h3></div>
+    <div id="hubCorrectiveList"></div>
+    <div class="reward-note" style="margin-bottom:22px;">
+      <b>نکات فرم</b>
+      <span>کمرت رو گود نکن، فشار روی باسن و مرکز بدن باشه نه کمر، حرکت‌ها آهسته و کنترل‌شده. اگه درد تیز، درد تیرکشنده به پا، بی‌حسی یا گزگز داشتی، فوراً متوقف کن؛ بعد از جراحی یا آسیب حاد فقط با نظر پزشک یا فیزیوتراپیست انجامش بده.</span>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>🕯️ به یاد مادر</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="task" id="charityRow">
+        <div class="box" id="charityBox"></div>
+        <div class="body"><div class="label">امروز به نیت مادرم یه کار خیر انجام دادم</div></div>
+        <div class="xp">+15</div>
+      </div>
+      <div class="field" style="margin-top:10px;"><label>چه کاری بود؟ (اختیاری)</label><input type="text" id="charityNote" placeholder="مثلاً کمک به یه غریبه، صدقه، دعا…"></div>
+      <div class="weight-labels" style="margin-top:12px;"><span>مجموع کارهای خیر به نام مادرم</span><b id="charityTotal" style="color:var(--mustard); font-size:16px;">۰</b></div>
+      <p style="font-size:11px; color:var(--gray-dim); margin-top:8px; line-height:1.7;">روحش شاد؛ هر شب یه کار کوچیک، به نیتش، یه چراغ روشنه.</p>
+    </div>
+  </section>
+
+  <!-- REWARDS -->
+  <section class="tab" id="tab-rewards">
+    <div class="ring-card" style="flex-direction:column; align-items:stretch; gap:10px;">
+      <h2 style="font-size:16px;">🏆 سطح و نشان‌ها</h2>
+      <p style="font-size:12px; color:var(--gray); line-height:1.8;">هر چقدر پایدارتر باشی، عنوانت باحال‌تر می‌شه؛ از جوجه‌تیغی تازه‌کار تا افسانه‌ی زنده 👑</p>
+    </div>
+    <div class="section-title"><span class="dot"></span><h3>نشان‌های قابل کسب</h3></div>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <div class="reward-note" id="rewardNote">
+      <b>پاداش تشویقی بعدی</b>
+      <span id="rewardNoteText">۳ روز پیاپی وظایف رو کامل کن تا اولین نشان رو بگیری.</span>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="tab" id="tab-progress">
+    <div class="section-title"><span class="dot"></span><h3>نقشه مسیر یک‌ساله</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="journey" id="journeyMap"></div>
+    </div>
+
+    <button class="btn primary" id="wrapBtn" style="width:100%; margin-bottom:6px;">🎁 مشاهده کارت این هفته</button>
+
+    <div class="section-title"><span class="dot"></span><h3>نقشه ۱۴ هفته اخیر</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="heatmap" id="heatmap"></div>
+      <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:10px; color:var(--gray-dim);">
+        <span>کم‌تر</span>
+        <div style="display:flex; gap:4px;">
+          <span class="heat-cell" style="width:12px;height:12px;"></span>
+          <span class="heat-cell l1" style="width:12px;height:12px;"></span>
+          <span class="heat-cell l2" style="width:12px;height:12px;"></span>
+          <span class="heat-cell l3" style="width:12px;height:12px;"></span>
+        </div>
+        <span>کامل</span>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>ثبت شاخص‌های ماهانه</h3></div>
+    <div class="kpi-card">
+      <p style="font-size:11px; color:var(--gray-dim); margin-bottom:10px;">درآمد و هزینه از تب «مالی» و وزن از تب «رژیم» خودکار میاد؛ اینجا فقط این دوتا رو بزن.</p>
+      <div class="kpi-row">
+        <div class="field"><label>ساعت هفتگی شالیز/پاورلند</label><input type="number" id="kpiHours" placeholder="مثلاً ۴۰"></div>
+        <div class="field"><label>تعداد محتوای تخصصی</label><input type="number" id="kpiContent" placeholder="این ماه"></div>
+      </div>
+      <button class="btn primary" id="kpiSave" style="width:100%;">ثبت برای این ماه</button>
+      <div class="kpi-log" id="kpiLog"></div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>پشتیبان‌گیری و انتقال داده</h3></div>
+    <div class="kpi-card backup-box">
+      <p style="font-size:11.5px; color:var(--gray); line-height:1.8; margin-bottom:6px;">اگه می‌خوای داده‌هاتو جای دیگه (مثلاً گوشی یا آدرس دیگه) منتقل کنی: اول اینجا «خروجی» بگیر و متن رو کپی کن، بعد جای جدید بیا همینجا «وارد کردن» رو بزن و پیستش کن.</p>
+      <div class="backup-row">
+        <button class="btn primary" id="exportBtn" style="flex:1;">📤 خروجی گرفتن</button>
+        <button class="btn" id="importBtn" style="flex:1;">📥 وارد کردن</button>
+      </div>
+      <textarea id="backupText" placeholder="متن پشتیبان اینجا نشون داده می‌شه یا برای بازیابی، اینجا پیست کن…"></textarea>
+      <button class="btn done-btn" id="restoreBtn" style="width:100%; margin-top:8px; display:none;">✅ بازیابی از متن بالا</button>
+    </div>
+
+    <button class="reset-link" id="resetBtn">پاک‌کردن کامل پیشرفت و شروع دوباره</button>
+  </section>
+
+  <!-- FINANCE -->
+  <section class="tab" id="tab-finance">
+    <div class="section-title"><span class="dot"></span><h3>گزارش لحظه‌ای</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="fin-stat-grid">
+        <div class="fin-stat"><span class="fl">امروز</span><span class="fv" id="fToday">۰</span></div>
+        <div class="fin-stat"><span class="fl">این هفته</span><span class="fv" id="fWeek">۰</span></div>
+        <div class="fin-stat"><span class="fl">این ماه</span><span class="fv" id="fMonth">۰</span></div>
+        <div class="fin-stat"><span class="fl">مجموع کل</span><span class="fv" id="fAll">۰</span></div>
+      </div>
+      <div class="fin-sub">
+        <span>درآمد ماه: <b id="fMonthIncome" style="color:var(--teal)">۰</b></span>
+        <span>هزینه ماه: <b id="fMonthExpense" style="color:var(--mustard)">۰</b></span>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>نمودار ۱۴ روز اخیر</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div id="finChart"></div>
+      <div class="chart-legend">
+        <span><i style="background:var(--teal)"></i> خالص مثبت</span>
+        <span><i style="background:var(--mustard)"></i> خالص منفی</span>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>ثبت تراکنش</h3></div>
+    <div class="kpi-card">
+      <div class="type-toggle">
+        <button class="sel-income active" id="btnTypeIncome" data-type="income">💰 درآمد</button>
+        <button class="sel-expense" id="btnTypeExpense" data-type="expense">🧾 هزینه</button>
+      </div>
+      <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
+        <div class="field"><label>مبلغ (تومان)</label><input type="number" id="txnAmount" placeholder="مثلاً ۲۰۰۰۰۰"></div>
+        <div class="field"><label>بابت چی؟ (اختیاری)</label><input type="text" id="txnNote" placeholder="مثلاً ناهار"></div>
+      </div>
+      <button class="btn primary" id="txnSave" style="width:100%;">ثبت تراکنش</button>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>تاریخچه کامل تراکنش‌ها</h3></div>
+    <div id="txnHistory"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>🪙 پس‌انداز طلا</h3></div>
+    <div class="kpi-card">
+      <div class="kpi-row">
+        <div class="field"><label>هدف پس‌انداز (گرم طلا)</label><input type="number" step="0.01" id="goldTarget" placeholder="مثلاً ۵۰"></div>
+        <div class="field" style="display:flex; align-items:flex-end;"><button class="btn primary" id="goldTargetSave" style="width:100%;">ذخیره هدف</button></div>
+      </div>
+      <div class="weight-labels"><span>جمع‌شده: <b id="goldSaved">۰</b> گرم</span><span>هدف: <b id="goldTargetLbl">۰</b> گرم</span></div>
+      <div class="weight-track"><div class="weight-fill" id="goldFill" style="width:0%"></div></div>
+      <div class="kpi-row" style="margin-top:14px;">
+        <div class="field"><label>چند گرم خریدی؟</label><input type="number" step="0.01" id="goldGrams" placeholder="مثلاً ۱.۸"></div>
+        <div class="field"><label>چقدر پول دادی؟ (تومان، اختیاری)</label><input type="number" id="goldToman" placeholder="اختیاری"></div>
+      </div>
+      <button class="btn primary" id="goldAdd" style="width:100%;">🪙 ثبت خرید</button>
+      <div id="goldHistory" style="margin-top:10px;"></div>
+      <p style="font-size:11px; color:var(--gray-dim); margin-top:8px; line-height:1.7;">این جدا از گزارش درآمد/هزینه‌ست؛ فقط برای پیگیری پیشرفت هدف پس‌اندازت به گرمه و توی محاسبه‌ی خالص مالی دخالت نمی‌کنه.</p>
+    </div>
+  </section>
+
+  <!-- DIET -->
+  <section class="tab" id="tab-diet">
+    <div class="section-title"><span class="dot"></span><h3>پروفایل و هدف وزن</h3></div>
+    <div class="kpi-card">
+      <div class="kpi-row">
+        <div class="field"><label>قد (سانتی‌متر)</label><input type="number" id="dietHeight" placeholder="مثلاً ۱۷۸"></div>
+        <div class="field"><label>سن</label><input type="number" id="dietAge" placeholder="مثلاً ۳۵"></div>
+      </div>
+      <label style="display:block; font-size:10.5px; color:var(--gray); margin-bottom:6px; font-weight:600;">سطح فعالیت روزانه (غیر از باشگاه)</label>
+      <div class="activity-toggle">
+        <button data-act="low">کم</button>
+        <button data-act="moderate" class="active">متوسط</button>
+        <button data-act="high">زیاد</button>
+      </div>
+      <div class="kpi-row">
+        <div class="field"><label>وزن هدف (kg)</label><input type="number" id="dietGoal" placeholder="۸۷" value="87"></div>
+        <div class="field"><label>وزن شروع (kg)</label><input type="number" id="dietStart" placeholder="۹۱" value="91"></div>
+      </div>
+      <button class="btn primary" id="dietSaveProfile" style="width:100%;">ذخیره و محاسبه</button>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>کالری روزانه پیشنهادی</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;" id="calBox">
+      <div class="diet-hint">اول قد و سنت رو بالا ثبت کن تا کالری روزانه‌ت محاسبه بشه.</div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>پیشرفت وزن تا آخر ماه</h3></div>
+    <div class="kpi-card">
+      <div class="weight-labels"><span>هدف: <b id="wGoalLbl">۸۷</b> kg</span><span><b id="wNowLbl">۹۱</b> kg الان</span></div>
+      <div class="weight-track"><div class="weight-fill" id="weightFill" style="width:0%"></div></div>
+      <div class="kpi-row" style="margin-top:14px;">
+        <div class="field"><label>وزن امروزت چقدره؟</label><input type="number" step="0.1" id="weightToday" placeholder="مثلاً ۹۰.۵"></div>
+        <div class="field" style="display:flex; align-items:flex-end;"><button class="btn primary" id="weightSave" style="width:100%;">ثبت وزن</button></div>
+      </div>
+      <div id="weightLogList" style="margin-top:8px;"></div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>آب روزانه (به‌خاطر نقرس و سنگ کلیه)</h3></div>
+    <div class="kpi-card">
+      <p style="font-size:11.5px; color:var(--gray); margin-bottom:10px; line-height:1.8;">برای پیشگیری از نقرس و سنگ کلیه، معمولاً توصیه می‌شه ادرار روزانه بالا بمونه که با نوشیدن آب زیاد (حدود ۲.۵ تا ۳ لیتر، بسته به نظر پزشکت) به دست میاد.</p>
+      <div class="weight-labels"><span>امروز: <b id="waterCount">۰</b> لیوان</span><span>هدف: <b id="waterTargetLbl">۱۲</b> لیوان</span></div>
+      <div class="weight-track"><div class="weight-fill" id="waterFill" style="width:0%"></div></div>
+      <div class="backup-row" style="margin-top:12px;">
+        <button class="btn" id="waterMinus" style="flex:1;">➖ کم کن</button>
+        <button class="btn primary" id="waterPlus" style="flex:2;">💧 یه لیوان آب خوردم</button>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>برنامه غذایی نمونه امروز</h3></div>
+    <div id="mealPlan"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>رعایت رژیم امروز</h3></div>
+    <div class="task" id="dietCheckTask">
+      <div class="box" id="dietCheckBox"></div>
+      <div class="body"><div class="period">هدف روزانه</div><div class="label">امروز رو طبق برنامه غذایی رعایت کردم</div></div>
+      <div class="xp">+10</div>
+    </div>
+
+    <div class="reward-note">
+      <b>نکات کلی</b>
+      <span>آب کافی بنوش، فست‌فود و نوشیدنی‌های شیرین رو کم کن، پروتئین کافی برای حفظ عضله موازی ورزشت مصرف کن. وزن رو صبح ناشتا و ترجیحاً هفته‌ای یکی‌دو بار اندازه بگیر چون نوسان روزانه طبیعیه. این محاسبه یه تخمین کلیه، برای برنامه دقیق‌تر با متخصص تغذیه مشورت کن.</span>
+    </div>
+  </section>
+
+  <!-- PARENTING -->
+  <section class="tab" id="tab-parenting">
+    <div class="quote-card">
+      <span class="quote-ic">👨‍👦</span>
+      <p id="parentTipText">…</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>امروز برای پسرم</h3></div>
+    <div id="parentTaskList"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>پیشرفت این ماه</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="weight-labels"><span>روزهای خوب: <b id="pGoodDays">۰</b></span><span>از <b id="pTotalDays">۰</b> روز</span></div>
+      <div class="weight-track"><div class="weight-fill" id="pMonthFill" style="width:0%"></div></div>
+      <p class="plank-note" id="pMonthMsg" style="margin-top:12px;">هر روز که شروع می‌کنی، یه قدم به پدر ایده‌آلی که می‌خوای باشی نزدیک‌تری.</p>
+    </div>
+
+    <div class="reward-note">
+      <b>یادت باشه</b>
+      <span>هدف امروز، کامل‌بودن نیست؛ هدف اینه که فردا از امروز یه‌کم بهتر باشی. اگه یه روز سرزنش کردی، فرداش دوباره شروع کن — این خودش بهترین درسیه که به پسرت یاد می‌دی.</span>
+    </div>
+  </section>
+
+  <!-- HABITS -->
+  <section class="tab" id="tab-habits">
+    <div class="quote-card">
+      <span class="quote-ic">🎯</span>
+      <p id="habitTipText">…</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>کنترل امروز</h3></div>
+    <div id="habitTaskList"></div>
+
+    <div class="section-title"><span class="dot"></span><h3>مصرف‌کننده در برابر تولیدکننده</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="weight-labels"><span>روزهای محتواساز: <b id="hContentDays">۰</b></span><span>از <b id="hContentTotal">۰</b> روز این ماه</span></div>
+      <div class="weight-track"><div class="weight-fill" id="hContentFill" style="width:0%"></div></div>
+      <p class="plank-note" style="margin-top:12px;">هر روزی که تیک «تولید محتوا» رو بزنی، یه قدم از مصرف‌کننده‌ی صرف بودن دورتر می‌شی.</p>
+    </div>
+
+    <div class="section-title"><span class="dot"></span><h3>پیشرفت کلی این ماه</h3></div>
+    <div class="ring-card" style="flex-direction:column; align-items:stretch;">
+      <div class="weight-labels"><span>روزهای متعادل: <b id="hGoodDays">۰</b></span><span>از <b id="hTotalDays">۰</b> روز</span></div>
+      <div class="weight-track"><div class="weight-fill" id="hMonthFill" style="width:0%"></div></div>
+      <p class="plank-note" id="hMonthMsg" style="margin-top:12px;">هر روزی که کنترل کردی، جای تولیدکننده‌ی محتوا رو بیشتر باز می‌کنی.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom">
+  <button class="nav-btn active" data-tab="today"><span class="ic">🎯</span>امروز</button>
+  <button class="nav-btn" data-tab="rewards"><span class="ic">🏅</span>پاداش‌ها</button>
+  <button class="nav-btn" data-tab="finance"><span class="ic">💰</span>مالی</button>
+  <button class="nav-btn" data-tab="diet"><span class="ic">🥗</span>رژیم</button>
+  <button class="nav-btn" data-tab="parenting"><span class="ic">👨‍👦</span>پدری</button>
+  <button class="nav-btn" data-tab="habits"><span class="ic">🧠</span>عادت‌ها</button>
+  <button class="nav-btn" data-tab="progress"><span class="ic">📈</span>پیشرفت</button>
+</nav>
+
+<div id="toast"></div>
+
+<div class="celebrate-overlay" id="celebrateOverlay">
+  <div class="celebrate-card">
+    <div class="celebrate-emoji" id="celEmoji">🎉</div>
+    <h2 id="celTitle">سطح جدید!</h2>
+    <p id="celSub"></p>
+    <div class="celebrate-hint">برای ادامه لمس کن</div>
+  </div>
+</div>
+
+<div class="wrapped-overlay" id="wrappedOverlay">
+  <div class="wrapped-card">
+    <button class="wrapped-close" id="wrapClose">✕</button>
+    <div class="wrapped-badge">🎁 کارت هفته</div>
+    <h2>خلاصه‌ی این هفته‌ت</h2>
+    <div class="wrap-stat-grid">
+      <div class="wrap-stat"><span class="wv" id="wrapXp">۰</span><span class="wl">XP کسب‌شده</span></div>
+      <div class="wrap-stat"><span class="wv" id="wrapTasks">۰/۰</span><span class="wl">وظایف انجام‌شده</span></div>
+      <div class="wrap-stat"><span class="wv" id="wrapStreak">۰</span><span class="wl">زنجیره فعلی</span></div>
+      <div class="wrap-stat"><span class="wv" id="wrapWeight">—</span><span class="wl">تغییر وزن</span></div>
+    </div>
+    <div class="wrap-net"><span>خالص مالی هفته</span><b id="wrapNet">۰</b></div>
+    <p class="wrap-msg">همینجوری ادامه بده، داری خودتو می‌سازی 🚀</p>
+  </div>
+</div>
+
+<script>
+/* ============ STORAGE ABSTRACTION ============ */
+const STORE_KEY = 'pioneer-path-state-v1';
+const Store = {
+  async get(key){
+    try{
+      if (window.storage){ const r = await window.storage.get(key); if(r) return JSON.parse(r.value); }
+    }catch(e){}
+    try{ const v = localStorage.getItem(key); if(v) return JSON.parse(v); }catch(e){}
+    return null;
+  },
+  async set(key, val){
+    const s = JSON.stringify(val);
+    try{ if (window.storage){ await window.storage.set(key, s); return; } }catch(e){}
+    try{ localStorage.setItem(key, s); }catch(e){}
+  }
+};
+
+/* ============ DATE HELPERS ============ */
+function toKey(d){
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function addDays(d,n){ const r=new Date(d); r.setDate(r.getDate()+n); return r; }
+function daysBetween(a,b){ const MS=86400000; return Math.round((new Date(b.getFullYear(),b.getMonth(),b.getDate()) - new Date(a.getFullYear(),a.getMonth(),a.getDate()))/MS); }
+const FA_DIGITS=['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+function faNum(n){ return String(n).replace(/[0-9]/g, d=>FA_DIGITS[d]); }
+const WEEKDAY_FA = {6:'شنبه',0:'یکشنبه',1:'دوشنبه',2:'سه‌شنبه',3:'چهارشنبه',4:'پنجشنبه',5:'جمعه'};
+function planDayNumber(date){
+  const [y,m,d] = state.planStartDate.split('-').map(Number);
+  const start = new Date(y, m-1, d);
+  return daysBetween(start, date) + 1;
+}
+function dayLabel(dateKeyOrDate){
+  const date = (dateKeyOrDate instanceof Date) ? dateKeyOrDate : (()=>{const [y,m,d]=dateKeyOrDate.split('-').map(Number); return new Date(y,m-1,d);})();
+  const key = toKey(date);
+  const todayKey = toKey(new Date());
+  if(key===todayKey) return 'امروز';
+  if(key===toKey(addDays(new Date(),-1))) return 'دیروز';
+  const n = planDayNumber(date);
+  return n>=1 ? `روز ${faNum(n)}` : `${faNum(Math.abs(n)+1)} روز قبل از شروع`;
+}
+
+/* ============ SCHEDULE ============ */
+const SCHEDULE = {
+  6: [ {k:'bike',p:'صبح',l:'دوچرخه‌سواری صبحگاهی (۳۰ دقیقه)',xp:12},
+       {k:'work',p:'صبح',l:'کار اجرایی (شالیز/پاورلند)',xp:10},
+       {k:'own',p:'بعدازظهر',l:'ویدکمپ / دیدآوا',xp:10},
+       {k:'sport',p:'عصر',l:'جلسه باشگاه',xp:15} ],
+  0: [ {k:'work',p:'صبح',l:'کار اجرایی (شالیز/پاورلند)',xp:10},
+       {k:'brand',p:'بعدازظهر',l:'محتوای تخصصی و برند شخصی',xp:12},
+       {k:'rest',p:'عصر',l:'استراحت فعال',xp:8} ],
+  1: [ {k:'bike',p:'صبح',l:'دوچرخه‌سواری صبحگاهی (۳۰ دقیقه)',xp:12},
+       {k:'work',p:'صبح',l:'کار اجرایی (شالیز/پاورلند)',xp:10},
+       {k:'own',p:'بعدازظهر',l:'ویدکمپ / دیدآوا',xp:10},
+       {k:'sport',p:'عصر',l:'استخر',xp:15} ],
+  2: [ {k:'work',p:'صبح',l:'کار اجرایی (شالیز/پاورلند)',xp:10},
+       {k:'brand',p:'بعدازظهر',l:'محتوای تخصصی و برند شخصی',xp:12},
+       {k:'sport',p:'عصر',l:'جلسه باشگاه',xp:15} ],
+  3: [ {k:'bike',p:'صبح',l:'دوچرخه‌سواری صبحگاهی (۳۰ دقیقه)',xp:12},
+       {k:'own',p:'صبح',l:'ویدکمپ / دیدآوا',xp:10},
+       {k:'network',p:'بعدازظهر',l:'جلسات و شبکه‌سازی',xp:10},
+       {k:'rest',p:'عصر',l:'استراحت / وقت شخصی',xp:8} ],
+  4: [ {k:'review',p:'صبح',l:'جمع‌بندی هفته',xp:10},
+       {k:'family',p:'بعدازظهر',l:'وقت خانواده و شخصی',xp:10},
+       {k:'sport',p:'عصر',l:'استخر',xp:15} ],
+  5: [ {k:'rest',p:'همه‌روز',l:'استراحت کامل',xp:10},
+       {k:'family',p:'شب',l:'وقت شخصی',xp:8} ]
+};
+const DAILY_FIXED = [
+  {k:'read',p:'شب',l:'۳۰ دقیقه کتاب‌خوانی',xp:8},
+  {k:'ai',p:'شب',l:'یادگیری هوش مصنوعی (۴۵ دقیقه)',xp:10},
+  {k:'sleep',p:'شب',l:'خواب حداقل ۷ ساعت (شب گذشته)',xp:8}
+];
+function tasksForDate(d){
+  const wd = d.getDay();
+  return [...SCHEDULE[wd], ...DAILY_FIXED];
+}
+
+/* ============ PLANK DATA ============ */
+const PLANK = [20,20,30,30,40,0,45,45,60,60,60,90,0,100,110,120,120,150,0,150,150,180,180,210,210,0,240,240,270,300];
+function fmtTime(sec){
+  const m=Math.floor(sec/60), s=sec%60;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+/* ============ LEVELS ============ */
+const LEVELS = [
+  {min:0,   title:'🐣 جوجه‌تیغی تازه‌کار'},
+  {min:100, title:'🚀 موشک روشن‌شده'},
+  {min:300, title:'🔥 داغ کرده'},
+  {min:600, title:'💪 جدی‌جدی شده'},
+  {min:1000,title:'🥷 نینجای روزمره'},
+  {min:1500,title:'🐺 گرگ تنها'},
+  {min:2200,title:'🦁 شیر بی‌رقیب'},
+  {min:3000,title:'👑 افسانه‌ی زنده'}
+];
+function levelInfo(xp){
+  let idx=0;
+  for(let i=0;i<LEVELS.length;i++){ if(xp>=LEVELS[i].min) idx=i; }
+  const cur=LEVELS[idx], next=LEVELS[idx+1];
+  const span = next ? next.min-cur.min : 1000;
+  const prog = next ? Math.min(1,(xp-cur.min)/span) : 1;
+  return {num:idx+1, title:cur.title, next, prog, toNext: next? next.min-xp : 0};
+}
+
+/* ============ BADGES ============ */
+const BADGES = [
+  {id:'start', ic:'🔥', nm:'شروع مسیر', need:s=>s.streak>=3, reward:'یه فنجون قهوه‌ی موردعلاقه‌ت رو بدون عذاب وجدان بخور.'},
+  {id:'week', ic:'📼', nm:'یک هفته کامل', need:s=>s.streak>=7, reward:'یک وعده غذای دلخواهت رو بدون حس گناه سفارش بده.'},
+  {id:'habit', ic:'🎞️', nm:'عادت شکل گرفت', need:s=>s.streak>=21, reward:'یه وسیله‌ی ورزشی یا لباس جدید برای خودت بخر.'},
+  {id:'plank', ic:'🏋️', nm:'فینیشر پلانک', need:s=>s.plankDone>=30, reward:'یه ست لباس ورزشی جدید بهت میاد، بخرش.'},
+  {id:'month2', ic:'🎬', nm:'دو ماه پیاپی', need:s=>s.streak>=60, reward:'یه روز کامل رو فقط به استراحت واقعی اختصاص بده.'},
+  {id:'season', ic:'🏆', nm:'فصل اول تمام شد', need:s=>s.streak>=90, reward:'یه سفر کوتاه یک‌روزه برای خودت برنامه‌ریزی کن.'},
+  {id:'half', ic:'⭐', nm:'نیمه‌راه', need:s=>s.streak>=180, reward:'یه خرید بزرگ که مدت‌هاست می‌خواستی رو برای خودت بگیر.'},
+  {id:'legend', ic:'👑', nm:'افسانه یک‌ساله', need:s=>s.streak>=365, reward:'یه سفر یا خرید بزرگ که همیشه آرزوش رو داشتی.'},
+  {id:'gentle_week', ic:'🌱', nm:'هفته‌ی مهربون', need:s=>s.parentStreak>=7, reward:'یه بازی موردعلاقه‌ی پسرت رو باهم انجام بدید، فقط شما دوتا.'},
+  {id:'gentle_month', ic:'🕊️', nm:'یک ماه آروم‌تر', need:s=>s.parentStreak>=30, reward:'یه روز کامل رو بذار برای یه خاطره‌ی خاص با پسرت.'},
+  {id:'creator_week', ic:'🎬', nm:'هفته‌ی تولیدکننده', need:s=>s.habitStreak>=7, reward:'یه ابزار یا اپ جدید برای ساخت محتوا برای خودت بخر.'},
+  {id:'charity40', ic:'🕯️', nm:'چهلمین کار خیر', need:s=>s.charityCount>=40, reward:'این عدد رو با یکی از عزیزات به یاد مادرت به اشتراک بذار.'},
+];
+
+/* ============ CORRECTIVE EXERCISES ============ */
+const CORRECTIVE_TASKS = [
+  {k:'ex_bridge',    l:'Glute Bridge (پل باسن): ۲-۳ ست × ۱۰-۱۵ تکرار', xp:10},
+  {k:'ex_birddog',   l:'Bird Dog (برد داگ): ۲-۳ ست × هر طرف ۸-۱۲ تکرار', xp:10},
+  {k:'ex_hipflexor', l:'کشش Hip Flexor: هر طرف ۲-۳ نوبت × ۲۰-۳۰ ثانیه', xp:10}
+];
+function renderCorrective(){
+  const todayKey = toKey(new Date());
+  const done = state.correctiveLog[todayKey] || [];
+  const el = document.getElementById('hubCorrectiveList');
+  if(!el) return;
+  el.innerHTML = CORRECTIVE_TASKS.map(t=>{
+    const isDone = done.includes(t.k);
+    return `<div class="task ${isDone?'done':''}" data-k="${t.k}">
+      <div class="box">${isDone?'✓':''}</div>
+      <div class="body"><div class="label">${t.l}</div></div>
+      <div class="xp">+${faNum(t.xp)}</div>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.task').forEach(div=>{
+    div.addEventListener('click', ()=>{
+      const k = div.dataset.k;
+      if(!done.includes(k)) spawnSparkles(div);
+      toggleCorrective(todayKey, k);
+    });
+  });
+}
+async function toggleCorrective(dateKey, key){
+  const list = state.correctiveLog[dateKey] || [];
+  const i = list.indexOf(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
+  state.correctiveLog[dateKey] = list;
+  await saveState();
+  render();
+}
+
+/* ============ STATE ============ */
+let state = null;
+const defaultState = ()=>({
+  completedByDate: {},   // { "2026-08-29": ["work","own",...] }
+  plankLog: {},          // { "2026-08-29": true }
+  planStartDate: toKey(new Date()),
+  kpi: {},               // { "2026-08": {...} }
+  seenBadges: [],
+  transactions: [],      // [{id, date:'YYYY-MM-DD', type:'income'|'expense', amount, note}]
+  diet: { height:null, age:null, activity:'moderate', goalWeight:87, startWeight:91 },
+  weightLog: {},         // { "2026-08-29": 91 }
+  dietLog: {},           // { "2026-08-29": true }
+  shieldUsedFor: {},     // { "2026-08": "2026-08-14" }
+  lastWrappedWeek: null,
+  hikeLog: {},           // { "2026-08": 1 }
+  parentingLog: {},      // { "2026-08-29": ["p_desc","p_praise"] }
+  habitLog: {},          // { "2026-08-29": ["h_ig","h_content"] }
+  waterLog: {},          // { "2026-08-29": 7 }
+  waterTarget: 12,
+  goldTarget: 0,        // گرم
+  goldLog: [],           // [{id,date,grams,toman}]
+  bonusXP: 0,
+  perfectDayLog: {},     // { "2026-08-29": true }
+  notif: { enabled:false, morning:'08:30', evening:'21:00', lastSentDate:{morning:null, evening:null} },
+  charityLog: {},          // { "2026-08-29": {done:true, note:'...'} }
+  correctiveLog: {}        // { "2026-08-29": ["ex_bridge","ex_birddog"] }
+});
+
+function isPlainObject(v){ return v && typeof v==='object' && !Array.isArray(v); }
+// این تابع هر فیلد جدیدی که در آینده به defaultState() اضافه بشه رو خودکار
+// برای کاربرهای قدیمی هم پر می‌کنه، بدون این‌که داده‌های فعلی‌شون پاک بشه.
+function mergeDefaults(loaded, defaults){
+  for(const key in defaults){
+    if(loaded[key] === undefined){
+      loaded[key] = defaults[key];
+    } else if(isPlainObject(defaults[key]) && isPlainObject(loaded[key])){
+      mergeDefaults(loaded[key], defaults[key]);
+    }
+    // آرایه‌ها و مقادیر ساده‌ای که کاربر قبلاً داشته، دست‌نخورده می‌مونن
+  }
+  return loaded;
+}
+async function loadState(){
+  const loaded = await Store.get(STORE_KEY);
+  state = loaded ? mergeDefaults(loaded, defaultState()) : defaultState();
+  if(!state.planStartDate) state.planStartDate = toKey(new Date());
+}
+async function saveState(){ await Store.set(STORE_KEY, state); }
+
+function isCoreDone(dateKey, date){
+  const tasks = tasksForDate(date);
+  const done = state.completedByDate[dateKey] || [];
+  return tasks.every(t=>done.includes(t.k));
+}
+function overallTodayRatio(date){
+  const dateKey = toKey(date);
+  let total=0, hit=0;
+  const core = tasksForDate(date);
+  total += core.length; hit += core.filter(t=>(state.completedByDate[dateKey]||[]).includes(t.k)).length;
+  total += 1; if(state.dietLog[dateKey]) hit+=1;
+  total += HABIT_TASKS.length; hit += HABIT_TASKS.filter(t=>(state.habitLog[dateKey]||[]).includes(t.k)).length;
+  total += PARENTING_TASKS.length; hit += PARENTING_TASKS.filter(t=>(state.parentingLog[dateKey]||[]).includes(t.k)).length;
+  total += CORRECTIVE_TASKS.length; hit += CORRECTIVE_TASKS.filter(t=>(state.correctiveLog[dateKey]||[]).includes(t.k)).length;
+  total += 1; if((state.waterLog[dateKey]||0) >= (state.waterTarget||12)) hit+=1;
+  const idx = plankIndexForDate(date);
+  if(idx>=0 && idx<30){ total+=1; if(state.plankLog[dateKey]) hit+=1; }
+  return total ? hit/total : 0;
+}
+function dayCompletionRatio(dateKey, date){
+  const tasks = tasksForDate(date);
+  const done = state.completedByDate[dateKey] || [];
+  const hit = tasks.filter(t=>done.includes(t.k)).length;
+  return tasks.length? hit/tasks.length : 0;
+}
+function computeStreak(){
+  let streak=0;
+  let cursor = new Date();
+  while(true){
+    const key = toKey(cursor);
+    const mKey = key.slice(0,7);
+    if(isCoreDone(key, cursor)){ streak++; cursor = addDays(cursor,-1); continue; }
+    if(state.shieldUsedFor[mKey]===key){ streak++; cursor = addDays(cursor,-1); continue; }
+    break;
+  }
+  return streak;
+}
+function computeTotalXP(){
+  let xp=0;
+  for(const dateKey in state.completedByDate){
+    const [y,m,dd]=dateKey.split('-').map(Number);
+    const d = new Date(y, m-1, dd);
+    const tasks = tasksForDate(d);
+    const done = state.completedByDate[dateKey];
+    tasks.forEach(t=>{ if(done.includes(t.k)) xp += t.xp; });
+    if(isCoreDone(dateKey,d)) xp += 20;
+  }
+  // plank xp
+  for(const dateKey in state.plankLog){
+    if(state.plankLog[dateKey]){
+      const idx = plankIndexForDate(new Date(dateKey));
+      const isRest = idx>=0 && idx<30 && PLANK[idx]===0;
+      xp += isRest? 5 : 15;
+    }
+  }
+  // diet xp
+  for(const dateKey in state.dietLog){
+    if(state.dietLog[dateKey]) xp += 10;
+  }
+  // hike xp
+  for(const mk in state.hikeLog){
+    xp += (state.hikeLog[mk]||0) * 20;
+  }
+  // parenting xp
+  for(const dateKey in state.parentingLog){
+    const doneKeys = state.parentingLog[dateKey] || [];
+    PARENTING_TASKS.forEach(t=>{ if(doneKeys.includes(t.k)) xp += t.xp; });
+  }
+  // habit control xp
+  for(const dateKey in state.habitLog){
+    const doneKeys = state.habitLog[dateKey] || [];
+    HABIT_TASKS.forEach(t=>{ if(doneKeys.includes(t.k)) xp += t.xp; });
+  }
+  // water xp (2 per glass, capped at target per day)
+  for(const dateKey in state.waterLog){
+    const c = Math.min(state.waterLog[dateKey]||0, state.waterTarget||12);
+    xp += c*2;
+  }
+  // gold saving xp
+  xp += state.goldLog.length * 5;
+  // random bonus + perfect day bonuses
+  xp += state.bonusXP || 0;
+  xp += Object.keys(state.perfectDayLog).length * 50;
+  // charity xp
+  for(const dateKey in state.charityLog){
+    if(state.charityLog[dateKey] && state.charityLog[dateKey].done) xp += 15;
+  }
+  // corrective exercise xp
+  for(const dateKey in state.correctiveLog){
+    const doneKeys = state.correctiveLog[dateKey] || [];
+    CORRECTIVE_TASKS.forEach(t=>{ if(doneKeys.includes(t.k)) xp += t.xp; });
+  }
+  return xp;
+}
+function plankIndexForDate(date){
+  const [sy,sm,sd] = state.planStartDate.split('-').map(Number);
+  const start = new Date(sy, sm-1, sd);
+  return daysBetween(start, date); // 0-based
+}
+function plankCompletedCount(){
+  return Object.values(state.plankLog).filter(Boolean).length;
+}
+
+/* ============ JOURNEY PHASES ============ */
+const PHASES = [
+  {ic:'🧭', nm:'فاز ۱: نظم‌دهی', range:'روز ۱ تا ۹۰', desc:'سیستم‌سازی و عادت‌های پایه'},
+  {ic:'🚀', nm:'فاز ۲: فعال‌سازی', range:'روز ۹۱ تا ۱۸۲', desc:'دارایی خودت (ویدکمپ/دیدآوا) رو فعال کن'},
+  {ic:'📉', nm:'فاز ۳: کاهش وابستگی', range:'روز ۱۸۳ تا ۲۷۳', desc:'وابستگی مالی به شالیز/پاورلند رو کم کن'},
+  {ic:'🏁', nm:'فاز ۴: تثبیت', range:'روز ۲۷۴ تا ۳۶۵', desc:'جمع‌بندی و تثبیت مسیر جدید'}
+];
+function currentPhaseIndex(){
+  const n = planDayNumber(new Date());
+  if(n<=90) return 0; if(n<=182) return 1; if(n<=273) return 2; return 3;
+}
+
+/* ============ MOTIVATIONAL QUOTES ============ */
+const QUOTES = [
+  'نسل اول بودن یعنی مسیر رو بلد نبودی و بازم رفتی؛ امروز رو هم همون‌جوری برو.',
+  'هر ویدیویی که ساختی یه پیام بود؛ امروز پیام بدن و ذهنتم بشنو.',
+  'کارگردان زندگیت خودتی، امروز یه صحنه‌ی خوب دیگه ثبت کن.',
+  'پیشکسوت‌ها با تکرار ساخته شدن، نه با یه روز عالی.',
+  'همون‌طور که یه پروژه رو فریم‌به‌فریم می‌سازی، زندگیتم روز‌به‌روز می‌سازی.',
+  'کسی که اولین کتاب رو نوشت، از صفر شروع کرد؛ امروزتم یه خشت دیگه‌ست.',
+  'برندسازی شخصی مثل مونتاژه: هر روز یه کلیپ کوچیک، آخرش یه فیلم بزرگ.',
+  'وقتی مسیر رو بلد نیستی، فقط قدم بعدی رو بردار؛ همینه که پیشکسوت می‌سازه.',
+  'امروز رو طوری بساز که اگه فردا مصاحبه کردی، بگی «همون روز عادی بود که فرق کرد».',
+  'استقلال مالی مثل یه پروژه‌ی بلندمدته؛ امروز یه سکانس دیگه‌شو فیلم‌برداری کن.',
+  'بدن سالم یعنی دوربینی که همیشه آماده‌ی ضبطه؛ امروز باتریشو شارژ کن.',
+  'هیچ مرجعی یه‌شبه مرجع نشد؛ این روزهای معمولیه که جمع می‌شن.',
+  'تو قبلاً یه راه رو برای دیگران باز کردی؛ امروز برای خودت بازش کن.',
+  'کیفیت زندگی مثل کیفیت تصویر می‌مونه؛ با نور کم هم می‌شه کار کرد، ولی نور خوب فرق داره.',
+  'یه روز پیاپی دیگه یعنی یه سکانس دیگه به نفع خودت.'
+];
+function renderQuote(){
+  const n = planDayNumber(new Date());
+  const idx = ((n % QUOTES.length) + QUOTES.length) % QUOTES.length;
+  const el = document.getElementById('quoteText');
+  if(el) el.textContent = QUOTES[idx];
+}
+
+/* ============ PARENTING ============ */
+const PARENTING_TASKS = [
+  {k:'p_desc',   l:'به‌جای سرزنش، فقط رفتارشو توصیف کردم، نه خودشو قضاوت کردم', xp:12},
+  {k:'p_praise', l:'حداقل یه‌بار امروز صادقانه بهش گفتم بهش افتخار می‌کنم یا دوستش دارم', xp:10},
+  {k:'p_pause',  l:'قبل از واکنش تند، چند ثانیه مکث کردم', xp:10},
+  {k:'p_time',   l:'حداقل ۱۵ دقیقه وقت خالص و بدون گوشی باهاش گذروندم', xp:12}
+];
+const PARENTING_TIPS = [
+  'رفتار رو نقد کن، نه شخصیتشو؛ به‌جای «تنبلی» بگو «امروز اسباب‌بازیا جمع نشد».',
+  'قبل از عصبانی‌شدن چند ثانیه نفس بکش؛ اکثر قضاوت‌های تند تو همون چند ثانیه‌ی اول شکل می‌گیرن.',
+  'وقتی خوب رفتار کرد بلند بگو؛ بچه‌ها به دیده‌شدن رفتار خوب بیشتر از تنبیه رفتار بد واکنش نشون می‌دن.',
+  'اگه سرش داد زدی، عذرخواهی کن؛ این خودش بزرگ‌ترین درس تربیتیه.',
+  'به‌جای «چرا این کارو کردی؟» بپرس «چی شد که این اتفاق افتاد؟»',
+  'هر روز حداقل ۱۵ دقیقه فقط برای اون باش، بدون گوشی، بدون کار دیگه.',
+  'به احساسش قبل از رفتارش توجه کن؛ «می‌دونم عصبانی‌ای» قبل از «این کارو نکن».',
+  'مقایسه‌ش نکن، نه با خودت تو بچگی، نه با بچه‌ی دیگه‌ای.',
+  'به‌جای تهدید، پیامد طبیعیِ رفتار رو بذار جلوش.',
+  'وقتی می‌خوای نه بگی، دلیلشو کوتاه توضیح بده، نه فقط دستور بده.',
+  'یادت باشه بچه‌ی ۷ ساله هنوز داره خودکنترلی رو یاد می‌گیره؛ رفتار نامناسبش همیشه نافرمانی عمدی نیست.',
+  'یه کار کوچیک رو بذار خودش تصمیم بگیره؛ حس کنترل بهش امنیت می‌ده.',
+  'شب قبل خواب، یه چیز خوب که امروز انجام داد رو براش تعریف کن.',
+  'اگه سرزنشش کردی، برگرد و رفتار درستو نشونش بده، نه فقط بگو «غلط کردی».',
+  'هدف امروز کامل‌بودن نیست؛ هدف اینه که فردا از امروز یه‌کم بهتر باشی.'
+];
+function renderParentTip(){
+  const n = planDayNumber(new Date());
+  const idx = ((n % PARENTING_TIPS.length) + PARENTING_TIPS.length) % PARENTING_TIPS.length;
+  const el = document.getElementById('parentTipText');
+  if(el) el.textContent = PARENTING_TIPS[idx];
+}
+function isParentingGoodDay(key){
+  const done = state.parentingLog[key] || [];
+  return done.length >= 3; // حداقل ۳ از ۴ مورد
+}
+function computeParentingStreak(){
+  let streak=0, cursor=new Date();
+  while(true){
+    const key = toKey(cursor);
+    if(isParentingGoodDay(key)){ streak++; cursor=addDays(cursor,-1); }
+    else break;
+  }
+  return streak;
+}
+function renderParenting(){
+  const todayKey = toKey(new Date());
+  const done = state.parentingLog[todayKey] || [];
+  const listEl = document.getElementById('parentTaskList');
+  if(listEl){
+    listEl.innerHTML='';
+    PARENTING_TASKS.forEach(t=>{
+      const isDone = done.includes(t.k);
+      const div = document.createElement('div');
+      div.className = 'task'+(isDone?' done':'');
+      div.innerHTML = `<div class="box">${isDone?'✓':''}</div>
+        <div class="body"><div class="label">${t.l}</div></div>
+        <div class="xp">+${faNum(t.xp)}</div>`;
+      div.addEventListener('click', ()=>{
+        const willBeDone = !done.includes(t.k);
+        if(willBeDone) spawnSparkles(div);
+        toggleParentingTask(todayKey, t.k);
+      });
+      listEl.appendChild(div);
+    });
+  }
+
+  const now = new Date();
+  const dayOfMonth = now.getDate();
+  const monthPrefix = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  let goodDays=0;
+  for(let d=1; d<=dayOfMonth; d++){
+    const key = `${monthPrefix}-${String(d).padStart(2,'0')}`;
+    if(isParentingGoodDay(key)) goodDays++;
+  }
+  document.getElementById('pGoodDays').textContent = faNum(goodDays);
+  document.getElementById('pTotalDays').textContent = faNum(dayOfMonth);
+  const pct = dayOfMonth ? (goodDays/dayOfMonth) : 0;
+  document.getElementById('pMonthFill').style.width = (pct*100)+'%';
+  const msgEl = document.getElementById('pMonthMsg');
+  if(pct >= 0.7) msgEl.textContent = 'عالیه؛ این دقیقاً همون پدری‌ای هست که می‌خواستی باشی. ادامه بده 💛';
+  else if(pct >= 0.4) msgEl.textContent = 'داری واقعاً نزدیک‌تر می‌شی؛ همین روند رو نگه دار.';
+  else msgEl.textContent = 'شروع خوبیه؛ هر روزی که یادت باشه، از دیروز بهتره.';
+}
+async function toggleParentingTask(dateKey, key){
+  const list = state.parentingLog[dateKey] || [];
+  const i = list.indexOf(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
+  state.parentingLog[dateKey] = list;
+  await saveState();
+  render();
+}
+
+/* ============ NEGATIVE HABIT CONTROL ============ */
+const HABIT_TASKS = [
+  {k:'h_ig',      l:'اینستاگرام رو امروز هدفمند و کنترل‌شده استفاده کردم، نه پرسه‌زنی بی‌هدف', xp:12},
+  {k:'h_temper',  l:'امروز با اخلاق خوب رفتار کردم؛ عصبانیت یا تندی نداشتم', xp:10},
+  {k:'h_social',  l:'به‌جای گوشه‌گیری، امروز یه ارتباط اجتماعی واقعی داشتم (تماس، دیدار، پیام گرم)', xp:10},
+  {k:'h_content', l:'برای برند خودم یه محتوا یا ایده ساختم؛ امروز فقط مصرف‌کننده نبودم', xp:15}
+];
+const HABIT_TIPS = [
+  'قبل از باز کردن اینستاگرام، از خودت بپرس «دنبال چی می‌گردم؟»؛ اگه جواب نداشت، نبندش.',
+  'یه تایمر رو گوشیت بذار برای اینستاگرام؛ وقتی زنگ زد، ببند، حتی وسط اسکرول.',
+  'به‌جای اسکرول صبح، اول یه ایده برای محتوای خودت بنویس؛ تولید رو جلوتر از مصرف بذار.',
+  'وقتی حس کردی عصبانی می‌شی، قبل از حرف زدن یه نفس عمیق بکش.',
+  'هر پستی که پسندیدی، به‌جای فقط لایک، به خودت بگو «منم می‌تونم شبیه این بسازم».',
+  'یه پیام کوتاه به یه دوست قدیمی بزن؛ ارتباط کوچیک بهتر از هیچیه.',
+  'دنبال‌کردن‌های غیرضروری رو آنفالو کن؛ فید کمتر یعنی وسوسه‌ی کمتر.',
+  'هر محتوایی که می‌بینی و می‌پسندی رو یادداشت کن؛ بعداً بشه الهام محتوای خودت.',
+  'اگه یه بحث داغ شد، بگو «بعداً درباره‌ش حرف می‌زنیم»؛ فاصله‌ی زمانی بهترین ابزار کنترل خشمه.',
+  'یه قرار کوچیک حضوری با یه دوست بذار؛ گوشه‌گیری با یه قدم کوچیک شکسته می‌شه.',
+  'به‌جای اسکرول شبانه، یه استوری یا پست کوتاه از تجربه‌ی امروزت بساز.',
+  'هدف اینستاگرام رو عوض کن: از «وقت‌گذرونی» به «تحقیق برای محتوای خودم».'
+];
+function renderHabitTip(){
+  const n = planDayNumber(new Date());
+  const idx = ((n % HABIT_TIPS.length) + HABIT_TIPS.length) % HABIT_TIPS.length;
+  const el = document.getElementById('habitTipText');
+  if(el) el.textContent = HABIT_TIPS[idx];
+}
+function isHabitGoodDay(key){
+  const done = state.habitLog[key] || [];
+  return done.length >= 3;
+}
+function computeHabitStreak(){
+  let streak=0, cursor=new Date();
+  while(true){
+    const key = toKey(cursor);
+    if(isHabitGoodDay(key)){ streak++; cursor=addDays(cursor,-1); }
+    else break;
+  }
+  return streak;
+}
+function renderHabits(){
+  const todayKey = toKey(new Date());
+  const done = state.habitLog[todayKey] || [];
+  const listEl = document.getElementById('habitTaskList');
+  if(listEl){
+    listEl.innerHTML='';
+    HABIT_TASKS.forEach(t=>{
+      const isDone = done.includes(t.k);
+      const div = document.createElement('div');
+      div.className = 'task'+(isDone?' done':'');
+      div.innerHTML = `<div class="box">${isDone?'✓':''}</div>
+        <div class="body"><div class="label">${t.l}</div></div>
+        <div class="xp">+${faNum(t.xp)}</div>`;
+      div.addEventListener('click', ()=>{
+        const willBeDone = !done.includes(t.k);
+        if(willBeDone) spawnSparkles(div);
+        toggleHabitTask(todayKey, t.k);
+      });
+      listEl.appendChild(div);
+    });
+  }
+
+  const now = new Date();
+  const dayOfMonth = now.getDate();
+  const monthPrefix = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  let goodDays=0, contentDays=0;
+  for(let d=1; d<=dayOfMonth; d++){
+    const key = `${monthPrefix}-${String(d).padStart(2,'0')}`;
+    if(isHabitGoodDay(key)) goodDays++;
+    if((state.habitLog[key]||[]).includes('h_content')) contentDays++;
+  }
+  document.getElementById('hGoodDays').textContent = faNum(goodDays);
+  document.getElementById('hTotalDays').textContent = faNum(dayOfMonth);
+  document.getElementById('hMonthFill').style.width = (dayOfMonth? (goodDays/dayOfMonth*100):0)+'%';
+  document.getElementById('hContentDays').textContent = faNum(contentDays);
+  document.getElementById('hContentTotal').textContent = faNum(dayOfMonth);
+  document.getElementById('hContentFill').style.width = (dayOfMonth? (contentDays/dayOfMonth*100):0)+'%';
+  const msgEl = document.getElementById('hMonthMsg');
+  const pct = dayOfMonth ? goodDays/dayOfMonth : 0;
+  if(pct >= 0.7) msgEl.textContent = 'خیلی خوب داری کنترلشون می‌کنی؛ همین‌جوری ادامه بده.';
+  else if(pct >= 0.4) msgEl.textContent = 'داری بهتر می‌شی؛ هر روز که تیک می‌زنی یه قدم جلوتری.';
+  else msgEl.textContent = 'شروع کوچیک هم شروعه؛ امروز رو با یه مورد شروع کن.';
+}
+async function toggleHabitTask(dateKey, key){
+  const list = state.habitLog[dateKey] || [];
+  const i = list.indexOf(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
+  state.habitLog[dateKey] = list;
+  await saveState();
+  render();
+}
+
+/* ============ WATER TRACKER ============ */
+function renderWater(){
+  const key = toKey(new Date());
+  const count = state.waterLog[key] || 0;
+  const target = state.waterTarget || 12;
+  document.getElementById('waterCount').textContent = faNum(count);
+  document.getElementById('waterTargetLbl').textContent = faNum(target);
+  document.getElementById('waterFill').style.width = Math.min(100, (count/target)*100)+'%';
+}
+async function addWater(delta){
+  const key = toKey(new Date());
+  const cur = state.waterLog[key] || 0;
+  const next = Math.max(0, cur+delta);
+  const reachedGoal = delta>0 && cur < (state.waterTarget||12) && next >= (state.waterTarget||12);
+  state.waterLog[key] = next;
+  await saveState();
+  render();
+  if(reachedGoal) showToast('💧 به هدف آب امروز رسیدی، آفرین!');
+}
+
+/* ============ GOLD SAVINGS ============ */
+function fmtGrams(n){
+  const num = Math.round(Number(n||0)*100)/100;
+  const s = num % 1 === 0 ? String(num) : num.toFixed(2);
+  return faNum(s);
+}
+function renderGold(){
+  const total = state.goldLog.reduce((s,g)=>s+Number(g.grams||0),0);
+  const target = state.goldTarget || 0;
+  document.getElementById('goldTarget').value = target || '';
+  document.getElementById('goldSaved').textContent = fmtGrams(total);
+  document.getElementById('goldTargetLbl').textContent = fmtGrams(target);
+  document.getElementById('goldFill').style.width = target>0 ? Math.min(100, (total/target)*100)+'%' : '0%';
+
+  const histEl = document.getElementById('goldHistory');
+  if(!state.goldLog.length){ histEl.innerHTML = '<div class="empty">هنوز هیچ خریدی ثبت نکردی.</div>'; return; }
+  const sorted = state.goldLog.slice().sort((a,b)=>b.id-a.id).slice(0,10);
+  histEl.innerHTML = sorted.map(g=>`
+    <div class="txn income">
+      <div class="txn-ic">🪙</div>
+      <div class="txn-body"><div class="txn-note">${dayLabel(g.date)}${g.toman ? ` · ${fmtToman(g.toman)} تومان` : ''}</div></div>
+      <div class="txn-amt">+${fmtGrams(g.grams)} گرم</div>
+      <button class="txn-del" data-id="${g.id}">✕</button>
+    </div>`).join('');
+  histEl.querySelectorAll('.txn-del').forEach(btn=>{
+    btn.addEventListener('click', ()=>deleteGold(Number(btn.dataset.id)));
+  });
+}
+async function saveGoldTarget(){
+  const val = Number(document.getElementById('goldTarget').value)||0;
+  state.goldTarget = val;
+  await saveState();
+  render();
+  showToast('🎯 هدف پس‌انداز طلا (به گرم) ثبت شد');
+}
+async function addGold(){
+  const gramsVal = document.getElementById('goldGrams').value;
+  const tomanVal = document.getElementById('goldToman').value;
+  if(!gramsVal || Number(gramsVal)<=0){ showToast('چند گرم رو وارد کن'); return; }
+  state.goldLog.push({ id:Date.now(), date:toKey(new Date()), grams:Number(gramsVal), toman: tomanVal? Number(tomanVal) : 0 });
+  maybeRandomBonus();
+  await saveState();
+  document.getElementById('goldGrams').value='';
+  document.getElementById('goldToman').value='';
+  render();
+  showToast('🪙 به پس‌اندازت اضافه شد');
+}
+async function deleteGold(id){
+  state.goldLog = state.goldLog.filter(g=>g.id!==id);
+  await saveState();
+  render();
+}
+
+/* ============ RANDOM BONUS (variable reward) ============ */
+function maybeRandomBonus(){
+  if(Math.random() < 0.15){
+    const options = [5,8,12];
+    const bonus = options[Math.floor(Math.random()*options.length)];
+    state.bonusXP = (state.bonusXP||0) + bonus;
+    setTimeout(()=>showToast(`🎁 پاداش شانسی! +${bonus} XP`), 350);
+  }
+}
+
+/* ============ TODAY HUB (unified checklist) ============ */
+function renderHub(){
+  const todayKey = toKey(new Date());
+
+  // diet + water mini row
+  const dietDone = !!state.dietLog[todayKey];
+  const waterCount = state.waterLog[todayKey] || 0;
+  const waterTarget = state.waterTarget || 12;
+  const dietEl = document.getElementById('hubDietList');
+  dietEl.innerHTML = `
+    <div class="task ${dietDone?'done':''}" id="hubDietRow">
+      <div class="box">${dietDone?'✓':''}</div>
+      <div class="body"><div class="label">رعایت رژیم غذایی امروز</div></div>
+      <div class="xp">+10</div>
+    </div>
+    <div class="task" style="cursor:default;">
+      <div class="box" style="border-color:var(--teal-dim); font-size:13px;">💧</div>
+      <div class="body"><div class="label">آب امروز: ${faNum(waterCount)} از ${faNum(waterTarget)} لیوان</div></div>
+      <button class="btn primary" id="hubWaterPlus" style="padding:7px 13px; font-size:11px;">+۱</button>
+    </div>`;
+  document.getElementById('hubDietRow').addEventListener('click', ()=>{
+    if(!dietDone) spawnSparkles(document.getElementById('hubDietRow'));
+    toggleDietDone();
+  });
+  document.getElementById('hubWaterPlus').addEventListener('click', (e)=>{ e.stopPropagation(); addWater(1); });
+
+  // habits
+  const habitDone = state.habitLog[todayKey] || [];
+  const habitEl = document.getElementById('hubHabitList');
+  habitEl.innerHTML = HABIT_TASKS.map(t=>{
+    const isDone = habitDone.includes(t.k);
+    return `<div class="task ${isDone?'done':''}" data-k="${t.k}">
+      <div class="box">${isDone?'✓':''}</div>
+      <div class="body"><div class="label">${t.l}</div></div>
+      <div class="xp">+${faNum(t.xp)}</div>
+    </div>`;
+  }).join('');
+  habitEl.querySelectorAll('.task').forEach(div=>{
+    div.addEventListener('click', ()=>{
+      const k = div.dataset.k;
+      if(!habitDone.includes(k)) spawnSparkles(div);
+      toggleHabitTask(todayKey, k);
+    });
+  });
+
+  // parenting
+  const parentDone = state.parentingLog[todayKey] || [];
+  const parentEl = document.getElementById('hubParentList');
+  parentEl.innerHTML = PARENTING_TASKS.map(t=>{
+    const isDone = parentDone.includes(t.k);
+    return `<div class="task ${isDone?'done':''}" data-k="${t.k}">
+      <div class="box">${isDone?'✓':''}</div>
+      <div class="body"><div class="label">${t.l}</div></div>
+      <div class="xp">+${faNum(t.xp)}</div>
+    </div>`;
+  }).join('');
+  parentEl.querySelectorAll('.task').forEach(div=>{
+    div.addEventListener('click', ()=>{
+      const k = div.dataset.k;
+      if(!parentDone.includes(k)) spawnSparkles(div);
+      toggleParentingTask(todayKey, k);
+    });
+  });
+
+  checkPerfectDay(todayKey);
+}
+
+/* ============ PERFECT DAY BONUS ============ */
+function checkPerfectDay(todayKey){
+  const date = new Date();
+  const coreDone = isCoreDone(todayKey, date);
+  const dietDone = !!state.dietLog[todayKey];
+  const habitAll = HABIT_TASKS.every(t=>(state.habitLog[todayKey]||[]).includes(t.k));
+  const parentAll = PARENTING_TASKS.every(t=>(state.parentingLog[todayKey]||[]).includes(t.k));
+  const correctiveAll = CORRECTIVE_TASKS.every(t=>(state.correctiveLog[todayKey]||[]).includes(t.k));
+  const waterDone = (state.waterLog[todayKey]||0) >= (state.waterTarget||12);
+  const idx = plankIndexForDate(date);
+  const plankNeeded = idx>=0 && idx<30 && PLANK[idx]>0;
+  const plankOk = !plankNeeded || !!state.plankLog[todayKey];
+  const perfect = coreDone && dietDone && habitAll && parentAll && correctiveAll && waterDone && plankOk;
+  if(perfect && !state.perfectDayLog[todayKey]){
+    state.perfectDayLog[todayKey] = true;
+    saveState();
+    queueCelebration({emoji:'🌟', title:'روز کامل!', sub:'همه‌چیزو امروز کامل انجام دادی، +۵۰ XP'});
+  }
+}
+
+/* ============ NOTIFICATIONS ============ */
+function renderNotifCard(){
+  const card = document.getElementById('notifCard');
+  if(!card) return;
+  if(!('Notification' in window)){
+    card.innerHTML = '<div class="empty">مرورگرت از اعلان پشتیبانی نمی‌کنه.</div>';
+    return;
+  }
+  if(Notification.permission !== 'granted'){
+    card.innerHTML = `<button class="btn primary" id="notifEnableBtn" style="width:100%;">🔔 فعال کردن یادآوری‌های روزانه</button>
+      <p style="font-size:10.5px; color:var(--gray-dim); margin-top:8px; line-height:1.6;">فقط وقتی این صفحه باز باشه (حتی در پس‌زمینه) کار می‌کنه.</p>`;
+    document.getElementById('notifEnableBtn').addEventListener('click', enableNotifications);
+  } else {
+    card.innerHTML = `
+      <div class="kpi-row">
+        <div class="field"><label>یادآوری صبح</label><input type="time" id="notifMorning" value="${state.notif.morning}"></div>
+        <div class="field"><label>یادآوری شب</label><input type="time" id="notifEvening" value="${state.notif.evening}"></div>
+      </div>
+      <button class="btn primary" id="notifSaveBtn" style="width:100%;">ذخیره زمان‌ها</button>
+      <p style="font-size:10.5px; color:var(--gray-dim); margin-top:8px; line-height:1.6;">فقط وقتی این صفحه باز باشه (حتی در پس‌زمینه) کار می‌کنه؛ اگه کامل ببندیش، اعلانی نمیاد.</p>`;
+    document.getElementById('notifSaveBtn').addEventListener('click', saveNotifTimes);
+  }
+}
+async function enableNotifications(){
+  try{
+    const perm = await Notification.requestPermission();
+    if(perm==='granted'){
+      state.notif.enabled = true;
+      await saveState();
+      renderNotifCard();
+      showToast('🔔 اعلان‌ها فعال شد');
+    } else {
+      showToast('اجازه‌ی اعلان داده نشد');
+    }
+  }catch(e){ showToast('مشکلی پیش اومد'); }
+}
+async function saveNotifTimes(){
+  state.notif.morning = document.getElementById('notifMorning').value || '08:30';
+  state.notif.evening = document.getElementById('notifEvening').value || '21:00';
+  await saveState();
+  showToast('⏰ زمان‌های یادآوری ذخیره شد');
+}
+function checkNotifTimer(){
+  if(!state || !state.notif || !state.notif.enabled) return;
+  if(!('Notification' in window) || Notification.permission!=='granted') return;
+  const now = new Date();
+  const hhmm = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  const todayKey = toKey(now);
+  if(hhmm===state.notif.morning && state.notif.lastSentDate.morning!==todayKey){
+    try{ new Notification('مسیر احسان 🎬', {body:'صبح بخیر! چک‌لیست امروزتو شروع کن 💪'}); }catch(e){}
+    state.notif.lastSentDate.morning = todayKey;
+    saveState();
+  }
+  if(hhmm===state.notif.evening && state.notif.lastSentDate.evening!==todayKey){
+    try{ new Notification('مسیر احسان 🎬', {body:'یادت نره امروز رو جمع‌بندی و تیک بزنی 🌙'}); }catch(e){}
+    state.notif.lastSentDate.evening = todayKey;
+    saveState();
+  }
+}
+setInterval(checkNotifTimer, 30000);
+
+/* ============ CHARITY (in memory of mother) ============ */
+function renderCharity(){
+  const todayKey = toKey(new Date());
+  const entry = state.charityLog[todayKey];
+  const done = !!(entry && entry.done);
+  const box = document.getElementById('charityBox');
+  const row = document.getElementById('charityRow');
+  if(box){ box.textContent = done ? '✓' : ''; }
+  if(row){ row.classList.toggle('done', done); }
+  const noteEl = document.getElementById('charityNote');
+  if(noteEl) noteEl.value = (entry && entry.note) || '';
+  const total = Object.values(state.charityLog).filter(e=>e && e.done).length;
+  const totalEl = document.getElementById('charityTotal');
+  if(totalEl) totalEl.textContent = faNum(total);
+}
+async function toggleCharity(){
+  const todayKey = toKey(new Date());
+  const entry = state.charityLog[todayKey] || {done:false, note:''};
+  entry.done = !entry.done;
+  state.charityLog[todayKey] = entry;
+  if(entry.done){ maybeRandomBonus(); spawnSparkles(document.getElementById('charityRow')); }
+  await saveState();
+  render();
+}
+async function saveCharityNote(){
+  const todayKey = toKey(new Date());
+  const entry = state.charityLog[todayKey] || {done:false, note:''};
+  entry.note = document.getElementById('charityNote').value;
+  state.charityLog[todayKey] = entry;
+  await saveState();
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._tm);
+  showToast._tm = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+/* ===== Celebration queue ===== */
+let celebrationQueue = [];
+let celebrationShowing = false;
+function queueCelebration(c){ celebrationQueue.push(c); }
+function maybeShowNextCelebration(){
+  if(celebrationShowing || !celebrationQueue.length) return;
+  const c = celebrationQueue.shift();
+  celebrationShowing = true;
+  document.getElementById('celEmoji').textContent = c.emoji;
+  document.getElementById('celTitle').textContent = c.title;
+  document.getElementById('celSub').textContent = c.sub;
+  const overlay = document.getElementById('celebrateOverlay');
+  overlay.querySelectorAll('.confetti-piece').forEach(p=>p.remove());
+  for(let i=0;i<24;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.left = Math.random()*100+'%';
+    p.style.background = Math.random()>0.5 ? 'var(--teal)' : 'var(--mustard)';
+    p.style.animationDuration = (1.1+Math.random()*1.2)+'s';
+    p.style.animationDelay = (Math.random()*0.35)+'s';
+    overlay.appendChild(p);
+  }
+  overlay.classList.add('show');
+}
+document.getElementById('celebrateOverlay').addEventListener('click', ()=>{
+  document.getElementById('celebrateOverlay').classList.remove('show');
+  celebrationShowing = false;
+  setTimeout(maybeShowNextCelebration, 250);
+});
+
+/* ===== Sparkles + haptics + lucky bonus on task complete ===== */
+function spawnSparkles(el){
+  try{ if(navigator.vibrate) navigator.vibrate(14); }catch(e){}
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left+26, cy = rect.top+rect.height/2;
+  const emojis=['✨','⭐','💫'];
+  for(let i=0;i<6;i++){
+    const s=document.createElement('span');
+    s.className='sparkle';
+    s.textContent = emojis[i%emojis.length];
+    const angle = (Math.PI*2*i)/6;
+    s.style.left = cx+'px'; s.style.top = cy+'px';
+    s.style.setProperty('--dx', Math.cos(angle)*44+'px');
+    s.style.setProperty('--dy', Math.sin(angle)*44+'px');
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(), 700);
+  }
+  maybeLuckyBonus();
+}
+async function maybeLuckyBonus(){
+  if(Math.random() < 0.15){
+    const bonus = 5 + Math.floor(Math.random()*16);
+    state.bonusXP = (state.bonusXP||0) + bonus;
+    await saveState();
+    showToast(`🎁 جایزه‌ی شانسی: +${faNum(bonus)} XP`);
+  }
+}
+
+let plankTimerHandle=null, plankTimeLeft=0;
+let lastKnownLevelNum = null;
+let lastToggledTaskKey = null;
+
+function render(){
+  const today = new Date();
+  const todayKey = toKey(today);
+  const tasks = tasksForDate(today);
+  const doneList = state.completedByDate[todayKey] || [];
+
+  // header stats
+  const totalXP = computeTotalXP();
+  const streak = computeStreak();
+  const lvl = levelInfo(totalXP);
+  document.getElementById('streakNum').textContent = faNum(streak);
+  document.getElementById('lvlTitle').textContent = lvl.title;
+  document.getElementById('lvlXp').textContent = faNum(totalXP)+' XP';
+  document.getElementById('lvlNum').textContent = 'سطح '+faNum(lvl.num);
+  document.getElementById('xpFill').style.width = (lvl.prog*100)+'%';
+  document.getElementById('xpToNext').textContent = lvl.next? `تا سطح بعد: ${faNum(lvl.toNext)} XP` : 'حداکثر سطح 🎉';
+
+  if(lastKnownLevelNum !== null && lvl.num > lastKnownLevelNum){
+    queueCelebration({emoji:'🎉', title:'سطح جدید!', sub: lvl.title});
+  }
+  lastKnownLevelNum = lvl.num;
+
+  // ring
+  const ratio = overallTodayRatio(today);
+  const CIRC = 276.5;
+  document.getElementById('ringProgress').style.strokeDashoffset = CIRC - CIRC*ratio;
+  document.getElementById('ringPct').textContent = faNum(Math.round(ratio*100))+'٪';
+  document.getElementById('todayDate').textContent = `${WEEKDAY_FA[today.getDay()]} · روز ${faNum(planDayNumber(today))} برنامه`;
+
+  // task list
+  const listEl = document.getElementById('taskList');
+  listEl.innerHTML='';
+  tasks.forEach(t=>{
+    const isDone = doneList.includes(t.k);
+    const div = document.createElement('div');
+    div.className = 'task'+(isDone?' done':'')+(t.k===lastToggledTaskKey?' just-toggled':'');
+    div.innerHTML = `<div class="box">${isDone?'✓':''}</div>
+      <div class="body"><div class="period">${t.p}</div><div class="label">${t.l}</div></div>
+      <div class="xp">+${faNum(t.xp)}</div>`;
+    div.addEventListener('click', ()=>{
+      const willBeDone = !doneList.includes(t.k);
+      if(willBeDone) spawnSparkles(div);
+      lastToggledTaskKey = t.k;
+      toggleTask(todayKey, t.k);
+    });
+    listEl.appendChild(div);
+  });
+  if(lastToggledTaskKey){ setTimeout(()=>{ lastToggledTaskKey=null; }, 450); }
+
+  // plank
+  renderPlank(today);
+
+  // badges
+  renderBadges({streak, plankDone: plankCompletedCount(), parentStreak: computeParentingStreak(), habitStreak: computeHabitStreak(), charityCount: Object.values(state.charityLog).filter(e=>e&&e.done).length});
+
+  // heatmap
+  renderHeatmap();
+
+  // kpi log
+  renderKpiLog();
+
+  // finance
+  renderFinance();
+
+  // diet
+  renderDiet();
+
+  // journey, quote, shield
+  renderJourney();
+  renderQuote();
+  renderShieldBanner();
+  renderHike();
+  renderParenting();
+  renderParentTip();
+  renderHabits();
+  renderHabitTip();
+  renderWater();
+  renderGold();
+  renderHub();
+  renderNotifCard();
+  renderCharity();
+  renderCorrective();
+
+  // show any pending celebration
+  maybeShowNextCelebration();
+}
+
+function fmtToman(n){ return faNum(Number(n||0).toLocaleString('en-US')); }
+
+function renderFinance(){
+  const today = new Date();
+  const todayKey = toKey(today);
+  const monthPrefix = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
+  const weekStartKey = weekKeyFor(today);
+
+  const netOf = (txns)=> txns.reduce((s,t)=> s + (t.type==='income'? Number(t.amount) : -Number(t.amount)), 0);
+
+  const todayTxns = state.transactions.filter(t=>t.date===todayKey);
+  const weekTxns = state.transactions.filter(t=>t.date>=weekStartKey && t.date<=todayKey);
+  const monthTxns = state.transactions.filter(t=>t.date.startsWith(monthPrefix));
+  const allTxns = state.transactions;
+
+  const setStat = (id, val)=>{
+    const el = document.getElementById(id);
+    el.textContent = (val<0?'-':'') + fmtToman(Math.abs(val));
+    el.style.color = val>=0 ? 'var(--teal)' : 'var(--mustard)';
+  };
+  setStat('fToday', netOf(todayTxns));
+  setStat('fWeek', netOf(weekTxns));
+  setStat('fMonth', netOf(monthTxns));
+  setStat('fAll', netOf(allTxns));
+
+  const monthIncome = monthTxns.filter(t=>t.type==='income').reduce((s,t)=>s+Number(t.amount),0);
+  const monthExpense = monthTxns.filter(t=>t.type==='expense').reduce((s,t)=>s+Number(t.amount),0);
+  document.getElementById('fMonthIncome').textContent = fmtToman(monthIncome);
+  document.getElementById('fMonthExpense').textContent = fmtToman(monthExpense);
+
+  // 14-day chart
+  const days = [...Array(14)].map((_,i)=>addDays(today,-(13-i)));
+  const nets = days.map(d=>{
+    const key = toKey(d);
+    return netOf(state.transactions.filter(t=>t.date===key));
+  });
+  const maxAbs = Math.max(1, ...nets.map(n=>Math.abs(n)));
+  const chartEl = document.getElementById('finChart');
+  chartEl.innerHTML = `<div class="chart-bars">${days.map((d,i)=>{
+    const n = nets[i];
+    const h = Math.round((Math.abs(n)/maxAbs)*90)+ (n===0?0:6);
+    const color = n>=0 ? 'var(--teal)' : 'var(--mustard)';
+    const lbl = d.getDate()===today.getDate() && toKey(d)===todayKey ? 'امروز' : faNum(planDayNumber(d));
+    return `<div class="bar-col"><div class="bar" style="height:${Math.max(h,2)}px; background:${color};"></div><div class="bar-lbl">${lbl}</div></div>`;
+  }).join('')}</div>`;
+
+  // full history grouped by day
+  const listEl = document.getElementById('txnHistory');
+  if(!allTxns.length){ listEl.innerHTML = '<div class="empty">هنوز تراکنشی ثبت نکردی. اولین تراکنشتو بالا ثبت کن.</div>'; return; }
+  const sorted = allTxns.slice().sort((a,b)=>b.id-a.id);
+  let html='';
+  let lastDate=null;
+  sorted.forEach(t=>{
+    if(t.date!==lastDate){ html += `<div class="txn-day-header">${dayLabel(t.date)}</div>`; lastDate=t.date; }
+    html += `<div class="txn ${t.type}">
+      <div class="txn-ic">${t.type==='income'?'💰':'🧾'}</div>
+      <div class="txn-body">
+        <div class="txn-note">${t.note || (t.type==='income'?'درآمد':'هزینه')}</div>
+      </div>
+      <div class="txn-amt">${t.type==='income'?'+':'-'}${fmtToman(t.amount)}</div>
+      <button class="txn-del" data-id="${t.id}">✕</button>
+    </div>`;
+  });
+  listEl.innerHTML = html;
+  listEl.querySelectorAll('.txn-del').forEach(btn=>{
+    btn.addEventListener('click', ()=>deleteTransaction(Number(btn.dataset.id)));
+  });
+}
+
+function renderPlank(today){
+  const idx = plankIndexForDate(today);
+  const todayKey = toKey(today);
+  const done = !!state.plankLog[todayKey];
+  const titleEl = document.getElementById('plankTitle');
+  const timeEl = document.getElementById('plankTime');
+  const statusEl = document.getElementById('plankStatus');
+  const noteEl = document.getElementById('plankNote');
+  const startBtn = document.getElementById('plankStart');
+  const doneBtn = document.getElementById('plankDoneBtn');
+
+  if(idx<0){
+    titleEl.textContent = 'به زودی شروع می‌شه';
+    timeEl.textContent = '--:--';
+    statusEl.textContent='—';
+    startBtn.disabled=true; doneBtn.disabled=true;
+    return;
+  }
+  if(idx>=30){
+    titleEl.textContent = 'چالش ۳۰ روزه تمام شد 🏁';
+    timeEl.textContent = '✔️';
+    statusEl.textContent = 'کامل شده';
+    startBtn.disabled=true; doneBtn.disabled=true;
+    noteEl.textContent = 'آفرین! این چالش رو کامل کردی، وقتشه یه هدف سخت‌تر برای خودت بذاری.';
+    return;
+  }
+  const sec = PLANK[idx];
+  const isRest = sec===0;
+  titleEl.textContent = `روز ${faNum(idx+1)} از ۳۰`;
+  timeEl.textContent = isRest? 'روز استراحت' : fmtTime(sec);
+  timeEl.classList.toggle('rest', isRest);
+  statusEl.textContent = done? 'انجام شد ✓' : (isRest? 'استراحت':'در انتظار');
+  startBtn.disabled = isRest || done;
+  doneBtn.disabled = done;
+  noteEl.textContent = isRest? 'امروز روز استراحت عضلاته؛ فقط دکمه «انجام شد» رو بزن.' : 'تایمر رو بزن یا اگه قبلاً انجام دادی، مستقیم بزن «انجام شد».';
+}
+
+function renderBadges(ctx){
+  const grid = document.getElementById('badgeGrid');
+  grid.innerHTML='';
+  let nextLocked=null;
+  BADGES.forEach(b=>{
+    const unlocked = b.need(ctx);
+    if(!unlocked && !nextLocked) nextLocked=b;
+    const div=document.createElement('div');
+    div.className='badge'+(unlocked?' unlocked':'');
+    div.innerHTML = `<span class="ic">${b.ic}</span><span class="nm">${b.nm}</span>`;
+    grid.appendChild(div);
+
+    if(unlocked && !state.seenBadges.includes(b.id)){
+      state.seenBadges.push(b.id);
+      queueCelebration({emoji:b.ic, title:'نشان جدید!', sub:b.nm});
+      saveState();
+    }
+  });
+  const noteText = document.getElementById('rewardNoteText');
+  noteText.textContent = nextLocked? `${nextLocked.reward} (برای باز شدن نشان «${nextLocked.nm}»)` : 'همه‌ی نشان‌ها رو گرفتی! یه هدف بزرگ‌تر برای سال بعد تعریف کن.';
+}
+
+function renderHeatmap(){
+  const el = document.getElementById('heatmap');
+  el.innerHTML='';
+  const days=[];
+  const today=new Date();
+  for(let i=97;i>=0;i--) days.push(addDays(today,-i));
+  days.forEach(d=>{
+    const key=toKey(d);
+    const ratio = state.completedByDate[key]? dayCompletionRatio(key,d) : -1;
+    const cell=document.createElement('div');
+    let cls='heat-cell';
+    if(ratio<0) cls+='';
+    else if(ratio<0.4) cls+=' l1';
+    else if(ratio<0.99) cls+=' l2';
+    else cls+=' l3';
+    cell.className=cls;
+    cell.title=dayLabel(d);
+    el.appendChild(cell);
+  });
+}
+
+function renderKpiLog(){
+  const logEl = document.getElementById('kpiLog');
+  const ascKeys = Object.keys(state.kpi).sort();
+  if(!ascKeys.length){ logEl.innerHTML = '<div class="empty">هنوز داده‌ای ثبت نشده.</div>'; return; }
+  const now = new Date();
+  const curMonthKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const labelFor = mk => mk===curMonthKey ? 'این ماه' : `ماه ${faNum(ascKeys.indexOf(mk)+1)}`;
+  const entries = ascKeys.slice().reverse();
+  logEl.innerHTML = entries.slice(0,6).map(mk=>{
+    const v = state.kpi[mk];
+    return `<div class="kpi-log-item"><span>${labelFor(mk)}</span><b>${v.hours||'-'} ساعت · ${v.content||'-'} محتوا</b></div>`;
+  }).join('');
+}
+
+function renderJourney(){
+  const cur = currentPhaseIndex();
+  const el = document.getElementById('journeyMap');
+  if(!el) return;
+  el.innerHTML = PHASES.map((p,i)=>{
+    const st = i<cur ? 'done' : (i===cur ? 'current' : 'locked');
+    const dotContent = st==='done' ? '✓' : (st==='locked' ? '🔒' : p.ic);
+    return `<div class="j-node ${st}">
+      <div class="j-dot">${dotContent}</div>
+      <div class="j-info">
+        <div class="j-name">${p.nm}</div>
+        <div class="j-range">${p.range}</div>
+        ${st==='current' ? `<div class="j-desc">${p.desc}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderShieldBanner(){
+  const banner = document.getElementById('shieldBanner');
+  if(!banner) return;
+  const yesterday = addDays(new Date(),-1);
+  const dayBefore = addDays(new Date(),-2);
+  const yKey = toKey(yesterday);
+  const mKey = yKey.slice(0,7);
+  const eligible = !isCoreDone(yKey, yesterday) && isCoreDone(toKey(dayBefore), dayBefore) && !state.shieldUsedFor[mKey];
+  banner.style.display = eligible ? 'flex' : 'none';
+}
+async function useShield(){
+  const yesterday = addDays(new Date(),-1);
+  const yKey = toKey(yesterday);
+  const mKey = yKey.slice(0,7);
+  state.shieldUsedFor[mKey] = yKey;
+  await saveState();
+  render();
+  showToast('🛡️ زنجیره‌ت نجات پیدا کرد!');
+}
+
+/* ============ WEEKLY WRAPPED ============ */
+function weekKeyFor(date){
+  const day = date.getDay(); // 0=Sun ... 6=Sat
+  const diffToSat = (day - 6 + 7) % 7;
+  return toKey(addDays(date, -diffToSat));
+}
+function computeWeeklyStats(weekStart){
+  const days = [...Array(7)].map((_,i)=>addDays(weekStart,i));
+  let xpGained=0, tasksCompleted=0, tasksTotal=0;
+  const weekKeys = days.map(toKey);
+  days.forEach(d=>{
+    const key = toKey(d);
+    const t = tasksForDate(d);
+    const done = state.completedByDate[key] || [];
+    tasksTotal += t.length;
+    t.forEach(tk=>{ if(done.includes(tk.k)){ tasksCompleted++; xpGained += tk.xp; } });
+    if(isCoreDone(key,d)) xpGained += 20;
+    if(state.plankLog[key]){
+      const idx = plankIndexForDate(d);
+      const isRest = idx>=0 && idx<30 && PLANK[idx]===0;
+      xpGained += isRest? 5 : 15;
+    }
+    if(state.dietLog[key]) xpGained += 10;
+  });
+  const weightsThisWeek = weekKeys.filter(k=>state.weightLog[k]!==undefined).map(k=>state.weightLog[k]);
+  const weightChange = weightsThisWeek.length ? (weightsThisWeek[weightsThisWeek.length-1]-weightsThisWeek[0]) : null;
+  const weekTxns = state.transactions.filter(tr=>weekKeys.includes(tr.date));
+  const income = weekTxns.filter(tr=>tr.type==='income').reduce((s,tr)=>s+Number(tr.amount),0);
+  const expense = weekTxns.filter(tr=>tr.type==='expense').reduce((s,tr)=>s+Number(tr.amount),0);
+  return { xpGained, tasksCompleted, tasksTotal, weightChange, income, expense };
+}
+function showWrapped(weekStart){
+  const stats = computeWeeklyStats(weekStart);
+  document.getElementById('wrapXp').textContent = faNum(stats.xpGained);
+  document.getElementById('wrapTasks').textContent = `${faNum(stats.tasksCompleted)}/${faNum(stats.tasksTotal)}`;
+  document.getElementById('wrapStreak').textContent = faNum(computeStreak());
+  document.getElementById('wrapWeight').textContent = stats.weightChange===null ? '—' :
+    (stats.weightChange<=0 ? `${faNum(Math.abs(stats.weightChange).toFixed(1))}- kg` : `${faNum(stats.weightChange.toFixed(1))}+ kg`);
+  document.getElementById('wrapNet').textContent = fmtToman(stats.income-stats.expense);
+  document.getElementById('wrappedOverlay').classList.add('show');
+}
+function checkAutoWrapped(){
+  const today = new Date();
+  if(today.getDay()!==6) return; // فقط شنبه‌ها (شروع هفته جدید)
+  const prevWeekStart = addDays(today,-7);
+  const prevKey = weekKeyFor(prevWeekStart);
+  if(state.lastWrappedWeek !== prevKey){
+    state.lastWrappedWeek = prevKey;
+    saveState();
+    setTimeout(()=>showWrapped(prevWeekStart), 800);
+  }
+}
+
+function currentMonthKey(date){
+  date = date || new Date();
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
+}
+function hikeCountThisMonth(){
+  return state.hikeLog[currentMonthKey()] || 0;
+}
+function renderHike(){
+  const el = document.getElementById('hikeStatus');
+  if(el) el.textContent = `${faNum(hikeCountThisMonth())} از ۲`;
+}
+async function logHike(){
+  const mk = currentMonthKey();
+  state.hikeLog[mk] = (state.hikeLog[mk]||0) + 1;
+  await saveState();
+  render();
+  showToast('🥾 کوهنوردی ثبت شد! دمت گرم.');
+}
+
+/* ============ ACTIONS ============ */
+async function toggleTask(dateKey, key){
+  const list = state.completedByDate[dateKey] || [];
+  const i = list.indexOf(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
+  state.completedByDate[dateKey]=list;
+  await saveState();
+  render();
+}
+
+async function markPlankDone(){
+  const todayKey = toKey(new Date());
+  state.plankLog[todayKey]=true;
+  maybeRandomBonus();
+  await saveState();
+  render();
+}
+
+function startPlankTimer(){
+  const today=new Date();
+  const idx = plankIndexForDate(today);
+  if(idx<0||idx>=30||PLANK[idx]===0) return;
+  plankTimeLeft = PLANK[idx];
+  const timeEl=document.getElementById('plankTime');
+  const startBtn=document.getElementById('plankStart');
+  startBtn.disabled=true; startBtn.textContent='در حال اجرا…';
+  clearInterval(plankTimerHandle);
+  plankTimerHandle = setInterval(()=>{
+    plankTimeLeft--;
+    timeEl.textContent = fmtTime(Math.max(plankTimeLeft,0));
+    if(plankTimeLeft<=0){
+      clearInterval(plankTimerHandle);
+      startBtn.disabled=false; startBtn.textContent='▶ شروع تایمر';
+      showToast('💪 پلانک امروز تموم شد، آفرین!');
+      markPlankDone();
+    }
+  },1000);
+}
+
+const ACTIVITY_FACTOR = { low:1.2, moderate:1.55, high:1.725 };
+function latestWeight(){
+  const keys = Object.keys(state.weightLog).sort();
+  if(keys.length) return state.weightLog[keys[keys.length-1]];
+  return state.diet.startWeight || 91;
+}
+function daysLeftInMonth(){
+  const now = new Date();
+  const lastDay = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  return Math.max(1, lastDay - now.getDate());
+}
+function renderDiet(){
+  document.getElementById('dietHeight').value = state.diet.height || '';
+  document.getElementById('dietAge').value = state.diet.age || '';
+  document.getElementById('dietGoal').value = state.diet.goalWeight;
+  document.getElementById('dietStart').value = state.diet.startWeight;
+  document.querySelectorAll('.activity-toggle button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.act===state.diet.activity);
+  });
+
+  const w = latestWeight();
+  const calBox = document.getElementById('calBox');
+  if(!state.diet.height || !state.diet.age){
+    calBox.innerHTML = '<div class="diet-hint">اول قد و سنت رو بالا ثبت کن تا کالری روزانه‌ت محاسبه بشه.</div>';
+  } else {
+    const bmr = 10*w + 6.25*Number(state.diet.height) - 5*Number(state.diet.age) + 5;
+    const tdee = Math.round(bmr * ACTIVITY_FACTOR[state.diet.activity]);
+    const goal = Number(state.diet.goalWeight);
+    const kgToLose = Math.max(0, w - goal);
+    const days = daysLeftInMonth();
+    const neededDeficit = kgToLose>0 ? Math.round((kgToLose*7700)/days) : 0;
+    let target = tdee - neededDeficit;
+    const floor = 1500;
+    let warn = '';
+    if(target < floor){ target = floor; warn = `⚠️ برای رسیدن دقیق به ${faNum(goal)} کیلو تا آخر ماه باید خیلی زیر حد امن کالری بخوری. کالری رو روی حداقل امن (${faNum(floor)}) نگه داشتم؛ شاید بهتره این هدف رو کمی طولانی‌تر ببینی.`; }
+    calBox.innerHTML = `
+      <div class="cal-big"><span class="num">${faNum(target)}</span><span class="unit">کیلوکالری در روز</span></div>
+      <div class="cal-sub"><span>سوخت‌وساز پایه (TDEE): ${faNum(tdee)}</span><span>کسری روزانه: ${faNum(tdee-target)}</span></div>
+      ${warn? `<div class="diet-hint" style="margin-top:10px; text-align:right; color:var(--mustard); border-color:var(--mustard-dim);">${warn}</div>`:''}
+    `;
+    renderMealPlan(target);
+  }
+
+  // weight progress
+  document.getElementById('wGoalLbl').textContent = faNum(state.diet.goalWeight);
+  document.getElementById('wNowLbl').textContent = faNum(w);
+  const start = Number(state.diet.startWeight), goal = Number(state.diet.goalWeight);
+  const span = start-goal;
+  const prog = span>0 ? Math.min(1, Math.max(0, (start-w)/span)) : 0;
+  document.getElementById('weightFill').style.width = (prog*100)+'%';
+
+  const logEl = document.getElementById('weightLogList');
+  const entries = Object.entries(state.weightLog).sort().reverse().slice(0,5);
+  logEl.innerHTML = entries.length ? entries.map(([d,v])=>`<div class="weight-log-row"><span>${dayLabel(d)}</span><b style="color:var(--ink)">${faNum(v)} kg</b></div>`).join('') : '<div class="empty">هنوز وزنی ثبت نشده.</div>';
+
+  // diet checkbox today
+  const todayKey = toKey(new Date());
+  const done = !!state.dietLog[todayKey];
+  document.getElementById('dietCheckTask').classList.toggle('done', done);
+  document.getElementById('dietCheckBox').textContent = done? '✓' : '';
+}
+function renderMealPlan(target){
+  const meals = [
+    {nm:'صبحانه', pct:.25, sample:'تخم‌مرغ + نان سبوس‌دار یا جو دوسر + خیار و گوجه یا میوه'},
+    {nm:'ناهار', pct:.35, sample:'پروتئین کم‌چرب (مرغ/ماهی/گوشت) + برنج یا نان کم + سالاد بدون سس چرب'},
+    {nm:'عصرانه', pct:.10, sample:'ماست کم‌چرب یا یک‌مشت مغز (بادام/گردو) یا میوه'},
+    {nm:'شام', pct:.30, sample:'سبک‌تر از ناهار؛ پروتئین + سبزیجات بخارپز، کم‌نشاسته'}
+  ];
+  document.getElementById('mealPlan').innerHTML = meals.map(m=>`
+    <div class="meal-card">
+      <div class="meal-head"><span class="mname">${m.nm}</span><span class="mkcal">${faNum(Math.round(target*m.pct))} kcal</span></div>
+      <div class="msample">${m.sample}</div>
+    </div>`).join('');
+}
+async function saveDietProfile(){
+  state.diet.height = document.getElementById('dietHeight').value || null;
+  state.diet.age = document.getElementById('dietAge').value || null;
+  state.diet.goalWeight = Number(document.getElementById('dietGoal').value)||87;
+  state.diet.startWeight = Number(document.getElementById('dietStart').value)||91;
+  await saveState();
+  render();
+  showToast('✅ محاسبه شد');
+}
+async function saveWeightToday(){
+  const val = document.getElementById('weightToday').value;
+  if(!val) { showToast('وزن امروزت رو وارد کن'); return; }
+  state.weightLog[toKey(new Date())] = Number(val);
+  await saveState();
+  document.getElementById('weightToday').value='';
+  render();
+  showToast('⚖️ وزن ثبت شد');
+}
+async function toggleDietDone(){
+  const todayKey = toKey(new Date());
+  const willBeDone = !state.dietLog[todayKey];
+  state.dietLog[todayKey] = willBeDone;
+  if(willBeDone) maybeRandomBonus();
+  await saveState();
+  render();
+}
+
+async function addTransaction(type, amount, note){
+  state.transactions.push({ id:Date.now(), date:toKey(new Date()), type, amount:Number(amount), note:note||'' });
+  await saveState();
+  render();
+}
+async function deleteTransaction(id){
+  state.transactions = state.transactions.filter(t=>t.id!==id);
+  await saveState();
+  render();
+}
+
+/* ============ NAV ============ */
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+document.getElementById('plankStart').addEventListener('click', startPlankTimer);
+document.getElementById('plankDoneBtn').addEventListener('click', markPlankDone);
+
+document.querySelectorAll('.activity-toggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    state.diet.activity = btn.dataset.act;
+    document.querySelectorAll('.activity-toggle button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.getElementById('dietSaveProfile').addEventListener('click', saveDietProfile);
+document.getElementById('weightSave').addEventListener('click', saveWeightToday);
+document.getElementById('dietCheckTask').addEventListener('click', toggleDietDone);
+
+let selectedTxnType = 'income';
+document.getElementById('btnTypeIncome').addEventListener('click', ()=>{
+  selectedTxnType='income';
+  document.getElementById('btnTypeIncome').classList.add('active');
+  document.getElementById('btnTypeExpense').classList.remove('active');
+});
+document.getElementById('btnTypeExpense').addEventListener('click', ()=>{
+  selectedTxnType='expense';
+  document.getElementById('btnTypeExpense').classList.add('active');
+  document.getElementById('btnTypeIncome').classList.remove('active');
+});
+document.getElementById('txnSave').addEventListener('click', async ()=>{
+  const amountEl = document.getElementById('txnAmount');
+  const noteEl = document.getElementById('txnNote');
+  const amount = amountEl.value;
+  if(!amount || Number(amount)<=0){ showToast('مبلغ رو وارد کن'); return; }
+  await addTransaction(selectedTxnType, amount, noteEl.value.trim());
+  amountEl.value=''; noteEl.value='';
+  showToast(selectedTxnType==='income' ? '💰 درآمد ثبت شد' : '🧾 هزینه ثبت شد');
+});
+
+document.getElementById('kpiSave').addEventListener('click', async ()=>{
+  const now=new Date();
+  const mk = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  state.kpi[mk] = {
+    hours: document.getElementById('kpiHours').value,
+    content: document.getElementById('kpiContent').value
+  };
+  await saveState();
+  showToast('✅ شاخص‌های این ماه ثبت شد');
+  renderKpiLog();
+});
+
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const ta = document.getElementById('backupText');
+  ta.value = JSON.stringify(state);
+  ta.select();
+  try{ document.execCommand('copy'); showToast('📋 کپی شد! حالا جای جدید پیستش کن'); }
+  catch(e){ showToast('متن آماده‌ست، دستی کپی کن'); }
+  document.getElementById('restoreBtn').style.display='none';
+});
+document.getElementById('importBtn').addEventListener('click', ()=>{
+  const ta = document.getElementById('backupText');
+  ta.value=''; ta.focus();
+  document.getElementById('restoreBtn').style.display='block';
+  showToast('متن پشتیبان رو اینجا پیست کن، بعد بازیابی رو بزن');
+});
+document.getElementById('restoreBtn').addEventListener('click', async ()=>{
+  const raw = document.getElementById('backupText').value.trim();
+  if(!raw){ showToast('اول متن پشتیبان رو پیست کن'); return; }
+  try{
+    const parsed = JSON.parse(raw);
+    if(!parsed || typeof parsed!=='object' || !('completedByDate' in parsed)) throw new Error('bad');
+    state = mergeDefaults(parsed, defaultState());
+    await saveState();
+    render();
+    document.getElementById('restoreBtn').style.display='none';
+    showToast('✅ داده‌هات با موفقیت بازیابی شد');
+  }catch(e){
+    showToast('⚠️ این متن معتبر نیست');
+  }
+});
+
+document.getElementById('resetBtn').addEventListener('click', async ()=>{
+  if(confirm('مطمئنی می‌خوای همه‌ی پیشرفتت پاک بشه؟ این کار برگشت‌ناپذیره.')){
+    state = defaultState();
+    await saveState();
+    render();
+    showToast('پیشرفت پاک شد، از نو شروع کن 🌱');
+  }
+});
+
+document.getElementById('shieldBtn').addEventListener('click', useShield);
+
+document.getElementById('waterPlus').addEventListener('click', ()=>addWater(1));
+document.getElementById('charityRow').addEventListener('click', toggleCharity);
+document.getElementById('charityNote').addEventListener('change', saveCharityNote);
+document.getElementById('waterMinus').addEventListener('click', ()=>addWater(-1));
+document.getElementById('goldTargetSave').addEventListener('click', saveGoldTarget);
+document.getElementById('goldAdd').addEventListener('click', addGold);
+document.getElementById('hikeLogBtn').addEventListener('click', logHike);
+
+document.getElementById('wrapBtn').addEventListener('click', ()=>{
+  const wk = weekKeyFor(new Date());
+  const [y,m,d] = wk.split('-').map(Number);
+  showWrapped(new Date(y,m-1,d));
+});
+document.getElementById('wrapClose').addEventListener('click', ()=>{
+  document.getElementById('wrappedOverlay').classList.remove('show');
+});
+document.getElementById('wrappedOverlay').addEventListener('click', (e)=>{
+  if(e.target.id==='wrappedOverlay') document.getElementById('wrappedOverlay').classList.remove('show');
+});
+
+/* ============ PWA INSTALLABILITY ============ */
+// Best effort service-worker registration. Works only when served over
+// http(s) (Chrome requires a secure context for SW + install prompts);
+// silently does nothing when opened directly as a local file.
+(function registerSW(){
+  try{
+    if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){
+      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    }
+  }catch(e){}
+})();
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (e)=>{
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  showToast('📲 می‌تونی از منوی مرورگر نصبش کنی');
+});
+
+/* ============ INIT ============ */
+(async function init(){
+  await loadState();
+  render();
+  checkAutoWrapped();
+})();
+</script>
+</body>
+</html>
