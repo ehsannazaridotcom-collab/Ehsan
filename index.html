@@ -437,6 +437,13 @@
     <div class="section-title"><span class="dot"></span><h3>👨‍👦 پدری</h3></div>
     <div id="hubParentList"></div>
 
+    <div class="section-title"><span class="dot"></span><h3>🧘‍♂️ تمرین اصلاحی صبحگاهی</h3></div>
+    <div id="hubCorrectiveList"></div>
+    <div class="reward-note" style="margin-bottom:22px;">
+      <b>نکات فرم</b>
+      <span>کمرت رو گود نکن، فشار روی باسن و مرکز بدن باشه نه کمر، حرکت‌ها آهسته و کنترل‌شده. اگه درد تیز، درد تیرکشنده به پا، بی‌حسی یا گزگز داشتی، فوراً متوقف کن؛ بعد از جراحی یا آسیب حاد فقط با نظر پزشک یا فیزیوتراپیست انجامش بده.</span>
+    </div>
+
     <div class="section-title"><span class="dot"></span><h3>🕯️ به یاد مادر</h3></div>
     <div class="ring-card" style="flex-direction:column; align-items:stretch;">
       <div class="task" id="charityRow">
@@ -844,6 +851,42 @@ const BADGES = [
   {id:'charity40', ic:'🕯️', nm:'چهلمین کار خیر', need:s=>s.charityCount>=40, reward:'این عدد رو با یکی از عزیزات به یاد مادرت به اشتراک بذار.'},
 ];
 
+/* ============ CORRECTIVE EXERCISES ============ */
+const CORRECTIVE_TASKS = [
+  {k:'ex_bridge',    l:'Glute Bridge (پل باسن): ۲-۳ ست × ۱۰-۱۵ تکرار', xp:10},
+  {k:'ex_birddog',   l:'Bird Dog (برد داگ): ۲-۳ ست × هر طرف ۸-۱۲ تکرار', xp:10},
+  {k:'ex_hipflexor', l:'کشش Hip Flexor: هر طرف ۲-۳ نوبت × ۲۰-۳۰ ثانیه', xp:10}
+];
+function renderCorrective(){
+  const todayKey = toKey(new Date());
+  const done = state.correctiveLog[todayKey] || [];
+  const el = document.getElementById('hubCorrectiveList');
+  if(!el) return;
+  el.innerHTML = CORRECTIVE_TASKS.map(t=>{
+    const isDone = done.includes(t.k);
+    return `<div class="task ${isDone?'done':''}" data-k="${t.k}">
+      <div class="box">${isDone?'✓':''}</div>
+      <div class="body"><div class="label">${t.l}</div></div>
+      <div class="xp">+${faNum(t.xp)}</div>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.task').forEach(div=>{
+    div.addEventListener('click', ()=>{
+      const k = div.dataset.k;
+      if(!done.includes(k)) spawnSparkles(div);
+      toggleCorrective(todayKey, k);
+    });
+  });
+}
+async function toggleCorrective(dateKey, key){
+  const list = state.correctiveLog[dateKey] || [];
+  const i = list.indexOf(key);
+  if(i>-1) list.splice(i,1); else { list.push(key); maybeRandomBonus(); }
+  state.correctiveLog[dateKey] = list;
+  await saveState();
+  render();
+}
+
 /* ============ STATE ============ */
 let state = null;
 const defaultState = ()=>({
@@ -868,7 +911,8 @@ const defaultState = ()=>({
   bonusXP: 0,
   perfectDayLog: {},     // { "2026-08-29": true }
   notif: { enabled:false, morning:'08:30', evening:'21:00', lastSentDate:{morning:null, evening:null} },
-  charityLog: {}          // { "2026-08-29": {done:true, note:'...'} }
+  charityLog: {},          // { "2026-08-29": {done:true, note:'...'} }
+  correctiveLog: {}        // { "2026-08-29": ["ex_bridge","ex_birddog"] }
 });
 
 function isPlainObject(v){ return v && typeof v==='object' && !Array.isArray(v); }
@@ -905,6 +949,7 @@ function overallTodayRatio(date){
   total += 1; if(state.dietLog[dateKey]) hit+=1;
   total += HABIT_TASKS.length; hit += HABIT_TASKS.filter(t=>(state.habitLog[dateKey]||[]).includes(t.k)).length;
   total += PARENTING_TASKS.length; hit += PARENTING_TASKS.filter(t=>(state.parentingLog[dateKey]||[]).includes(t.k)).length;
+  total += CORRECTIVE_TASKS.length; hit += CORRECTIVE_TASKS.filter(t=>(state.correctiveLog[dateKey]||[]).includes(t.k)).length;
   total += 1; if((state.waterLog[dateKey]||0) >= (state.waterTarget||12)) hit+=1;
   const idx = plankIndexForDate(date);
   if(idx>=0 && idx<30){ total+=1; if(state.plankLog[dateKey]) hit+=1; }
@@ -977,6 +1022,11 @@ function computeTotalXP(){
   // charity xp
   for(const dateKey in state.charityLog){
     if(state.charityLog[dateKey] && state.charityLog[dateKey].done) xp += 15;
+  }
+  // corrective exercise xp
+  for(const dateKey in state.correctiveLog){
+    const doneKeys = state.correctiveLog[dateKey] || [];
+    CORRECTIVE_TASKS.forEach(t=>{ if(doneKeys.includes(t.k)) xp += t.xp; });
   }
   return xp;
 }
@@ -1366,11 +1416,12 @@ function checkPerfectDay(todayKey){
   const dietDone = !!state.dietLog[todayKey];
   const habitAll = HABIT_TASKS.every(t=>(state.habitLog[todayKey]||[]).includes(t.k));
   const parentAll = PARENTING_TASKS.every(t=>(state.parentingLog[todayKey]||[]).includes(t.k));
+  const correctiveAll = CORRECTIVE_TASKS.every(t=>(state.correctiveLog[todayKey]||[]).includes(t.k));
   const waterDone = (state.waterLog[todayKey]||0) >= (state.waterTarget||12);
   const idx = plankIndexForDate(date);
   const plankNeeded = idx>=0 && idx<30 && PLANK[idx]>0;
   const plankOk = !plankNeeded || !!state.plankLog[todayKey];
-  const perfect = coreDone && dietDone && habitAll && parentAll && waterDone && plankOk;
+  const perfect = coreDone && dietDone && habitAll && parentAll && correctiveAll && waterDone && plankOk;
   if(perfect && !state.perfectDayLog[todayKey]){
     state.perfectDayLog[todayKey] = true;
     saveState();
@@ -1622,6 +1673,7 @@ function render(){
   renderHub();
   renderNotifCard();
   renderCharity();
+  renderCorrective();
 
   // show any pending celebration
   maybeShowNextCelebration();
@@ -1996,203 +2048,4 @@ function renderDiet(){
 
   // diet checkbox today
   const todayKey = toKey(new Date());
-  const done = !!state.dietLog[todayKey];
-  document.getElementById('dietCheckTask').classList.toggle('done', done);
-  document.getElementById('dietCheckBox').textContent = done? '✓' : '';
-}
-function renderMealPlan(target){
-  const meals = [
-    {nm:'صبحانه', pct:.25, sample:'تخم‌مرغ + نان سبوس‌دار یا جو دوسر + خیار و گوجه یا میوه'},
-    {nm:'ناهار', pct:.35, sample:'پروتئین کم‌چرب (مرغ/ماهی/گوشت) + برنج یا نان کم + سالاد بدون سس چرب'},
-    {nm:'عصرانه', pct:.10, sample:'ماست کم‌چرب یا یک‌مشت مغز (بادام/گردو) یا میوه'},
-    {nm:'شام', pct:.30, sample:'سبک‌تر از ناهار؛ پروتئین + سبزیجات بخارپز، کم‌نشاسته'}
-  ];
-  document.getElementById('mealPlan').innerHTML = meals.map(m=>`
-    <div class="meal-card">
-      <div class="meal-head"><span class="mname">${m.nm}</span><span class="mkcal">${faNum(Math.round(target*m.pct))} kcal</span></div>
-      <div class="msample">${m.sample}</div>
-    </div>`).join('');
-}
-async function saveDietProfile(){
-  state.diet.height = document.getElementById('dietHeight').value || null;
-  state.diet.age = document.getElementById('dietAge').value || null;
-  state.diet.goalWeight = Number(document.getElementById('dietGoal').value)||87;
-  state.diet.startWeight = Number(document.getElementById('dietStart').value)||91;
-  await saveState();
-  render();
-  showToast('✅ محاسبه شد');
-}
-async function saveWeightToday(){
-  const val = document.getElementById('weightToday').value;
-  if(!val) { showToast('وزن امروزت رو وارد کن'); return; }
-  state.weightLog[toKey(new Date())] = Number(val);
-  await saveState();
-  document.getElementById('weightToday').value='';
-  render();
-  showToast('⚖️ وزن ثبت شد');
-}
-async function toggleDietDone(){
-  const todayKey = toKey(new Date());
-  const willBeDone = !state.dietLog[todayKey];
-  state.dietLog[todayKey] = willBeDone;
-  if(willBeDone) maybeRandomBonus();
-  await saveState();
-  render();
-}
-
-async function addTransaction(type, amount, note){
-  state.transactions.push({ id:Date.now(), date:toKey(new Date()), type, amount:Number(amount), note:note||'' });
-  await saveState();
-  render();
-}
-async function deleteTransaction(id){
-  state.transactions = state.transactions.filter(t=>t.id!==id);
-  await saveState();
-  render();
-}
-
-/* ============ NAV ============ */
-document.querySelectorAll('.nav-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-  });
-});
-
-document.getElementById('plankStart').addEventListener('click', startPlankTimer);
-document.getElementById('plankDoneBtn').addEventListener('click', markPlankDone);
-
-document.querySelectorAll('.activity-toggle button').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    state.diet.activity = btn.dataset.act;
-    document.querySelectorAll('.activity-toggle button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-document.getElementById('dietSaveProfile').addEventListener('click', saveDietProfile);
-document.getElementById('weightSave').addEventListener('click', saveWeightToday);
-document.getElementById('dietCheckTask').addEventListener('click', toggleDietDone);
-
-let selectedTxnType = 'income';
-document.getElementById('btnTypeIncome').addEventListener('click', ()=>{
-  selectedTxnType='income';
-  document.getElementById('btnTypeIncome').classList.add('active');
-  document.getElementById('btnTypeExpense').classList.remove('active');
-});
-document.getElementById('btnTypeExpense').addEventListener('click', ()=>{
-  selectedTxnType='expense';
-  document.getElementById('btnTypeExpense').classList.add('active');
-  document.getElementById('btnTypeIncome').classList.remove('active');
-});
-document.getElementById('txnSave').addEventListener('click', async ()=>{
-  const amountEl = document.getElementById('txnAmount');
-  const noteEl = document.getElementById('txnNote');
-  const amount = amountEl.value;
-  if(!amount || Number(amount)<=0){ showToast('مبلغ رو وارد کن'); return; }
-  await addTransaction(selectedTxnType, amount, noteEl.value.trim());
-  amountEl.value=''; noteEl.value='';
-  showToast(selectedTxnType==='income' ? '💰 درآمد ثبت شد' : '🧾 هزینه ثبت شد');
-});
-
-document.getElementById('kpiSave').addEventListener('click', async ()=>{
-  const now=new Date();
-  const mk = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-  state.kpi[mk] = {
-    hours: document.getElementById('kpiHours').value,
-    content: document.getElementById('kpiContent').value
-  };
-  await saveState();
-  showToast('✅ شاخص‌های این ماه ثبت شد');
-  renderKpiLog();
-});
-
-document.getElementById('exportBtn').addEventListener('click', ()=>{
-  const ta = document.getElementById('backupText');
-  ta.value = JSON.stringify(state);
-  ta.select();
-  try{ document.execCommand('copy'); showToast('📋 کپی شد! حالا جای جدید پیستش کن'); }
-  catch(e){ showToast('متن آماده‌ست، دستی کپی کن'); }
-  document.getElementById('restoreBtn').style.display='none';
-});
-document.getElementById('importBtn').addEventListener('click', ()=>{
-  const ta = document.getElementById('backupText');
-  ta.value=''; ta.focus();
-  document.getElementById('restoreBtn').style.display='block';
-  showToast('متن پشتیبان رو اینجا پیست کن، بعد بازیابی رو بزن');
-});
-document.getElementById('restoreBtn').addEventListener('click', async ()=>{
-  const raw = document.getElementById('backupText').value.trim();
-  if(!raw){ showToast('اول متن پشتیبان رو پیست کن'); return; }
-  try{
-    const parsed = JSON.parse(raw);
-    if(!parsed || typeof parsed!=='object' || !('completedByDate' in parsed)) throw new Error('bad');
-    state = mergeDefaults(parsed, defaultState());
-    await saveState();
-    render();
-    document.getElementById('restoreBtn').style.display='none';
-    showToast('✅ داده‌هات با موفقیت بازیابی شد');
-  }catch(e){
-    showToast('⚠️ این متن معتبر نیست');
-  }
-});
-
-document.getElementById('resetBtn').addEventListener('click', async ()=>{
-  if(confirm('مطمئنی می‌خوای همه‌ی پیشرفتت پاک بشه؟ این کار برگشت‌ناپذیره.')){
-    state = defaultState();
-    await saveState();
-    render();
-    showToast('پیشرفت پاک شد، از نو شروع کن 🌱');
-  }
-});
-
-document.getElementById('shieldBtn').addEventListener('click', useShield);
-
-document.getElementById('waterPlus').addEventListener('click', ()=>addWater(1));
-document.getElementById('charityRow').addEventListener('click', toggleCharity);
-document.getElementById('charityNote').addEventListener('change', saveCharityNote);
-document.getElementById('waterMinus').addEventListener('click', ()=>addWater(-1));
-document.getElementById('goldTargetSave').addEventListener('click', saveGoldTarget);
-document.getElementById('goldAdd').addEventListener('click', addGold);
-document.getElementById('hikeLogBtn').addEventListener('click', logHike);
-
-document.getElementById('wrapBtn').addEventListener('click', ()=>{
-  const wk = weekKeyFor(new Date());
-  const [y,m,d] = wk.split('-').map(Number);
-  showWrapped(new Date(y,m-1,d));
-});
-document.getElementById('wrapClose').addEventListener('click', ()=>{
-  document.getElementById('wrappedOverlay').classList.remove('show');
-});
-document.getElementById('wrappedOverlay').addEventListener('click', (e)=>{
-  if(e.target.id==='wrappedOverlay') document.getElementById('wrappedOverlay').classList.remove('show');
-});
-
-/* ============ PWA INSTALLABILITY ============ */
-// Best effort service-worker registration. Works only when served over
-// http(s) (Chrome requires a secure context for SW + install prompts);
-// silently does nothing when opened directly as a local file.
-(function registerSW(){
-  try{
-    if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){
-      navigator.serviceWorker.register('./sw.js').catch(()=>{});
-    }
-  }catch(e){}
-})();
-let deferredInstallPrompt = null;
-window.addEventListener('beforeinstallprompt', (e)=>{
-  e.preventDefault();
-  deferredInstallPrompt = e;
-  showToast('📲 می‌تونی از منوی مرورگر نصبش کنی');
-});
-
-/* ============ INIT ============ */
-(async function init(){
-  await loadState();
-  render();
-  checkAutoWrapped();
-})();
-</script>
-</body>
-</html>
+  const done =
